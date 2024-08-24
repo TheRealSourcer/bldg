@@ -11,7 +11,7 @@ export default function Reviews() {
     // Fetch reviews from server
     useEffect(() => {
         const fetchReviews = async () => {
-            const response = await fetch('http://localhost:3000/api/reviews');
+            const response = await fetch('https://server-pc.onrender.com/api/reviews');
             const data = await response.json();
             console.log('Fetched reviews:', data); // Add this line to debug
             setReviews(data);
@@ -29,7 +29,7 @@ export default function Reviews() {
         if (newReview.title && newReview.rating && newReview.content && newReview.product) {
             console.log('Submitting review:', newReview); // Debug log
     
-            const response = await fetch('http://localhost:3000/api/reviews', {
+            const response = await fetch('https://server-pc.onrender.com/api/reviews', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -65,7 +65,7 @@ export default function Reviews() {
                 }
             }
     
-            const response = await fetch('http://localhost:3000/api/reviews/usefulness', {
+            const response = await fetch('https://server-pc.onrender.com/api/reviews/usefulness', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

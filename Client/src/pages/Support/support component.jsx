@@ -85,7 +85,7 @@ export default function Support() {
         const trackingNumber = document.getElementById('orderNumber').value.trim();
     
         try {
-            const response = await fetch('http://localhost:3000/track', {
+            const response = await fetch('https://server-pc.onrender.com/track', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

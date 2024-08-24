@@ -127,7 +127,7 @@ export default function Cart() {
 
     const handleCheckout = async () => {
         try {
-            const response = await fetch('http://localhost:3000/create-checkout-session', {
+            const response = await fetch('https://server-pc.onrender.com/create-checkout-session', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
