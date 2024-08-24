@@ -128,24 +128,27 @@ const createFedExOrder = async (lineItems, customerEmail) => {
     const orderDetails = {
         accountNumber: process.env.FEDEX_ACCOUNT_NUMBER,
         // Add other necessary details like shipper, recipient, package details, etc.
-        // This will be based on the FedEx API documentation
     };
 
-    const fedexResponse = await axios.post(
-        'https://apis.fedex.com/ship/v1/shipments',
-        orderDetails,
-        {
-            headers: {
-                Authorization: `Bearer ${accessToken}`,
-                'Content-Type': 'application/json',
-            },
-        }
-    );
+    try {
+        const fedexResponse = await axios.post(
+            'https://apis.fedex.com/ship/v1/shipments',
+            orderDetails,
+            {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                    'Content-Type': 'application/json',
+                },
+            }
+        );
 
-    if (fedexResponse.status === 200) {
-        console.log('FedEx order created successfully:', fedexResponse.data);
-    } else {
-        throw new Error('Failed to create FedEx order');
+        if (fedexResponse.status === 200) {
+            console.log('FedEx order created successfully:', fedexResponse.data);
+        } else {
+            console.error('Failed to create FedEx order:', fedexResponse.data);
+        }
+    } catch (error) {
+        console.error('Error in FedEx order creation:', error.response ? error.response.data : error.message);
     }
 };
 
