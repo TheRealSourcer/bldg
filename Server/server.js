@@ -55,7 +55,7 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, r
 
         // Call your function to create a FedEx order
         try {
-            console.log("great job")
+            await createFedExOrder(line_items, customer_email);
         } catch (error) {
             console.error('Error creating FedEx order:', error);
             if (error.response) {
@@ -155,61 +155,86 @@ app.post('/track', async (req, res) => {
 });
 
 
-
-
 const createFedExOrder = async (lineItems, customerEmail) => {
-    // Define FedEx base URL based on environment
-    const baseUrl = process.env.FEDEX_ENVIRONMENT === 'sandbox'
-        ? 'https://apis-sandbox.fedex.com'
-        : 'https://apis.fedex.com';
-
     // Fetch the access token
     const tokenResponse = await axios.post(
-        `${baseUrl}/oauth/token`,
+        'https://apis-sandbox.fedex.com/oauth/token',
         'grant_type=client_credentials' +
         '&client_id=' + encodeURIComponent(process.env.FEDEX_CLIENT_ID_REST) +
-        '&client_secret=' + encodeURIComponent(process.env.FEDEX_CLIENT_SECRET_REST)
+        '&client_secret=' + encodeURIComponent(process.env.FEDEX_CLIENT_SECRET_REST),
+        {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }
     );
 
     const accessToken = tokenResponse.data.access_token;
 
-    // Construct the URL-encoded order details
-    const orderDetails = 
-        'accountNumber=' + encodeURIComponent(process.env.FEDEX_ACCOUNT_NUMBER) +
-        '&requestedShipment[shipper][contact][personName]=' + encodeURIComponent('Sender Name') +
-        '&requestedShipment[shipper][contact][phoneNumber]=' + encodeURIComponent('1234567890') +
-        '&requestedShipment[shipper][contact][companyName]=' + encodeURIComponent('Sender Company') +
-        '&requestedShipment[shipper][address][streetLines][0]=' + encodeURIComponent('Street Address 1') +
-        '&requestedShipment[shipper][address][city]=' + encodeURIComponent('City') +
-        '&requestedShipment[shipper][address][stateOrProvinceCode]=' + encodeURIComponent('State') +
-        '&requestedShipment[shipper][address][postalCode]=' + encodeURIComponent('PostalCode') +
-        '&requestedShipment[shipper][address][countryCode]=' + encodeURIComponent('US') +
-        '&requestedShipment[recipient][contact][personName]=' + encodeURIComponent('Recipient Name') +
-        '&requestedShipment[recipient][contact][phoneNumber]=' + encodeURIComponent('0987654321') +
-        '&requestedShipment[recipient][contact][companyName]=' + encodeURIComponent('Recipient Company') +
-        '&requestedShipment[recipient][address][streetLines][0]=' + encodeURIComponent('Street Address 1') +
-        '&requestedShipment[recipient][address][city]=' + encodeURIComponent('City') +
-        '&requestedShipment[recipient][address][stateOrProvinceCode]=' + encodeURIComponent('State') +
-        '&requestedShipment[recipient][address][postalCode]=' + encodeURIComponent('PostalCode') +
-        '&requestedShipment[recipient][address][countryCode]=' + encodeURIComponent('US') +
-        '&requestedShipment[packages][0][weight][units]=' + encodeURIComponent('LB') +
-        '&requestedShipment[packages][0][weight][value]=' + encodeURIComponent('5.0') +
-        '&requestedShipment[packages][0][dimensions][length]=' + encodeURIComponent('10') +
-        '&requestedShipment[packages][0][dimensions][width]=' + encodeURIComponent('10') +
-        '&requestedShipment[packages][0][dimensions][height]=' + encodeURIComponent('10') +
-        '&requestedShipment[packages][0][dimensions][units]=' + encodeURIComponent('IN') +
-        '&requestedShipment[serviceType]=' + encodeURIComponent('FEDEX_GROUND') +
-        '&requestedShipment[packagingType]=' + encodeURIComponent('YOUR_PACKAGING') +
-        '&requestedShipment[pickupType]=' + encodeURIComponent('DROP_BOX');
+    // Prepare the order details
+    const orderDetails = {
+        accountNumber: process.env.FEDEX_ACCOUNT_NUMBER,
+        requestedShipment: {
+            shipper: {
+                contact: {
+                    personName: 'Sender Name',
+                    phoneNumber: '1234567890',
+                    companyName: 'Sender Company',
+                },
+                address: {
+                    streetLines: ['Street Address 1'],
+                    city: 'City',
+                    stateOrProvinceCode: 'State',
+                    postalCode: 'PostalCode',
+                    countryCode: 'US',
+                },
+            },
+            recipient: {
+                contact: {
+                    personName: 'Recipient Name',
+                    phoneNumber: '0987654321',
+                    companyName: 'Recipient Company',
+                },
+                address: {
+                    streetLines: ['Street Address 1'],
+                    city: 'City',
+                    stateOrProvinceCode: 'State',
+                    postalCode: 'PostalCode',
+                    countryCode: 'US',
+                },
+            },
+            packages: [
+                {
+                    weight: {
+                        units: 'LB',
+                        value: 5.0,
+                    },
+                    dimensions: {
+                        length: 10,
+                        width: 10,
+                        height: 10,
+                        units: 'IN',
+                    },
+                },
+            ],
+            serviceType: 'FEDEX_GROUND',
+            packagingType: 'YOUR_PACKAGING',
+            pickupType: 'DROP_BOX',
+        },
+    };
+
+    // Convert orderDetails to JSON
+    const data = JSON.stringify(orderDetails);
 
     try {
         const fedexResponse = await axios.post(
-            `${baseUrl}/ship/v1/shipments`,
-            orderDetails,
+            'https://apis-sandbox.fedex.com/ship/v1/shipments',
+            data,
             {
                 headers: {
-                    Authorization: `Bearer ${accessToken}`,
-                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Authorization': `Bearer ${accessToken}`,
+                    'Content-Type': 'application/json',
+                    'X-locale': 'en_US',
                 },
             }
         );
