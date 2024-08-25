@@ -10,10 +10,17 @@ const path = require('path');
 const axios = require('axios');
 const mongoose = require('mongoose');
 const Stripe = require('stripe');
+const nodemailer = require('nodemailer');
 
 const stripe = Stripe(process.env.STRIPE_PRIVATE_KEY);
 
-
+const transporter = nodemailer.createTransport({
+    service: 'gmail', // or another service
+    auth: {
+        user: process.env.EMAIL_USER, // your email address
+        pass: process.env.EMAIL_PASS  // your email password
+    }
+});
 
 
 // Initialize Express
@@ -46,22 +53,31 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, r
         return res.status(400).send(`Webhook Error: ${err.message}`);
     }
 
-    // Handle the successful payment event
     if (event.type === 'checkout.session.completed') {
         const session = event.data.object;
-
-        // Extract relevant information from the session
         const { customer_email, line_items } = session;
 
         // Call your function to create a FedEx order
         try {
             await createFedExOrder(line_items, customer_email);
+            
+            // Send an email confirmation to the customer
+            const mailOptions = {
+                from: process.env.EMAIL_USER, // sender address
+                to: customer_email, // list of receivers
+                subject: 'Order Confirmation', // Subject line
+                text: 'Thank you for your order! Your FedEx order is being processed.', // plain text body
+                html: '<p>Thank you for your order! Your FedEx order is being processed.</p>' // HTML body
+            };
+
+            await transporter.sendMail(mailOptions);
+            console.log('Email sent to:', customer_email);
         } catch (error) {
-            console.error('Error creating FedEx order:', error);
+            console.error('Error creating FedEx order or sending email:', error);
             if (error.response) {
-                console.error('Error in FedEx order creation:', error.response.data);
+                console.error('Error response:', error.response.data);
             } else {
-                console.error('Error in FedEx order creation:', error.message);
+                console.error('Error message:', error.message);
             }
             return res.status(500).send('Internal Server Error');
         }
@@ -69,6 +85,7 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, r
 
     res.json({ received: true });
 });
+
 
 
 // Body parsing middleware
