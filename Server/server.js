@@ -174,45 +174,53 @@ const createFedExOrder = async (lineItems, customerEmail) => {
     // Prepare the order details
     const orderDetails = {
         accountNumber: process.env.FEDEX_ACCOUNT_NUMBER,
-    requestedShipment: {
-        shipper: {
-            contact: {
-                personName: 'Sender Name',
-                phoneNumber: '1234567890',
-            },
-            address: {
-                streetLines: ['Street Address 1'],
-                city: 'City',
-                stateOrProvinceCode: 'State',
-                postalCode: 'PostalCode',
-                countryCode: 'US',
-            },
-        },
-        recipient: {
-            contact: {
-                personName: 'Recipient Name',
-                phoneNumber: '0987654321',
-            },
-            address: {
-                streetLines: ['Street Address 1'],
-                city: 'City',
-                stateOrProvinceCode: 'State',
-                postalCode: 'PostalCode',
-                countryCode: 'US',
-            },
-        },
-        packages: [
-            {
-                weight: {
-                    units: 'LB',
-                    value: 5.0,
+        requestedShipment: {
+            shipper: {
+                contact: {
+                    personName: 'John Taylor',
+                    phoneNumber: '1234567890',
+                    companyName: 'BLDG',
+                },
+                address: {
+                    streetLines: ["10 FedEx Parkway","Suite 302"],
+                    city: 'Cary',
+                    stateOrProvinceCode: 'NC',
+                    postalCode: '90210e',
+                    countryCode: 'US',
                 },
             },
-        ],
-        serviceType: 'FEDEX_GROUND', // Start with a basic service type
-        packagingType: 'YOUR_PACKAGING', // Start with a basic packaging type
-    },
-};
+            recipient: {
+                contact: {
+                    personName: 'John Taylor',
+                    phoneNumber: '0987654321',
+                    companyName: 'Loli',
+                },
+                address: {
+                    streetLines: ["10 FedEx Parkway","Suite 302"],
+                    city: 'Cary',
+                    stateOrProvinceCode: 'NC',
+                    postalCode: '90210',
+                    countryCode: 'US',
+                },
+            },
+            packages: [
+                {
+                    weight: {
+                        units: 'LB',
+                        value: 5.0,
+                    },
+                    dimensions: {
+                        length: 10,
+                        width: 10,
+                        height: 10,
+                        units: 'IN',
+                    },
+                },
+            ],
+            serviceType: 'FEDEX_GROUND',
+            packagingType: 'FEDEX_ENVELOPE',
+        },
+    };
 
     // Convert orderDetails to JSON
     const data = JSON.stringify(orderDetails);
