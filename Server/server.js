@@ -43,7 +43,6 @@ app.use(helmet());
 
 app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, res) => {
     const sig = req.headers['stripe-signature'];
-
     let event;
 
     try {
@@ -55,7 +54,7 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, r
 
     if (event.type === 'checkout.session.completed') {
         const session = event.data.object;
-        const { customer_email, line_items } = session;
+        const customer_email = session.customer_email;  // Extract customer email
 
         if (!customer_email) {
             console.error('No customer email found in session');
@@ -63,14 +62,16 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, r
         }
 
         try {
-            await createFedExOrder(line_items, customer_email);
+            // Assuming createFedExOrder is a function you have
+            await createFedExOrder(session.line_items, customer_email);
 
+            // Send an email confirmation to the customer
             const mailOptions = {
                 from: process.env.EMAIL_USER,
                 to: customer_email,
                 subject: 'Order Confirmation',
                 text: 'Thank you for your order! Your FedEx order is being processed.',
-                html: '<p>Thank you for your order! Your FedEx order is being processed.</p>',
+                html: '<p>Thank you for your order! Your FedEx order is being processed.</p>'
             };
 
             await transporter.sendMail(mailOptions);
@@ -170,17 +171,7 @@ app.post('/track', async (req, res) => {
 });
 
 
-const createCheckoutSession = async (items, customerEmail) => {
-    const response = await fetch('/create-checkout-session', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ items, customerEmail }),
-    });
-    const sessionId = await response.json();
-    return sessionId;
-};
+
 
 const createFedExOrder = async (lineItems, customerEmail) => {
     // Fetch the access token
