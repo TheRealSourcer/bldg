@@ -55,7 +55,7 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, r
 
         // Call your function to create a FedEx order
         try {
-            await createFedExOrder(line_items, customer_email);
+            console.log("great job")
         } catch (error) {
             console.error('Error creating FedEx order:', error);
             if (error.response) {
