@@ -166,52 +166,89 @@ const createFedExOrder = async (lineItems, customerEmail) => {
     const orderDetails = {
         accountNumber: process.env.FEDEX_ACCOUNT_NUMBER,
         requestedShipment: {
-            shipper: {
-                contact: {
-                    personName: 'Sender Name',
-                    phoneNumber: '1234567890',
-                    companyName: 'Sender Company',
+            "labelResponseOptions": "URL_ONLY",
+            "requestedShipment": {
+              "shipper": {
+                "contact": {
+                  "personName": "SHIPPER NAME",
+                  "phoneNumber": 1234567890,
+                  "companyName": "Shipper Company Name"
                 },
-                address: {
-                    streetLines: ['Street Address 1'],
-                    city: 'City',
-                    stateOrProvinceCode: 'State',
-                    postalCode: 'PostalCode',
-                    countryCode: 'US',
-                },
-            },
-            recipient: {
-                contact: {
-                    personName: 'Recipient Name',
-                    phoneNumber: '0987654321',
-                    companyName: 'Recipient Company',
-                },
-                address: {
-                    streetLines: ['Street Address 1'],
-                    city: 'City',
-                    stateOrProvinceCode: 'State',
-                    postalCode: 'PostalCode',
-                    countryCode: 'US',
-                },
-            },
-            packages: [
+                "address": {
+                  "streetLines": [
+                    "SHIPPER STREET LINE 1"
+                  ],
+                  "city": "HARRISON",
+                  "stateOrProvinceCode": "AR",
+                  "postalCode": 72601,
+                  "countryCode": "US"
+                }
+              },
+              "recipients": [
                 {
-                    weight: {
-                        units: 'LB',
-                        value: 5.0,
-                    },
-                    dimensions: {
-                        length: 10,
-                        width: 10,
-                        height: 10,
-                        units: 'IN',
-                    },
+                  "contact": {
+                    "personName": "RECIPIENT NAME",
+                    "phoneNumber": 1234567890,
+                    "companyName": "Recipient Company Name"
+                  },
+                  "address": {
+                    "streetLines": [
+                      "RECIPIENT STREET LINE 1",
+                      "RECIPIENT STREET LINE 2"
+                    ],
+                    "city": "Collierville",
+                    "stateOrProvinceCode": "TN",
+                    "postalCode": 38017,
+                    "countryCode": "US"
+                  }
+                }
+              ],
+              "shipDatestamp": "2020-07-03",
+              "serviceType": "PRIORITY_OVERNIGHT",
+              "packagingType": "FEDEX_ENVELOPE",
+              "pickupType": "USE_SCHEDULED_PICKUP",
+              "blockInsightVisibility": false,
+              "shippingChargesPayment": {
+                "paymentType": "SENDER"
+              },
+              "shipmentSpecialServices": {
+                "specialServiceTypes": [
+                  "RETURN_SHIPMENT"
+                ],
+                "returnShipmentDetail": {
+                  "returnType": "PENDING",
+                  "returnEmailDetail": {
+                    "merchantPhoneNumber": 1234567890
+                  }
                 },
-            ],
-            serviceType: 'FEDEX_GROUND',
-            packagingType: 'YOUR_PACKAGING',
-            pickupType: 'DROP_BOX',
-        },
+                "pendingShipmentDetail": {
+                  "pendingShipmentType": "EMAIL",
+                  "emailLabelDetail": {
+                    "recipients": [
+                      {
+                        "emailAddress": "testuser@email.com",
+                        "role": "SHIPMENT_COMPLETOR",
+                        "locale": "en_US"
+                      }
+                    ]
+                  },
+                  "expirationTimeStamp": "2021-05-30"
+                }
+              },
+              "requestedPackageLineItems": [
+                {
+                  "itemDescription": "Return item description",
+                  "weight": {
+                    "value": 1,
+                    "units": "LB"
+                  }
+                }
+              ]
+            },
+            "accountNumber": {
+              "value": "XXX561073"
+            }
+          },
     };
 
     try {
