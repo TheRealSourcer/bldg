@@ -228,24 +228,35 @@ const createFedExOrder = async (lineItems, customerEmail) => {
     try {
         const fedexResponse = await axios.post(
             'https://apis-sandbox.fedex.com/ship/v1/shipments',
-            data,
+            orderDetails,
             {
                 headers: {
-                    'Authorization': `Bearer ${accessToken}`,
+                    Authorization: `Bearer ${accessToken}`,
                     'Content-Type': 'application/json',
                     'X-locale': 'en_US',
                 },
             }
         );
-
+    
         if (fedexResponse.status === 200) {
             console.log('FedEx order created successfully:', fedexResponse.data);
         } else {
             console.error('Failed to create FedEx order:', fedexResponse.data);
         }
     } catch (error) {
-        console.error('Error in FedEx order creation:', error.response ? error.response.data : error.message);
+        if (error.response) {
+            console.error('Error in FedEx order creation:', error.response.data);
+    
+            if (error.response.data.errors) {
+                error.response.data.errors.forEach(err => {
+                    console.error(`Error Code: ${err.code} - Message: ${err.message}`);
+                });
+            }
+        } else {
+            console.error('Error in FedEx order creation:', error.message);
+        }
     }
+    
 };
 
 
