@@ -33,6 +33,39 @@ app.use('/Media', express.static(path.join(__dirname, 'Media')));
 // Enhanced security headers
 app.use(helmet());
 
+
+app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, res) => {
+    const sig = req.headers['stripe-signature'];
+
+    let event;
+
+    try {
+        event = stripe.webhooks.constructEvent(req.body, sig, process.env.STRIPE_WEBHOOK_SECRET);
+    } catch (err) {
+        console.error('Webhook signature verification failed:', err.message);
+        return res.status(400).send(`Webhook Error: ${err.message}`);
+    }
+
+    // Handle the successful payment event
+    if (event.type === 'checkout.session.completed') {
+        const session = event.data.object;
+
+        // Extract relevant information from the session
+        const { customer_email, line_items } = session;
+
+        // Call your function to create a FedEx order
+        try {
+            await createFedExOrder(line_items, customer_email);
+        } catch (error) {
+            console.error('Error creating FedEx order:', error);
+            return res.status(500).send('Internal Server Error');
+        }
+    }
+
+    res.json({ received: true });
+});
+
+
 // Body parsing middleware
 app.use(express.json());
 
@@ -320,38 +353,6 @@ app.post('/create-checkout-session', async (req, res) => {
         console.error('Error creating Checkout Session:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
-});
-
-
-app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, res) => {
-    const sig = req.headers['stripe-signature'];
-
-    let event;
-
-    try {
-        event = stripe.webhooks.constructEvent(req.body, sig, process.env.STRIPE_WEBHOOK_SECRET);
-    } catch (err) {
-        console.error('Webhook signature verification failed:', err.message);
-        return res.status(400).send(`Webhook Error: ${err.message}`);
-    }
-
-    // Handle the successful payment event
-    if (event.type === 'checkout.session.completed') {
-        const session = event.data.object;
-
-        // Extract relevant information from the session
-        const { customer_email, line_items } = session;
-
-        // Call your function to create a FedEx order
-        try {
-            await createFedExOrder(line_items, customer_email);
-        } catch (error) {
-            console.error('Error creating FedEx order:', error);
-            return res.status(500).send('Internal Server Error');
-        }
-    }
-
-    res.json({ received: true });
 });
 
 // Error handling middleware
