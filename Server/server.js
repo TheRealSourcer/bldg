@@ -160,7 +160,53 @@ const createFedExOrder = async (lineItems, customerEmail) => {
 
     const orderDetails = {
         accountNumber: process.env.FEDEX_ACCOUNT_NUMBER,
-        // Add other necessary details like shipper, recipient, package details, etc.
+        requestedShipment: {
+            shipper: {
+                contact: {
+                    personName: 'Sender Name',
+                    phoneNumber: '1234567890',
+                    companyName: 'Sender Company',
+                },
+                address: {
+                    streetLines: ['Street Address 1'],
+                    city: 'City',
+                    stateOrProvinceCode: 'State',
+                    postalCode: 'PostalCode',
+                    countryCode: 'US',
+                },
+            },
+            recipient: {
+                contact: {
+                    personName: 'Recipient Name',
+                    phoneNumber: '0987654321',
+                    companyName: 'Recipient Company',
+                },
+                address: {
+                    streetLines: ['Street Address 1'],
+                    city: 'City',
+                    stateOrProvinceCode: 'State',
+                    postalCode: 'PostalCode',
+                    countryCode: 'US',
+                },
+            },
+            packages: [
+                {
+                    weight: {
+                        units: 'LB',
+                        value: 5.0,
+                    },
+                    dimensions: {
+                        length: 10,
+                        width: 10,
+                        height: 10,
+                        units: 'IN',
+                    },
+                },
+            ],
+            serviceType: 'FEDEX_GROUND',
+            packagingType: 'YOUR_PACKAGING',
+            pickupType: 'DROP_BOX',
+        },
     };
 
     try {
