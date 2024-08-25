@@ -57,28 +57,26 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, r
         const session = event.data.object;
         const { customer_email, line_items } = session;
 
-        // Call your function to create a FedEx order
+        if (!customer_email) {
+            console.error('No customer email found in session');
+            return res.status(400).send('No customer email found');
+        }
+
         try {
             await createFedExOrder(line_items, customer_email);
-            
-            // Send an email confirmation to the customer
+
             const mailOptions = {
-                from: process.env.EMAIL_USER, // sender address
-                to: customer_email, // list of receivers
-                subject: 'Order Confirmation', // Subject line
-                text: 'Thank you for your order! Your FedEx order is being processed.', // plain text body
-                html: '<p>Thank you for your order! Your FedEx order is being processed.</p>' // HTML body
+                from: process.env.EMAIL_USER,
+                to: customer_email,
+                subject: 'Order Confirmation',
+                text: 'Thank you for your order! Your FedEx order is being processed.',
+                html: '<p>Thank you for your order! Your FedEx order is being processed.</p>',
             };
 
             await transporter.sendMail(mailOptions);
             console.log('Email sent to:', customer_email);
         } catch (error) {
             console.error('Error creating FedEx order or sending email:', error);
-            if (error.response) {
-                console.error('Error response:', error.response.data);
-            } else {
-                console.error('Error message:', error.message);
-            }
             return res.status(500).send('Internal Server Error');
         }
     }
@@ -171,6 +169,18 @@ app.post('/track', async (req, res) => {
     }
 });
 
+
+const createCheckoutSession = async (items, customerEmail) => {
+    const response = await fetch('/create-checkout-session', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ items, customerEmail }),
+    });
+    const sessionId = await response.json();
+    return sessionId;
+};
 
 const createFedExOrder = async (lineItems, customerEmail) => {
     // Fetch the access token
@@ -415,7 +425,7 @@ app.post('/api/reviews/:id/vote', async (req, res) => {
 // Stripe Checkout route
 app.post('/create-checkout-session', async (req, res) => {
     try {
-        const { items } = req.body;
+        const { items, customerEmail } = req.body;
 
         // Create a Checkout Session
         const session = await stripe.checkout.sessions.create({
@@ -436,6 +446,8 @@ app.post('/create-checkout-session', async (req, res) => {
             mode: 'payment',
             success_url: `${process.env.CLIENT_URL}/Success`,
             cancel_url: `${process.env.CLIENT_URL}/Cancel`,
+            // Set the customer email
+            customer_email: customerEmail,
         });
 
         // Send the session ID to the client
