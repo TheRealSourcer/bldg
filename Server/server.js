@@ -58,6 +58,11 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, r
             await createFedExOrder(line_items, customer_email);
         } catch (error) {
             console.error('Error creating FedEx order:', error);
+            if (error.response) {
+                console.error('Error in FedEx order creation:', error.response.data);
+            } else {
+                console.error('Error in FedEx order creation:', error.message);
+            }
             return res.status(500).send('Internal Server Error');
         }
     }
