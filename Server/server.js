@@ -158,9 +158,14 @@ app.post('/track', async (req, res) => {
 
 
 const createFedExOrder = async (lineItems, customerEmail) => {
+    // Define FedEx base URL based on environment
+    const baseUrl = process.env.FEDEX_ENVIRONMENT === 'sandbox'
+        ? 'https://apis-sandbox.fedex.com'
+        : 'https://apis.fedex.com';
+
     // Fetch the access token
     const tokenResponse = await axios.post(
-        'https://apis.fedex.com/oauth/token',
+        `${baseUrl}/oauth/token`,
         'grant_type=client_credentials' +
         '&client_id=' + encodeURIComponent(process.env.FEDEX_CLIENT_ID_REST) +
         '&client_secret=' + encodeURIComponent(process.env.FEDEX_CLIENT_SECRET_REST)
@@ -199,7 +204,7 @@ const createFedExOrder = async (lineItems, customerEmail) => {
 
     try {
         const fedexResponse = await axios.post(
-            'https://apis.fedex.com/ship/v1/shipments',
+            `${baseUrl}/ship/v1/shipments`,
             orderDetails,
             {
                 headers: {
