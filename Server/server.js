@@ -177,29 +177,29 @@ const createFedExOrder = async (lineItems, customerEmail) => {
         requestedShipment: {
             shipper: {
                 contact: {
-                    personName: 'Sender Name',
+                    personName: 'John Taylor',
                     phoneNumber: '1234567890',
-                    companyName: 'Sender Company',
+                    companyName: 'BLDG',
                 },
                 address: {
-                    streetLines: ['Street Address 1'],
-                    city: 'City',
-                    stateOrProvinceCode: 'State',
-                    postalCode: 'PostalCode',
+                    streetLines: ["10 FedEx Parkway","Suite 302"],
+                    city: 'Cary',
+                    stateOrProvinceCode: 'NC',
+                    postalCode: '90210e',
                     countryCode: 'US',
                 },
             },
             recipient: {
                 contact: {
-                    personName: 'Recipient Name',
+                    personName: 'John Taylor',
                     phoneNumber: '0987654321',
-                    companyName: 'Recipient Company',
+                    companyName: 'Loli',
                 },
                 address: {
-                    streetLines: ['Street Address 1'],
-                    city: 'City',
-                    stateOrProvinceCode: 'State',
-                    postalCode: 'PostalCode',
+                    streetLines: ["10 FedEx Parkway","Suite 302"],
+                    city: 'Cary',
+                    stateOrProvinceCode: 'NC',
+                    postalCode: '90210',
                     countryCode: 'US',
                 },
             },
@@ -217,9 +217,9 @@ const createFedExOrder = async (lineItems, customerEmail) => {
                     },
                 },
             ],
-            serviceType: 'FEDEX_GROUND',
+            serviceType: 'PRIORITY_OVERNIGHT',
             packagingType: 'YOUR_PACKAGING',
-            pickupType: 'DROP_BOX',
+            pickupType: 'USE_SCHEDULED_PICKUP',
         },
     };
 
