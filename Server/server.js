@@ -26,10 +26,10 @@ const transporter = nodemailer.createTransport({
 // Initialize Express
 const app = express();
 
-app.use(express.static(path.join(__dirname, 'Client_pc/Client/dist')));
+app.use(express.static(path.join(__dirname, 'Client/dist')));
 
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'Client_pc/Client/dist', 'index.html'));
+    res.sendFile(path.join(__dirname, 'Client/dist', 'index.html'));
 });
 
 // MongoDB connection
