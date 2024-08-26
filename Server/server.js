@@ -58,27 +58,28 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, r
         // Debugging logs
         console.log('Session Object:', session);
 
-        // Retrieve the customer ID from the session
-        const customerId = session.customer;
-        if (!customerId) {
-            console.error('No customer ID found in session');
-            return res.status(400).send('No customer ID found');
+        // Retrieve the customer email from customer_details
+        const customerEmail = session.customer_details?.email;
+
+        if (!customerEmail) {
+            console.error('No customer email found in session');
+            return res.status(400).send('No customer email found');
         }
 
-        let customerEmail;
+        let line_items;
         try {
-            // Fetch the customer details from Stripe
-            const customer = await stripe.customers.retrieve(customerId);
-            console.log('Customer Object:', customer);
-            customerEmail = customer.email;
+            // Optionally retrieve line_items from the checkout session if necessary
+            const checkoutSession = await stripe.checkout.sessions.retrieve(session.id);
+            line_items = await stripe.checkout.sessions.listLineItems(session.id);
+            console.log('Line Items:', line_items.data);
+        } catch (error) {
+            console.error('Error retrieving line items:', error);
+            return res.status(500).send('Internal Server Error');
+        }
 
-            if (!customerEmail) {
-                console.error('No customer email found for customer ID:', customerId);
-                return res.status(400).send('No customer email found');
-            }
-
+        try {
             // Call your function to create a FedEx order
-            await createFedExOrder(session.line_items, customerEmail);
+            await createFedExOrder(line_items.data, customerEmail);
 
             // Send an email confirmation to the customer
             const mailOptions = {
@@ -92,13 +93,14 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, r
             await transporter.sendMail(mailOptions);
             console.log('Email sent to:', customerEmail);
         } catch (error) {
-            console.error('Error retrieving customer or sending email:', error);
+            console.error('Error creating FedEx order or sending email:', error);
             return res.status(500).send('Internal Server Error');
         }
     }
 
     res.json({ received: true });
 });
+
 
 
 
