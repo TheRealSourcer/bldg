@@ -452,8 +452,8 @@ app.post('/create-checkout-session', async (req, res) => {
                 enabled: true,
             },
             mode: 'payment',
-            success_url: `${process.env.CLIENT_URL}/Success`,
-            cancel_url: `${process.env.CLIENT_URL}/Cancel`,
+            success_url: `${process.env.CLIENT_URL}`,
+            cancel_url: `${process.env.CLIENT_URL}`,
             customer_email: customerEmail, // Ensure this is set
         });
 
