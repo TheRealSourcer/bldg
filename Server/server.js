@@ -54,30 +54,37 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, r
 
     if (event.type === 'checkout.session.completed') {
         const session = event.data.object;
-        const customer_email = session.customer_email;  // Extract customer email
 
-        if (!customer_email) {
-            console.error('No customer email found in session');
-            return res.status(400).send('No customer email found');
-        }
+        // Retrieve the customer ID from the session
+        const customerId = session.customer;
 
+        let customerEmail;
         try {
-            // Assuming createFedExOrder is a function you have
-            await createFedExOrder(session.line_items, customer_email);
+            // Fetch the customer details from Stripe
+            const customer = await stripe.customers.retrieve(customerId);
+            customerEmail = customer.email;
+
+            if (!customerEmail) {
+                console.error('No customer email found for customer ID:', customerId);
+                return res.status(400).send('No customer email found');
+            }
+
+            // Call your function to create a FedEx order
+            await createFedExOrder(session.line_items, customerEmail);
 
             // Send an email confirmation to the customer
             const mailOptions = {
                 from: process.env.EMAIL_USER,
-                to: customer_email,
+                to: customerEmail,
                 subject: 'Order Confirmation',
                 text: 'Thank you for your order! Your FedEx order is being processed.',
                 html: '<p>Thank you for your order! Your FedEx order is being processed.</p>'
             };
 
             await transporter.sendMail(mailOptions);
-            console.log('Email sent to:', customer_email);
+            console.log('Email sent to:', customerEmail);
         } catch (error) {
-            console.error('Error creating FedEx order or sending email:', error);
+            console.error('Error retrieving customer or sending email:', error);
             return res.status(500).send('Internal Server Error');
         }
     }
