@@ -55,13 +55,21 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, r
     if (event.type === 'checkout.session.completed') {
         const session = event.data.object;
 
+        // Debugging logs
+        console.log('Session Object:', session);
+
         // Retrieve the customer ID from the session
         const customerId = session.customer;
+        if (!customerId) {
+            console.error('No customer ID found in session');
+            return res.status(400).send('No customer ID found');
+        }
 
         let customerEmail;
         try {
             // Fetch the customer details from Stripe
             const customer = await stripe.customers.retrieve(customerId);
+            console.log('Customer Object:', customer);
             customerEmail = customer.email;
 
             if (!customerEmail) {
@@ -444,11 +452,9 @@ app.post('/create-checkout-session', async (req, res) => {
             mode: 'payment',
             success_url: `${process.env.CLIENT_URL}/Success`,
             cancel_url: `${process.env.CLIENT_URL}/Cancel`,
-            // Set the customer email
-            customer_email: customerEmail,
+            customer_email: customerEmail, // Ensure this is set
         });
 
-        // Send the session ID to the client
         res.json({ id: session.id });
     } catch (error) {
         console.error('Error creating Checkout Session:', error);
