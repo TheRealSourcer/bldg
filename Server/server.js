@@ -208,54 +208,75 @@ const createFedExOrder = async (lineItems, customerEmail) => {
 
     // Prepare the order details
     const orderDetails = {
-        accountNumber: process.env.FEDEX_ACCOUNT_NUMBER,
-        requestedShipment: {
-            shipper: {
-                contact: {
-                    personName: 'John Taylor',
-                    phoneNumber: '1234567890',
-                    companyName: 'BLDG',
+        "accountNumber": process.env.FEDEX_ACCOUNT_NUMBER,
+        "requestedShipment": {
+            "shipDate": "2024-08-26",  // Example date; replace with the actual ship date
+            "pickupType": "REGULAR_PICKUP",
+            "serviceType": "FEDEX_GROUND",
+            "packagingType": "YOUR_PACKAGING",
+            "shipper": {
+                "contact": {
+                    "personName": "John Taylor",
+                    "phoneNumber": "1234567890",
+                    "companyName": "BLDG"
                 },
-                address: {
-                    streetLines: ["10 FedEx Parkway","Suite 302"],
-                    city: 'Cary',
-                    stateOrProvinceCode: 'NC',
-                    postalCode: '90210e',
-                    countryCode: 'US',
-                },
+                "address": {
+                    "streetLines": ["10 FedEx Parkway", "Suite 302"],
+                    "city": "Cary",
+                    "stateOrProvinceCode": "NC",
+                    "postalCode": "90210",
+                    "countryCode": "US"
+                }
             },
-            recipient: {
-                contact: {
-                    personName: 'John Taylor',
-                    phoneNumber: '0987654321',
-                    companyName: 'Loli',
+            "recipient": {
+                "contact": {
+                    "personName": "John Taylor",
+                    "phoneNumber": "0987654321",
+                    "companyName": "Loli"
                 },
-                address: {
-                    streetLines: ["10 FedEx Parkway","Suite 302"],
-                    city: 'Cary',
-                    stateOrProvinceCode: 'NC',
-                    postalCode: '90210',
-                    countryCode: 'US',
-                },
+                "address": {
+                    "streetLines": ["10 FedEx Parkway", "Suite 302"],
+                    "city": "Cary",
+                    "stateOrProvinceCode": "NC",
+                    "postalCode": "90210",
+                    "countryCode": "US"
+                }
             },
-            packages: [
+            "shippingChargesPayment": {
+                "paymentType": "SENDER",
+                "payor": {
+                    "responsibleParty": {
+                        "accountNumber": process.env.FEDEX_ACCOUNT_NUMBER,
+                        "contact": null,
+                        "address": {
+                            "countryCode": "US"
+                        }
+                    }
+                }
+            },
+            "labelSpecification": {
+                "labelFormatType": "COMMON2D",
+                "imageType": "PDF",
+                "labelStockType": "PAPER_7X4.75"
+            },
+            "rateRequestTypes": ["ACCOUNT"],
+            "packages": [
                 {
-                    weight: {
-                        units: 'LB',
-                        value: 5.0,
+                    "weight": {
+                        "units": "LB",
+                        "value": 5.0
                     },
-                    dimensions: {
-                        length: 10,
-                        width: 10,
-                        height: 10,
-                        units: 'IN',
-                    },
-                },
-            ],
-            serviceType: 'FEDEX_GROUND',
-            packagingType: 'FEDEX_ENVELOPE',
-        },
-    };
+                    "dimensions": {
+                        "length": 10,
+                        "width": 10,
+                        "height": 10,
+                        "units": "IN"
+                    }
+                }
+            ]
+        }
+    }
+    
 
     // Convert orderDetails to JSON
     const data = JSON.stringify(orderDetails);
