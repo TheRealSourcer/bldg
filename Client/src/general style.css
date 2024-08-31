@@ -806,6 +806,6 @@ main {
 
 }
 
-.hidden {
+.cart-badge.hidden {
     display: none;
 }
