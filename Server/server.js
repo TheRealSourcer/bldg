@@ -194,7 +194,17 @@ app.post('/track', async (req, res) => {
 });
 
 
+async function getShippingCost(shippingAddress, packageDetails) {
+    const response = await axios.post('https://fedex-api-url.com/rates', {
+        // Fill in with appropriate FedEx API request details
+        account_number: process.env.FEDEX_ACCOUNT_NUMBER,
+        destination: shippingAddress,
+        package: packageDetails,
+    });
 
+    const shippingCost = response.data.rate; // Adjust according to FedEx API response
+    return shippingCost;
+}
 
 const createFedExOrder = async (lineItems, customerEmail) => {
     // Fetch the access token
@@ -457,9 +467,12 @@ app.post('/create-checkout-session', async (req, res) => {
             automatic_tax: {
                 enabled: true,
             },
+            shipping_address_collection: {
+                allowed_countries: ['US'],
+            },
             mode: 'payment',
-            success_url: `${process.env.CLIENT_URL}/support`,
-            cancel_url: `${process.env.CLIENT_URL}/Support`,
+            success_url: `${process.env.CLIENT_URL}/Success`,
+            cancel_url: `${process.env.CLIENT_URL}/Cancel`,
             customer_email: customerEmail, // Ensure this is set
         });
 
