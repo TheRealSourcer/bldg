@@ -26,6 +26,8 @@ const transporter = nodemailer.createTransport({
 // Initialize Express
 const app = express();
 
+app.set('trust proxy', 1); // 1 indicates trusting the first proxy
+
 app.use(express.static(path.join(__dirname, 'Client_pc/Client/dist')));
 
 app.get('*', (req, res) => {
@@ -61,44 +63,33 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, r
     if (event.type === 'checkout.session.completed') {
         const session = event.data.object;
 
-        // Debugging logs
+        // Log the session object for debugging purposes
         console.log('Session Object:', session);
+
+        // Ensure the shipping address exists
+        const shippingAddress = session.shipping?.address;
+        if (!shippingAddress) {
+            console.error('No shipping address found in session');
+            return res.status(400).send('No shipping address found');
+        }
+
+        // Validate the shipping address using FedEx
+        const isAddressValid = await validateAddressFedEx(shippingAddress);
+        if (!isAddressValid) {
+            console.error('Invalid shipping address');
+            return res.status(400).send('Invalid shipping address');
+        }
 
         // Retrieve the customer email from customer_details
         const customerEmail = session.customer_details?.email;
-
         if (!customerEmail) {
             console.error('No customer email found in session');
             return res.status(400).send('No customer email found');
         }
 
-        // Extract shipping address from the session
-        const shippingAddress = session.shipping.address;
-        
-        if (!shippingAddress) {
-            console.error('No shipping address found');
-            return res.status(400).send('No shipping address found');
-        }
-
-        try {
-            // Validate the shipping address using FedEx Address Validation API
-            const isValidAddress = await validateAddressFedEx(shippingAddress);
-            
-            if (!isValidAddress) {
-                console.error('Invalid shipping address');
-                return res.status(400).send('Invalid shipping address');
-            }
-
-            console.log('Shipping address is valid');
-
-        } catch (error) {
-            console.error('Error validating address with FedEx:', error);
-            return res.status(500).send('Address validation failed');
-        }
-
         let line_items;
         try {
-            // Optionally retrieve line_items from the checkout session if necessary
+            // Retrieve line items from the checkout session if necessary
             const checkoutSession = await stripe.checkout.sessions.retrieve(session.id);
             line_items = await stripe.checkout.sessions.listLineItems(session.id);
             console.log('Line Items:', line_items.data);
@@ -130,7 +121,6 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, r
 
     res.json({ received: true });
 });
-
 
 
 
