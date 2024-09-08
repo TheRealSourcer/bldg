@@ -66,8 +66,8 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, r
         // Log the session object for debugging purposes
         console.log('Session Object:', session);
 
-        // Ensure the shipping address exists
-        const shippingAddress = session.shipping?.address;
+        // Ensure the shipping details exist under shipping_details
+        const shippingAddress = session.shipping_details?.address;
         if (!shippingAddress) {
             console.error('No shipping address found in session');
             return res.status(400).send('No shipping address found');
