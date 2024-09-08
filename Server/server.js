@@ -72,6 +72,30 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, r
             return res.status(400).send('No customer email found');
         }
 
+        // Extract shipping address from the session
+        const shippingAddress = session.shipping.address;
+        
+        if (!shippingAddress) {
+            console.error('No shipping address found');
+            return res.status(400).send('No shipping address found');
+        }
+
+        try {
+            // Validate the shipping address using FedEx Address Validation API
+            const isValidAddress = await validateAddressFedEx(shippingAddress);
+            
+            if (!isValidAddress) {
+                console.error('Invalid shipping address');
+                return res.status(400).send('Invalid shipping address');
+            }
+
+            console.log('Shipping address is valid');
+
+        } catch (error) {
+            console.error('Error validating address with FedEx:', error);
+            return res.status(500).send('Address validation failed');
+        }
+
         let line_items;
         try {
             // Optionally retrieve line_items from the checkout session if necessary
@@ -106,6 +130,7 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, r
 
     res.json({ received: true });
 });
+
 
 
 
@@ -192,6 +217,60 @@ app.post('/track', async (req, res) => {
         res.status(500).json({ error: 'Failed to fetch tracking data' });
     }
 });
+
+async function getFedExAccessTokenRest() {
+    try {
+        const response = await axios.post('https://apis.fedex.com/oauth/token', null, {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            params: {
+                grant_type: 'client_credentials',
+                client_id: process.env.FEDEX_CLIENT_ID_REST,
+                client_secret: process.env.FEDEX_CLIENT_SECRET_REST
+            }
+        });
+
+        return response.data.access_token;
+    } catch (error) {
+        console.error('Error fetching FedEx access token:', error);
+        throw new Error('Failed to get FedEx access token');
+    }
+}
+
+
+async function validateAddressFedEx(address) {
+    const accessToken = await getFedExAccessTokenRest();
+
+    const data = {
+        addressesToValidate: [
+            {
+                address: {
+                    streetLines: [address.line1, address.line2 || ''],
+                    city: address.city,
+                    stateOrProvinceCode: address.state,
+                    postalCode: address.postal_code,
+                    countryCode: 'US',
+                }
+            }
+        ]
+    };
+
+    try {
+        const response = await axios.post('https://apis.fedex.com/addressvalidation/v1/addresses', data, {
+            headers: {
+                'Authorization': `Bearer ${accessToken}`,
+                'Content-Type': 'application/json',
+            }
+        });
+
+        const validationResults = response.data.output?.addressResults;
+        return validationResults && validationResults[0]?.classification === 'VALID';
+    } catch (error) {
+        console.error('Error validating address with FedEx:', error);
+        return false;
+    }
+}
 
 
 async function getShippingCost(shippingAddress, packageDetails) {
