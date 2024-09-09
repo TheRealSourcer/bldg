@@ -210,14 +210,14 @@ app.post('/track', async (req, res) => {
 
 async function getFedExAccessTokenRest() {
     try {
-        const response = await axios.post('https://apis.fedex.com/oauth/token', null, {
+        const data = new URLSearchParams();
+        data.append('grant_type', 'client_credentials');
+        data.append('client_id', process.env.FEDEX_CLIENT_ID_REST);
+        data.append('client_secret', process.env.FEDEX_CLIENT_SECRET_REST);
+
+        const response = await axios.post('https://apis.fedex.com/oauth/token', data, {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            params: {
-                grant_type: 'client_credentials',
-                client_id: process.env.FEDEX_CLIENT_ID_REST,
-                client_secret: process.env.FEDEX_CLIENT_SECRET_REST
             }
         });
 
@@ -227,6 +227,7 @@ async function getFedExAccessTokenRest() {
         throw new Error('Failed to get FedEx access token');
     }
 }
+
 
 
 async function validateAddressFedEx(address) {
