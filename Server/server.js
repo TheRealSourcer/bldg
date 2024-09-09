@@ -210,21 +210,18 @@ app.post('/track', async (req, res) => {
 
 async function getFedExAccessTokenRest() {
     try {
-        const data = new URLSearchParams();
-        data.append('grant_type', 'client_credentials');
-        data.append('client_id', process.env.FEDEX_CLIENT_ID_REST);
-        data.append('client_secret', process.env.FEDEX_CLIENT_SECRET_REST);
-
-        const response = await axios.post('https://apis.fedex.com/oauth/token', data, {
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
+        const response = await axios.post(`${FEDEX_API_URL}/oauth/token`, 
+            `grant_type=client_credentials&client_id=${process.env.FEDEX_CLIENT_ID_REST}&client_secret=${process.env.FEDEX_CLIENT_SECRET_REST}`,
+            {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
             }
-        });
-
+        );
         return response.data.access_token;
     } catch (error) {
-        console.error('Error fetching FedEx access token:', error);
-        throw new Error('Failed to get FedEx access token');
+        console.error('Error getting FedEx access token:', error.response ? error.response.data : error.message);
+        throw error;
     }
 }
 
