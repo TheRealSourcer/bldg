@@ -233,13 +233,13 @@ async function validateAddressFedEx(address) {
     const data = {
         addressesToValidate: [
             {
-                address: {
-                    streetLines: [address.line1, address.line2 || ''],
-                    city: address.city,
-                    stateOrProvinceCode: address.state,
-                    postalCode: address.postal_code,
-                    countryCode: 'US',
-                }
+                    "address": {
+                      "streetLines": ["123 Main St"],
+                      "city": "Memphis",
+                      "stateOrProvinceCode": "TN",
+                      "postalCode": "38116",
+                      "countryCode": "US"
+                    }
             }
         ]
     };
