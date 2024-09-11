@@ -228,37 +228,48 @@ async function getFedExAccessTokenRest() {
 
 
 async function validateAddressFedEx(address) {
-    const accessToken = await getFedExAccessTokenRest();
+    const accessToken = await getFedExAccessTokenRest(); // Ensure this function works and returns the token.
 
     const data = {
         addressesToValidate: [
             {
-                    "address": {
-                      "streetLines": ["123 Main St"],
-                      "city": "Memphis",
-                      "stateOrProvinceCode": "TN",
-                      "postalCode": "38116",
-                      "countryCode": "US"
-                    }
-            }
+                "address": {
+                  "streetLines": ["1600 Pennsylvania Ave NW"], // From your test data
+                  "city": "Washington",
+                  "stateOrProvinceCode": "DC",
+                  "postalCode": "20500",
+                  "countryCode": "US"
+                }
+            } 
         ]
     };
 
     try {
         const response = await axios.post('https://apis.fedex.com/addressvalidation/v1/addresses', data, {
             headers: {
-                'Authorization': `Bearer ${accessToken}`,
+                'Authorization': `Bearer ${accessToken}`,  // Ensure the access token is valid
                 'Content-Type': 'application/json',
             }
         });
 
+        // Check if the response contains validation results
         const validationResults = response.data.output?.addressResults;
-        return validationResults && validationResults[0]?.classification === 'VALID';
+
+        // Check the validation status
+        if (validationResults && validationResults[0]?.resolved) {
+            const classification = validationResults[0].classification;
+            console.log('Address classification:', classification);
+
+            return classification === 'VALID';  // Returns true if the address is valid
+        }
+
+        return false;  // If no results or not valid, return false
     } catch (error) {
-        console.error('Error validating address with FedEx:', error);
+        console.error('Error validating address with FedEx:', error.response?.data || error.message);
         return false;
     }
 }
+
 
 
 async function getShippingCost(shippingAddress, packageDetails) {
