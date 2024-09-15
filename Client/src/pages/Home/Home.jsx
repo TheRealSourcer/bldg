@@ -111,11 +111,13 @@ export default function Home() {
                 <div className="background-beast-image pc product">
                     <div className="beast pc-info">
                         <h3 className="pc-title">BEAST</h3>
-                        <img src={BeastClaw} alt="Claw drawing." />
-                        <p className="pc-description">
-                            Elevate Your Gaming Experience with Our Next-Level Gaming PC!
-                            Step up your game with our new gaming PC, crafted for gamers who seek a perfect balance of performance, quality, and affordability. Whether you're aiming for high scores, exploring new worlds, or streaming your gameplay, this gaming rig is built to deliver an exceptional experience - Take the next step in your gaming journey and secure your system now!
-                        </p>
+                        <div className='pc-icon-and-components'>
+                            <img src={BeastClaw} alt="Claw drawing." />
+                            <p className="pc-description">
+                                Elevate Your Gaming Experience with Our Next-Level Gaming PC!
+                                Step up your game with our new gaming PC, crafted for gamers who seek a perfect balance of performance, quality, and affordability. Whether you're aiming for high scores, exploring new worlds, or streaming your gameplay, this gaming rig is built to deliver an exceptional experience - Take the next step in your gaming journey and secure your system now!
+                            </p>
+                        </div>
                         <img className="img-pc" src={Beast} alt="Beast PC" />
                         <div className="buy choose" onClick={() => selectProduct('Beast')}>BUY</div>
                     </div>

@@ -135,6 +135,9 @@
     text-align: center;
     letter-spacing: 0.1em;
 }
+.pc-icon-and-components {
+    display: flex;
+}
 
 .background-smoother-image {
     background-image: url('../../assets/smoother/Smoother Background.jpg');
