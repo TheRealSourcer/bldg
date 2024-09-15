@@ -99,10 +99,22 @@ export default function Home() {
                 <div className="background-smoother-image pc product">
                     <div className="smoother pc-info">
                         <h3 className="pc-title">SMOOTHER</h3>
-                        <p className="pc-description">
-                            Unleash Your Gaming Potential Without Breaking the Bank!
-                            Introducing our latest budget-friendly gaming PC, designed for gamers who demand performance without the hefty price tag. This low-end gaming powerhouse is perfect for diving into the world of gaming, whether you're exploring vast open worlds, competing in intense multiplayer battles, or embarking on epic quests.
-                        </p>
+                        <div className='pc-component'>
+                            <h4>Graphics card:</h4>
+                            <p></p>
+                        </div>
+                        <div className='pc-component'>
+                            <h4>Processor:</h4>
+                            <p></p>
+                        </div>
+                        <div className='pc-component'>
+                            <h4>Storage:</h4>
+                            <p></p>
+                        </div>
+                        <div className='pc-component'>
+                            <h4>Ram:</h4>
+                            <p></p>
+                        </div>
                         <img className="img-pc" src={Smoother} alt="Smoother PC" />
                         <div className="buy choose" onClick={() => selectProduct('Smoother')}>BUY</div>
                     </div>
@@ -113,10 +125,22 @@ export default function Home() {
                         <h3 className="pc-title">BEAST</h3>
                         <div className='pc-icon-and-components'>
                             <img src={BeastClaw} alt="Claw drawing." />
-                            <p className="pc-description">
-                                Elevate Your Gaming Experience with Our Next-Level Gaming PC!
-                                Step up your game with our new gaming PC, crafted for gamers who seek a perfect balance of performance, quality, and affordability. Whether you're aiming for high scores, exploring new worlds, or streaming your gameplay, this gaming rig is built to deliver an exceptional experience - Take the next step in your gaming journey and secure your system now!
-                            </p>
+                            <div className='pc-component'>
+                            <h4>Graphics card:</h4>
+                            <p></p>
+                        </div>
+                        <div className='pc-component'>
+                            <h4>Processor:</h4>
+                            <p></p>
+                        </div>
+                        <div className='pc-component'>
+                            <h4>Storage:</h4>
+                            <p></p>
+                        </div>
+                        <div className='pc-component'>
+                            <h4>Ram:</h4>
+                            <p></p>
+                        </div>
                         </div>
                         <img className="img-pc" src={Beast} alt="Beast PC" />
                         <div className="buy choose" onClick={() => selectProduct('Beast')}>BUY</div>
@@ -126,10 +150,22 @@ export default function Home() {
                 <div className="background-terminator-image pc product">
                     <div className="terminator pc-info">
                         <h3 className="pc-title">TERMINATOR</h3>
-                        <p className="pc-description">
-                            Enhance Your Gaming Experience with Our Advanced Gaming PC!
-                            Take your gaming to new heights with our advanced gaming PC, designed for enthusiasts who seek impressive performance and cutting-edge technology. Whether you're conquering the latest AAA titles, streaming your gameplay, or creating content, this rig delivers the power and precision needed to excel.
-                        </p>
+                            <div className='pc-component'>
+                                <h4>Graphics card:</h4>
+                                <p></p>
+                            </div>
+                            <div className='pc-component'>
+                                <h4>Processor:</h4>
+                                <p></p>
+                            </div>
+                            <div className='pc-component'>
+                                <h4>Storage:</h4>
+                                <p></p>
+                            </div>
+                            <div className='pc-component'>
+                                <h4>Ram:</h4>
+                                <p></p>
+                            </div>
                         <img className="img-pc" src={Terminator} alt="Terminator PC" />
                         <div className="buy choose" onClick={() => selectProduct('Terminator')}>BUY</div>
                     </div>
@@ -138,10 +174,22 @@ export default function Home() {
                 <div className="background-spaceship-image pc product">
                     <div className="spaceship pc-info">
                         <h3 className="pc-title">SPACESHIP</h3>
-                        <p className="pc-description">
-                            Command the Game with Our Ultimate Gaming PC!
-                            Introducing the pinnacle of gaming technology: our Ultimate Gaming PC. Designed for the most demanding gamers and tech enthusiasts, this machine combines unrivaled power, cutting-edge features, and exceptional build quality. Whether you're playing the latest AAA titles, streaming in 4K, or creating high-end content, this rig delivers an unparalleled experience.
-                        </p>
+                            <div className='pc-component'>
+                                <h4>Graphics card:</h4>
+                                <p></p>
+                            </div>
+                            <div className='pc-component'>
+                                <h4>Processor:</h4>
+                                <p></p>
+                            </div>
+                            <div className='pc-component'>
+                                <h4>Storage:</h4>
+                                <p></p>
+                            </div>
+                            <div className='pc-component'>
+                                <h4>Ram:</h4>
+                                <p></p>
+                            </div>
                         <img className="img-pc" src={Spaceship} alt="Spaceship PC" />
                         <div className="buy choose" onClick={() => selectProduct('Spaceship')}>BUY</div>
                     </div>
