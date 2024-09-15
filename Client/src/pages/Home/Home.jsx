@@ -8,7 +8,7 @@ import Beast from '../../assets/beast/beast1.jpg';
 import Terminator from '../../assets/terminator/terminator1.jpg';
 import Spaceship from '../../assets/spaceship/spaceship1.jpg';
 
-import BeastClaw from '../../assets/smoother/beastIco.png';
+import BeastClaw from '../../assets/beast/beastIco.png';
 
 export default function Home() {
     const iconContainerRef = useRef(null);
