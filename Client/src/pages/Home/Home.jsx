@@ -101,19 +101,19 @@ export default function Home() {
                         <h3 className="pc-title">SMOOTHER</h3>
                         <div className='pc-component'>
                             <h4>Graphics card:</h4>
-                            <p></p>
+                            <p>RX 6500 XT</p>
                         </div>
                         <div className='pc-component'>
                             <h4>Processor:</h4>
-                            <p></p>
+                            <p>AMD Ryzen™ 5 5500</p>
                         </div>
                         <div className='pc-component'>
                             <h4>Storage:</h4>
-                            <p></p>
+                            <p>M.2 500GB PCI Express 4.0</p>
                         </div>
                         <div className='pc-component'>
                             <h4>Ram:</h4>
-                            <p></p>
+                            <p>16GB DDR4 3200</p>
                         </div>
                         <img className="img-pc" src={Smoother} alt="Smoother PC" />
                         <div className="buy choose" onClick={() => selectProduct('Smoother')}>BUY</div>
