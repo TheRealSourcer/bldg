@@ -99,21 +99,24 @@ export default function Home() {
                 <div className="background-smoother-image pc product">
                     <div className="smoother pc-info">
                         <h3 className="pc-title">SMOOTHER</h3>
-                        <div className='pc-component'>
-                            <h4>Graphics card:</h4>
-                            <p>RX 6500 XT</p>
-                        </div>
-                        <div className='pc-component'>
-                            <h4>Processor:</h4>
-                            <p>AMD Ryzen™ 5 5500</p>
-                        </div>
-                        <div className='pc-component'>
-                            <h4>Storage:</h4>
-                            <p>M.2 500GB PCI Express 4.0</p>
-                        </div>
-                        <div className='pc-component'>
-                            <h4>Ram:</h4>
-                            <p>16GB DDR4 3200</p>
+                        <div className='pc-icon-and-components'>
+                            <img src={BeastClaw} alt="Claw drawing." />
+                            <div className='pc-component'>
+                                <h4>Graphics card:</h4>
+                                <p></p>
+                            </div>
+                            <div className='pc-component'>
+                                <h4>Processor:</h4>
+                                <p></p>
+                            </div>
+                            <div className='pc-component'>
+                                <h4>Storage:</h4>
+                                <p></p>
+                            </div>
+                            <div className='pc-component'>
+                                <h4>Ram:</h4>
+                                <p></p>
+                            </div>
                         </div>
                         <img className="img-pc" src={Smoother} alt="Smoother PC" />
                         <div className="buy choose" onClick={() => selectProduct('Smoother')}>BUY</div>
@@ -126,21 +129,21 @@ export default function Home() {
                         <div className='pc-icon-and-components'>
                             <img src={BeastClaw} alt="Claw drawing." />
                             <div className='pc-component'>
-                            <h4>Graphics card:</h4>
-                            <p></p>
-                        </div>
-                        <div className='pc-component'>
-                            <h4>Processor:</h4>
-                            <p></p>
-                        </div>
-                        <div className='pc-component'>
-                            <h4>Storage:</h4>
-                            <p></p>
-                        </div>
-                        <div className='pc-component'>
-                            <h4>Ram:</h4>
-                            <p></p>
-                        </div>
+                                <h4>Graphics card:</h4>
+                                <p></p>
+                            </div>
+                            <div className='pc-component'>
+                                <h4>Processor:</h4>
+                                <p></p>
+                            </div>
+                            <div className='pc-component'>
+                                <h4>Storage:</h4>
+                                <p></p>
+                            </div>
+                            <div className='pc-component'>
+                                <h4>Ram:</h4>
+                                <p></p>
+                            </div>
                         </div>
                         <img className="img-pc" src={Beast} alt="Beast PC" />
                         <div className="buy choose" onClick={() => selectProduct('Beast')}>BUY</div>
@@ -150,6 +153,8 @@ export default function Home() {
                 <div className="background-terminator-image pc product">
                     <div className="terminator pc-info">
                         <h3 className="pc-title">TERMINATOR</h3>
+                        <div className='pc-icon-and-components'>
+                            <img src={BeastClaw} alt="Claw drawing." />
                             <div className='pc-component'>
                                 <h4>Graphics card:</h4>
                                 <p></p>
@@ -166,6 +171,7 @@ export default function Home() {
                                 <h4>Ram:</h4>
                                 <p></p>
                             </div>
+                        </div>
                         <img className="img-pc" src={Terminator} alt="Terminator PC" />
                         <div className="buy choose" onClick={() => selectProduct('Terminator')}>BUY</div>
                     </div>
@@ -174,6 +180,8 @@ export default function Home() {
                 <div className="background-spaceship-image pc product">
                     <div className="spaceship pc-info">
                         <h3 className="pc-title">SPACESHIP</h3>
+                        <div className='pc-icon-and-components'>
+                            <img src={BeastClaw} alt="Claw drawing." />
                             <div className='pc-component'>
                                 <h4>Graphics card:</h4>
                                 <p></p>
@@ -190,6 +198,7 @@ export default function Home() {
                                 <h4>Ram:</h4>
                                 <p></p>
                             </div>
+                        </div>
                         <img className="img-pc" src={Spaceship} alt="Spaceship PC" />
                         <div className="buy choose" onClick={() => selectProduct('Spaceship')}>BUY</div>
                     </div>
