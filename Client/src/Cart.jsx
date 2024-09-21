@@ -50,7 +50,7 @@ const products = {
         id: "3",
         name: "Terminator",
         description: "Enhance Your Gaming Experience with Our Advanced Gaming PC! <br>Take your gaming to new heights with our advanced gaming PC, designed for enthusiasts who seek impressive performance and cutting-edge technology. Whether you're conquering the latest AAA titles, streaming your gameplay, or creating content, this rig delivers the power and precision needed to excel.",
-        price: 1299.99,
+        price: 1499.99,
         features: ["Genuine Leather", "3-Seater", "Reclining Function"],
         imageUrl1: TerminatorImage1,
         imageUrl2: TerminatorImage2,
