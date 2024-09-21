@@ -143,6 +143,7 @@ export default function DreamPc() {
         <main className='main-dream-pc'>
             <div className="product-info section">
                 <h1 id="product-name" className="product-part">{product.name}</h1>
+                <p id="product-description" className="product-part" dangerouslySetInnerHTML={{ __html: product.description }}></p>
                 <p id="product-price" className="product-part">${product.price.toFixed(2)}</p>
             </div>
 
@@ -189,7 +190,6 @@ export default function DreamPc() {
             </div>
 
             <div className="features section">
-                <p id="product-description" className="product-part" dangerouslySetInnerHTML={{ __html: product.description }}></p>
                 <div id="product-features" className="product-part">
                     <h3>Features:</h3>
                     <ul className='components-list'>
