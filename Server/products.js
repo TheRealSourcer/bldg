@@ -29,7 +29,7 @@ const products = {
         id: "3",
         name: "Terminator",
         description: "Enhance Your Gaming Experience...",
-        price: 1299.99,
+        price: 1499.99,
         features: ["Genuine Leather", "3-Seater", "Reclining Function"],
         images: [
             "/media/terminator/terminator1.jpg",
