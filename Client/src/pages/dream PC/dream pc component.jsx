@@ -208,6 +208,7 @@ export default function DreamPc() {
                             ))}
                         </div>
                     </div>
+                    <p className='component-disclaimer'>* Your product may look slightly different depending on component abailability.</p>
                     <div className="carousel-dots">
                         {[0, 1, 2, 3].map((index) => (
                             <span
