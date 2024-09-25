@@ -35,7 +35,7 @@ const products = {
             "Graphics Card": "Ryzen 5",
             "Motherboard": "Ryzen 5",
             "Processor Cooler": "Ryzen 5",
-            "Case": "Montech AIR 100 ARGB MICRO-ATX Tower "
+            "Case": "Montech AIR 100 ARGB MICRO-ATX"
         },
         imageUrl1: SmootherImage1,
         imageUrl2: SmootherImage2,
