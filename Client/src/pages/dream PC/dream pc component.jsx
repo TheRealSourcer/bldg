@@ -231,7 +231,7 @@ export default function DreamPc() {
                     <h3>Features:</h3>
                     <ul className='components-list'>
                         {product.features.map((feature, index) => (
-                            <li key={index}>{feature}</li>
+                            <li key={index}>{index}:<br />{feature}</li>
                         ))}
                     </ul>
                     <button className="cart-button" onClick={handleCartButtonClick}>
