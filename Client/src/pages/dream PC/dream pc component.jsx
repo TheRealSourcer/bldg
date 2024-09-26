@@ -228,16 +228,16 @@ export default function DreamPc() {
 
             <div className="features section">
                 <div id="product-features" className="product-part">
-                    <h3>Features:</h3>
-                    <ul className='components-list'>
-                        {product.features.map((feature, index) => (
-                            <li key={index}>{index}:<br />{feature}</li>
-                        ))}
-                    </ul>
-                    <button className="cart-button" onClick={handleCartButtonClick}>
-                        <i className="fa-solid fa-cart-shopping cart-button-icon"></i>
-                    </button>
-                </div>
+        <h3>Features:</h3>
+        <ul className='components-list'>
+            {Object.entries(product.features).map(([key, value], index) => (
+                <li key={index}>{key}:<br />{value}</li>
+            ))}
+        </ul>
+        <button className="cart-button" onClick={handleCartButtonClick}>
+            <i className="fa-solid fa-cart-shopping cart-button-icon"></i>
+        </button>
+    </div>
             </div>
         </main>
     );
