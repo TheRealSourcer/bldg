@@ -189,7 +189,7 @@ export default function Home() {
                         <div className='pc-icon-and-components'>
                             <img src={BeastClaw} alt="Claw drawing." />
                             <ul className='components-list'>
-                                {Object.entries(Smoother.features).map(([key, value], index) => (
+                                {Object.entries("Smoother".features).map(([key, value], index) => (
                                     <li key={index}>
                                         <h5 className='component-type'>{key}</h5>:
                                         <br />
