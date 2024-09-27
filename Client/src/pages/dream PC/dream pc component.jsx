@@ -230,7 +230,7 @@ export default function DreamPc() {
                 <div id="product-features" className="product-part">
         <h3 className='components-list-title'>Components:</h3>
         <ul className='components-list'>
-            {Object.entries(Smoother.features).map(([key, value], index) => (
+            {Object.entries(product.features).map(([key, value], index) => (
                 <li key={index}>
                     <h5 className='component-type'>{key}</h5>:
                     <br />
