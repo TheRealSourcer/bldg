@@ -215,11 +215,11 @@ export default function DreamPc() {
                     <p className='component-disclaimer'>* Your product may look slightly different depending on component abailability.</p>
                     <div className="carousel-dots">
                         {[0, 1, 2, 3].map((index) => (
-                            <span
+                            <div
                                 key={index}
                                 className={`dot ${index === currentImageIndex ? 'active' : ''}`}
                                 onClick={() => showSlide(index)}
-                            ></span>
+                            ></div>
                         ))}
                     </div>
                 </div>
@@ -231,7 +231,11 @@ export default function DreamPc() {
         <h3>Features:</h3>
         <ul className='components-list'>
             {Object.entries(product.features).map(([key, value], index) => (
-                <li key={index}>{key}:<br />{value}</li>
+                <li key={index}>
+                    <h5>{key}</h5>:
+                    <br />
+                    <p>{value}</p>
+                </li>
             ))}
         </ul>
         <button className="cart-button" onClick={handleCartButtonClick}>
