@@ -183,7 +183,7 @@ export default function Home() {
             </div>
             
             <div className="pc-container" id="pc-container" ref={pcContainerRef}>
-                {Object.entries(products).map(([productKey, product]) => (
+            {Object.entries(products).map(([productKey, product]) => (
                     <div key={productKey} className={`background-${productKey.toLowerCase()}-image pc product`}>
                         <div className={`${productKey.toLowerCase()} pc-info`}>
                             <h3 className="pc-title">{product.name.toUpperCase()}</h3>
