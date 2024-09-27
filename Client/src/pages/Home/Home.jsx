@@ -183,25 +183,27 @@ export default function Home() {
             </div>
             
             <div className="pc-container" id="pc-container" ref={pcContainerRef}>
-                <div className="background-smoother-image pc product">
-                    <div className="smoother pc-info">
-                        <h3 className="pc-title">SMOOTHER</h3>
-                        <div className='pc-icon-and-components'>
-                            <img src={BeastClaw} alt="Claw drawing." />
-                            <ul className='components-list'>
-                                {Object.entries("Smoother".features).map(([key, value], index) => (
-                                    <li key={index}>
-                                        <h5 className='component-type'>{key}</h5>:
-                                        <br />
-                                        <p className='component-name'>{value}</p>
-                                    </li>
-                                ))}
-                            </ul>
+                {Object.entries(products).map(([productKey, product]) => (
+                    <div key={productKey} className={`background-${productKey.toLowerCase()}-image pc product`}>
+                        <div className={`${productKey.toLowerCase()} pc-info`}>
+                            <h3 className="pc-title">{product.name.toUpperCase()}</h3>
+                            <div className='pc-icon-and-components'>
+                                <img src={BeastClaw} alt="Claw drawing." />
+                                <ul className='components-list'>
+                                    {Object.entries(product.features).map(([key, value], index) => (
+                                        <li key={index}>
+                                            <h5 className='component-type'>{key}</h5>:
+                                            <br />
+                                            <p className='component-name'>{value}</p>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                            <img className="img-pc" src={product.imageUrl1} alt={`${product.name} PC`} />
+                            <div className="buy choose" onClick={() => selectProduct(product.name)}>BUY</div>
                         </div>
-                        <img className="img-pc" src={Smoother} alt="Smoother PC" />
-                        <div className="buy choose" onClick={() => selectProduct('Smoother')}>BUY</div>
                     </div>
-                </div>
+                ))}
                 
                 <div className="background-beast-image pc product">
                     <div className="beast pc-info">
