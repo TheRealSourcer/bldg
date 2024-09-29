@@ -46,10 +46,6 @@ const products = {
             "Memory": "TEAMGROUP T-Force Vulcan Z DDR4 DRAM 16GB Kit (2x8GB) 3200MHz",
             "Storage": "MSI SPATIUM M450 M.2 2280 500GB PCI-Express  4.0",
             "Graphics Card": "ASRock Phantom RX 6500 XT ",
-            "Motherboard": "ASUS TUF Gaming A520M-PLUS (WiFi)",
-            "Processor Cooler": "AMD Wraith Stealth Cooler",
-            "Case": "Montech AIR 100 ARGB MICRO-ATX",
-            "Power Supply": "CORSAIR CX550 80 Plus Bronze 550 Watt Non Modular"
         },
         imageUrl1: SmootherImage1,
         imageUrl2: SmootherImage2,
@@ -67,10 +63,6 @@ const products = {
             "Memory": "TEAMGROUP T-Force Vulcan Z DDR4 32GB Kit (2x16GB) 3200MHz",
             "Storage": "KLEVV CRAS C910 1TB 5000MB/s",
             "Graphics Card": "ASUS Dual GeForce RTX™ 4060 OC ",
-            "Motherboard": "MSI PRO B650-S WiFi",
-            "Processor Cooler": "Cooler Master Hyper 212 120 Edge PWM Fan, 4 Copper Heat Pipes",
-            "Case": "Cooler Master MasterCase H500 ARGB",
-            "Power Supply": "AGV Series 650W Power Supply, 80 Plus Bronze Certified Non Modular"
         },
         imageUrl1: BeastImage1,
         imageUrl2: BeastImage2,
@@ -88,10 +80,6 @@ const products = {
             "Memory": "TEAMGROUP T-Force Delta RGB DDR4 32GB (2x16GB) 3600MHz",
             "Storage": "118 WD_BLACK 2TB 5150 MB/s",
             "Graphics Card": "RX 7800XT XFX Speedster SWFT210 Radeon 16GB",
-            "Motherboard": "ASUS TUF Gaming A620M-PLUS(WiFi)",
-            "Processor Cooler": "ID-COOLING SE-225-XT 5 Heatpipes 2x120mm 35",
-            "Case": "Cooler Master MasterCase H500 ARGB",
-            "Power Supply": "Thermaltake GF1 ATX 750W Fully Modular"
         },
         imageUrl1: TerminatorImage1,
         imageUrl2: TerminatorImage2,
@@ -109,10 +97,6 @@ const products = {
             "Memory": "G.SKILL Trident Z5 RGB Series (Intel XMP 3.0) DDR5 RAM 32GB (2x16GB) 7200MT/s",
             "Storage": "Acer Predator GM7000 4TB M.2 7400MB/s",
             "Graphics Card": "RX 7900XTX XFX Speedster MERC310 AMD Radeon 24GB",
-            "Motherboard": "ASUS ROG Strix B650-A Gaming WiFi 6E",
-            "Processor Cooler": "NZXT Kraken Liquid Cooling 240mm",
-            "Case": "CORSAIR iCUE 4000X RGB",
-            "Power Supply": "CORSAIR RM850x - 850w - Fully Modular ATX Power Supply - 80 PLUS Gold - Low-Noise Fan - Zero RPM"
         },
         imageUrl1: SpaceshipImage1,
         imageUrl2: SpaceshipImage2,
