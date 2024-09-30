@@ -126,6 +126,11 @@
     display: flex;
 }
 
+.components-list {
+    margin: 10px;
+    width: 100px;
+}
+
 .product-icon {
     image-rendering: pixelated;
     object-fit: contain;
