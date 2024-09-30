@@ -35,7 +35,7 @@ html, body {
     --sb-track-color: #232E33;
     --sb-thumb-color: #6b9caf;
     --sb-size: 14px;
-    min-height: 100vh;
+    min-height: 0;
     display: flex;
     flex-direction: column;
     cursor: none;
