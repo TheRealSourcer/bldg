@@ -528,20 +528,29 @@ app.post('/api/reviews/:id/vote', async (req, res) => {
 app.post('/create-checkout-session', async (req, res) => {
     try {
         const { items, customerEmail } = req.body;
-
+        const products = require('./path/to/products');
+        
         // Create a Checkout Session
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
-            line_items: items.map(item => ({
-                price_data: {
-                    currency: 'usd',
-                    product_data: {
-                        name: item.name,
+            line_items: items.map(item => {
+                // Look up the product details by ID
+                const product = Object.values(products).find(p => p.id === item.id);
+                if (!product) {
+                    throw new Error(`Product with ID ${item.id} not found`);
+                }
+        
+                return {
+                    price_data: {
+                        currency: 'usd',
+                        product_data: {
+                            name: product.name, // Fetch the product name from the products object
+                        },
+                        unit_amount: product.price * 100, // Convert price to cents
                     },
-                    unit_amount: item.price * 100, // Convert dollars to cents
-                },
-                quantity: item.quantity,
-            })),
+                    quantity: item.quantity, // Keep quantity from the frontend
+                };
+            }),
             automatic_tax: {
                 enabled: true,
             },
