@@ -27,7 +27,6 @@ input[type='number']::-webkit-outer-spin-button {
 html, body {
     padding: 0;
     margin: 0;
-    min-height: max-content;
     user-select: none;
     font-family: "Russo One", sans-serif;
     font-weight: 100;
