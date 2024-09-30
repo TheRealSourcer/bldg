@@ -14,7 +14,7 @@ const products = {
             "Case": "Montech AIR 100 ARGB MICRO-ATX",
             "Power Supply": "CORSAIR CX550 80 Plus Bronze 550 Watt Non Modular"
         },
-        imageUrl1: SmootherImage1,
+        imageUrl1: "./Media/smoother/smoother1.jpg",
         imageUrl2: SmootherImage2,
         imageUrl3: SmootherImage3,
         imageUrl4: SmootherImage4,
