@@ -528,7 +528,7 @@ app.post('/api/reviews/:id/vote', async (req, res) => {
 app.post('/create-checkout-session', async (req, res) => {
     try {
         const { items, customerEmail } = req.body;
-        const products = require('./path/to/products');
+        const products = require('./products.js');
         
         // Create a Checkout Session
         const session = await stripe.checkout.sessions.create({
