@@ -1,8 +1,3 @@
-import SmootherIcon from "./assets/smoother/smootherIco.png";
-import BeastIcon from "./assets/beast/beastIco.png";
-import TerminatorIcon from "./assets/terminator/terminatorIco.png";
-import SpaceshipIcon from "./assets/spaceship/spaceshipIco.png";
-
 const products = {
     Smoother: {
         id: "1",
