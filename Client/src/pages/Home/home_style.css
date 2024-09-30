@@ -126,6 +126,10 @@
     display: flex;
 }
 
+.product-icon {
+    image-rendering: pixelated;
+}
+
 .background-smoother-image {
     background-image: url('../../assets/smoother/Smoother Background.jpg');
     padding: 7px;

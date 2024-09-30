@@ -206,7 +206,7 @@ export default function Home() {
                                         </li>
                                     ))}
                                 </ul>
-                                <img src={product.icon} alt="Claw drawing." />
+                                <img src={product.icon} className='product-icon' />
                             </div>
                             <img className="img-pc" src={product.imageUrl1} alt={`${product.name} PC`} />
                             <div className="buy choose" onClick={() => selectProduct(product.name)}>BUY</div>
