@@ -128,7 +128,7 @@
 
 .product-icon {
     image-rendering: pixelated;
-    object-fit: cover;
+    object-fit: contain;
 }
 
 .background-smoother-image {
