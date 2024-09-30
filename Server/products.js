@@ -15,10 +15,10 @@ const products = {
             "Power Supply": "CORSAIR CX550 80 Plus Bronze 550 Watt Non Modular"
         },
         imageUrl1: "./Media/smoother/smoother1.jpg",
-        imageUrl2: SmootherImage2,
-        imageUrl3: SmootherImage3,
-        imageUrl4: SmootherImage4,
-        icon: SmootherIcon
+        imageUrl2: "",
+        imageUrl3: "",
+        imageUrl4: "",
+        icon: ""
     },
     Beast: {
         id: "2",
@@ -35,11 +35,11 @@ const products = {
             "Case": "Cooler Master MasterCase H500 ARGB",
             "Power Supply": "AGV Series 650W Power Supply, 80 Plus Bronze Certified Non Modular"
         },
-        imageUrl1: BeastImage1,
-        imageUrl2: BeastImage2,
-        imageUrl3: BeastImage3,
-        imageUrl4: BeastImage4,
-        icon: BeastIcon
+        imageUrl1: "./Media/smoother/smoother1.jpg",
+        imageUrl2: "",
+        imageUrl3: "",
+        imageUrl4: "",
+        icon: ""
     },
     Terminator: {
         id: "3",
@@ -56,11 +56,11 @@ const products = {
             "Case": "Cooler Master MasterCase H500 ARGB",
             "Power Supply": "Thermaltake GF1 ATX 750W Fully Modular"
         },
-        imageUrl1: TerminatorImage1,
-        imageUrl2: TerminatorImage2,
-        imageUrl3: TerminatorImage3,
-        imageUrl4: TerminatorImage4,
-        icon: TerminatorIcon
+        imageUrl1: "./Media/smoother/smoother1.jpg",
+        imageUrl2: "",
+        imageUrl3: "",
+        imageUrl4: "",
+        icon: ""
     },
     Spaceship: {
         id: "4",
@@ -77,11 +77,11 @@ const products = {
             "Case": "CORSAIR iCUE 4000X RGB",
             "Power Supply": "CORSAIR RM850x - 850w - Fully Modular ATX Power Supply - 80 PLUS Gold - Low-Noise Fan - Zero RPM"
         },
-        imageUrl1: SpaceshipImage1,
-        imageUrl2: SpaceshipImage2,
-        imageUrl3: SpaceshipImage3,
-        imageUrl4: SpaceshipImage4,
-        icon: SpaceshipIcon
+        imageUrl1: "./Media/smoother/smoother1.jpg",
+        imageUrl2: "",
+        imageUrl3: "",
+        imageUrl4: "",
+        icon: ""
     }
 };
 
