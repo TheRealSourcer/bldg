@@ -178,16 +178,14 @@ export default function Cart() {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    items: [
-                        {
-                            id: item.id,
-                            quantity: item.quantity
-                        }
-                    ],
+                    items: cartItems.map(item => ({
+                        id: item.id,
+                        quantity: item.quantity
+                    })),
                     userUUID: '96e68dab-867a-4c3e-9b81-b16fc84e5141' // Replace with actual UUID
                 }),
             });
-
+    
             const data = await response.json();
             if (response.ok) {
                 // Redirect to Stripe Checkout
