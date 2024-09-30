@@ -180,8 +180,8 @@ export default function Cart() {
                 body: JSON.stringify({
                     items: [
                         {
-                            id: product.id,
-                            quantity: product.quantity
+                            id: item.id,
+                            quantity: item.quantity
                         }
                     ],
                     userUUID: '96e68dab-867a-4c3e-9b81-b16fc84e5141' // Replace with actual UUID
