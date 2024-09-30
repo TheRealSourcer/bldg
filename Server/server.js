@@ -548,7 +548,7 @@ app.post('/create-checkout-session', async (req, res) => {
                         },
                         unit_amount: product.price * 100, // Convert price to cents
                     },
-                    quantity: item.quantity, // Keep quantity from the frontend
+                    quantity: 1, // Keep quantity from the frontend
                 };
             }),
             mode: 'payment',
