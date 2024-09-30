@@ -541,7 +541,6 @@ app.post('/create-checkout-session', async (req, res) => {
                 }
         
                 return {
-                    quantity: item.quantity,
                     price_data: {
                         currency: 'usd',
                         product_data: {
@@ -549,14 +548,9 @@ app.post('/create-checkout-session', async (req, res) => {
                         },
                         unit_amount: product.price * 100, // Convert price to cents
                     },
+                    quantity: item.quantity, // Keep quantity from the frontend
                 };
             }),
-            automatic_tax: {
-                enabled: true,
-            },
-            shipping_address_collection: {
-                allowed_countries: ['US'],
-            },
             mode: 'payment',
             success_url: `${process.env.CLIENT_URL}/Success`,
             cancel_url: `${process.env.CLIENT_URL}/Cancel`,
