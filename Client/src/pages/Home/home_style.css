@@ -128,12 +128,13 @@
 
 .components-list {
     margin: 10px;
-    width: 100px;
 }
 
 .product-icon {
     image-rendering: pixelated;
     object-fit: contain;
+    width: 50px;
+    height: 100px;
 }
 
 .background-smoother-image {
