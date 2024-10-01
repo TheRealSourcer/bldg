@@ -133,8 +133,8 @@
 .product-icon {
     image-rendering: pixelated;
     object-fit: contain;
-    width: 50px;
-    height: 100px;
+    width: 100px;
+    height: 200px;
 }
 
 .background-smoother-image {
