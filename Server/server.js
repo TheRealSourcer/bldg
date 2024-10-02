@@ -103,15 +103,22 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, r
             await createFedExOrder(line_items.data, customerEmail);
 
             // Send an email confirmation to the customer
-            const mailOptions = {
+            const mailUser = {
                 from: process.env.EMAIL_USER,
                 to: customerEmail,
                 subject: 'Order Confirmation',
-                text: 'Thank you for your order! Your FedEx order is being processed.',
-                html: '<p>Thank you for your order! Your FedEx order is being processed.</p>'
+                text: 'Thank you for your order! Your order is being processed.',
             };
 
-            await transporter.sendMail(mailOptions);
+            const mailCompany = {
+                from: process.env.EMAIL_USER,
+                to: process.env.EMAIL_USER,
+                subject: 'Order Confirmation',
+                text: `An order for ${item} has been placed. The customer would like his order shipped to ${}, his/her email is ${customerEmail}` ,
+            };
+
+            await transporter.sendMail(mailUser);
+            await transporter.sendMail(mailCompany);
             console.log('Email sent to:', customerEmail);
         } catch (error) {
             console.error('Error creating FedEx order or sending email:', error);
