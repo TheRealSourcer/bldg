@@ -255,7 +255,7 @@ async function validateAddressFedEx(address) {
     };
 
     try {
-        const response = await axios.post('https://apis.fedex.com/addressvalidation/v1/addresses', data, {
+        const response = await axios.post('https://apis-sandbox.fedex.com/address/v1/addresses/validate', data, {
             headers: {
                 'Authorization': `Bearer ${accessToken}`,  // Ensure the access token is valid
                 'Content-Type': 'application/json',
