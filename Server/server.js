@@ -114,7 +114,7 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, r
                 from: process.env.EMAIL_USER,
                 to: process.env.EMAIL_USER,
                 subject: 'Order Confirmation',
-                text: `An order for ${item} has been placed. The customer would like his order shipped to ${}, his/her email is ${customerEmail}` ,
+                text: `An order for ${line_items} has been placed. The customer would like his order shipped to ${shippingAddress}, his/her email is ${customerEmail}` ,
             };
 
             await transporter.sendMail(mailUser);
