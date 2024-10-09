@@ -87,11 +87,14 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, r
             return res.status(400).send('No customer email found');
         }
 
-        let line_items;
+        let line_items = await stripe.checkout.sessions.listLineItems(session.id);
+        const formattedLineItems = line_items.data.map(item => {
+            return `${item.quantity} x ${item.description}`; // assuming 'description' holds the item name
+        }).join(', ');
+        
         try {
             // Retrieve line items from the checkout session if necessary
             const checkoutSession = await stripe.checkout.sessions.retrieve(session.id);
-            line_items = await stripe.checkout.sessions.listLineItems(session.id);
             console.log('Line Items:', line_items.data);
         } catch (error) {
             console.error('Error retrieving line items:', error);
@@ -114,7 +117,7 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, r
                 from: process.env.EMAIL_USER,
                 to: process.env.EMAIL_USER,
                 subject: 'Order Confirmation',
-                text: `An order for ${line_items} has been placed. The customer would like his order shipped to ${shippingAddress}, his/her email is ${customerEmail}` ,
+                text: `An order for ${formattedLineItems} has been placed. The customer would like his order shipped to ${JSON.stringify(shippingAddress)}. His/her email is ${customerEmail}.`,
             };
 
             await transporter.sendMail(mailUser);
