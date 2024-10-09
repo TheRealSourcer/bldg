@@ -74,12 +74,17 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, r
         }
 
         // Validate the shipping address using FedEx
-        const isAddressValid = await validateAddressFedEx(shippingAddress);
-        if (!isAddressValid) {
-            console.error('Invalid shipping address');
-            return res.status(400).send('Invalid shipping address');
+        try {
+            const isAddressValid = await validateAddressFedEx(shippingAddress);
+            if (!isAddressValid) {
+                console.error('Invalid shipping address');
+                return res.status(400).send('Invalid shipping address');
+            }
+        } catch (error) {
+            console.error('Error validating address with FedEx:', error.response ? error.response.data : error.message);
+            return res.status(500).send('Error validating address');
         }
-
+        
         // Retrieve the customer email from customer_details
         const customerEmail = session.customer_details?.email;
         if (!customerEmail) {
