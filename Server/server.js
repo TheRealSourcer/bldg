@@ -73,8 +73,15 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, r
             return res.status(400).send('No shipping address found');
         }
 
-        // Validate the shipping address using FedEx
         
+        
+        
+        // Retrieve the customer email from customer_details
+        const customerEmail = session.customer_details?.email;
+        if (!customerEmail) {
+            console.error('No customer email found in session');
+            return res.status(400).send('No customer email found');
+        }
 
         let line_items = await stripe.checkout.sessions.listLineItems(session.id);
         const formattedLineItems = line_items.data.map(item => {
