@@ -85,6 +85,7 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, r
             return res.status(500).send('Error validating address');
         }
         
+        
         // Retrieve the customer email from customer_details
         const customerEmail = session.customer_details?.email;
         if (!customerEmail) {
@@ -108,7 +109,6 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, r
 
         try {
             // Call your function to create a FedEx order
-            await createFedExOrder(line_items.data, customerEmail);
 
             // Send an email confirmation to the customer
             const mailUser = {
