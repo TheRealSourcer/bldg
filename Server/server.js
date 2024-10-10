@@ -246,18 +246,21 @@ async function validateAddressFedEx(address) {
     const accessToken = await getFedExAccessTokenRest(); // Ensure this function works and returns the token.
 
     const data = {
-        addressesToValidate: [
-            {
-                "address": {
-                  "streetLines": ["1600 Pennsylvania Ave NW"], // From your test data
-                  "city": "Washington",
-                  "stateOrProvinceCode": "DC",
-                  "postalCode": "20500",
-                  "countryCode": "US"
-                }
-            } 
+        "addressesToValidate": [
+        {
+        "address": {
+        "streetLines": [
+        "7372 PARKRIDGE BLVD",
+        "APT 286"
+        ],
+        "city": "IRVING",
+        "stateOrProvinceCode": "TX",
+        "postalCode": "75063-8659",
+        "countryCode": "US"
+        }
+        }
         ]
-    };
+        }
 
     try {
         const response = await axios.post('https://apis-sandbox.fedex.com/address/v1/addresses/validate', data, {
