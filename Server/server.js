@@ -73,9 +73,14 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, r
             return res.status(400).send('No shipping address found');
         }
 
+
+        validShipping = validateAddressFedEx(shippingAddress)
         
-        
-        
+        if (!validShipping) {
+            console.error('Invalid Shipping Address');
+            return res.status(400).send('Invalid Shipping Address');
+        }
+
         // Retrieve the customer email from customer_details
         const customerEmail = session.customer_details?.email;
         if (!customerEmail) {
