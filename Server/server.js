@@ -243,16 +243,13 @@ async function validateAddressFedEx(address) {
     const data = {
         "addressesToValidate": [
         {
-        "address": {
-        "streetLines": [
-        "7372 PARKRIDGE BLVD",
-        "APT 286"
-        ],
-        "city": "IRVING",
-        "stateOrProvinceCode": "TX",
-        "postalCode": "75063-8659",
-        "countryCode": "US"
-        }
+            "address": {
+                "streetLines": [shippingAddress.line1, shippingAddress.line2 || ''], // Handle line2
+                "city": shippingAddress.city,
+                "stateOrProvinceCode": shippingAddress.state, // Ensure state code is correct
+                "postalCode": shippingAddress.postal_code,    // Use postal_code
+                "countryCode": shippingAddress.country,       // Use country code
+            }
         }
         ]
         }
@@ -272,7 +269,7 @@ async function validateAddressFedEx(address) {
         if (validationResults && validationResults[0]?.resolved) {
             const classification = validationResults[0].classification;
             console.log('Address classification:', classification);
-            return res.status(200).send('Proper Shipping Address');;  // Returns true if the address is valid
+            return classification === 'VALID';  // Returns true if the address is valid
         }
 
         return false;  // If no results or not valid, return false
