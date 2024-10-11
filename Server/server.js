@@ -272,8 +272,7 @@ async function validateAddressFedEx(address) {
         if (validationResults && validationResults[0]?.resolved) {
             const classification = validationResults[0].classification;
             console.log('Address classification:', classification);
-
-            return classification === 'VALID';  // Returns true if the address is valid
+            return res.status(200).send('Proper Shipping Address');;  // Returns true if the address is valid
         }
 
         return false;  // If no results or not valid, return false
