@@ -237,7 +237,7 @@ async function getFedExAccessTokenRest() {
 
 
 
-async function validateAddressFedEx(address) {
+async function validateAddressFedEx(shippingAddress) {
     const accessToken = await getFedExAccessTokenRest(); // Ensure this function works and returns the token.
 
     const data = {
