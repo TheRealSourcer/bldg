@@ -195,7 +195,11 @@ export default function Home() {
             {Object.entries(products).map(([productKey, product]) => (
                     <div key={productKey} className={`background-${productKey.toLowerCase()}-image pc product`}>
                         <div className={`${productKey.toLowerCase()} pc-info`}>
-                            <h3 className="pc-title">{product.name.toUpperCase()}</h3>
+                            <div className='title-icon'>
+                                <h3 className="pc-title">{product.name.toUpperCase()}</h3>
+                                <div className='separator-title-icon'></div>
+                                <img src={product.icon} className='product-icon' />
+                            </div>
                             <div className='pc-icon-and-components'>
                                 <ul className='components-list'>
                                     {Object.entries(product.components).map(([key, value], index) => (
@@ -206,7 +210,6 @@ export default function Home() {
                                         </li>
                                     ))}
                                 </ul>
-                                <img src={product.icon} className='product-icon' />
                             </div>
                             <img className="img-pc" src={product.imageUrl1} alt={`${product.name} PC`} />
                             <div className="buy choose" onClick={() => selectProduct(product.name)}>BUY</div>

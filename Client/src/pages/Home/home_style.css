@@ -133,8 +133,8 @@
 .product-icon {
     image-rendering: pixelated;
     object-fit: contain;
-    width: 100px;
-    height: 200px;
+    width: 20%;
+    height: 100%;
 }
 
 .background-smoother-image {
@@ -221,6 +221,18 @@
 .show {
     top: 58%;
     filter: blur(0);
+}
+
+.title-icon {
+    display: flex;
+    flex-direction: row;
+}
+
+.separator-title-icon {
+    height: 2em;
+    width: 0.4em;
+    background-color: #000000;
+    border-radius: 1px;
 }
 
 @media (max-width: 768px) {
