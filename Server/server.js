@@ -73,12 +73,16 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, r
             return res.status(400).send('No shipping address found');
         }
 
-
-        validShipping = validateAddressFedEx(shippingAddress)
-        
-        if (!validShipping) {
-            console.error('Invalid Shipping Address');
-            return res.status(400).send('Invalid Shipping Address');
+        // Validate the shipping address using FedEx
+        try {
+            const validShipping = await validateAddressFedEx(shippingAddress);
+            if (!validShipping) {
+                console.error('Invalid Shipping Address');
+                return res.status(400).send('Invalid Shipping Address');
+            }
+        } catch (error) {
+            console.error('Error during address validation:', error.message);
+            return res.status(500).send('Address validation failed');
         }
 
         // Retrieve the customer email from customer_details
@@ -88,23 +92,19 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, r
             return res.status(400).send('No customer email found');
         }
 
-        let line_items = await stripe.checkout.sessions.listLineItems(session.id);
-        const formattedLineItems = line_items.data.map(item => {
-            return `${item.quantity} x ${item.description}`; // assuming 'description' holds the item name
-        }).join(', ');
-        
+        // Retrieve and format line items
+        let line_items;
         try {
-            // Retrieve line items from the checkout session if necessary
-            const checkoutSession = await stripe.checkout.sessions.retrieve(session.id);
-            console.log('Line Items:', line_items.data);
+            line_items = await stripe.checkout.sessions.listLineItems(session.id);
         } catch (error) {
             console.error('Error retrieving line items:', error);
             return res.status(500).send('Internal Server Error');
         }
+        const formattedLineItems = line_items.data.map(item => {
+            return `${item.quantity} x ${item.description}`; // assuming 'description' holds the item name
+        }).join(', ');
 
         try {
-            // Call your function to create a FedEx order
-
             // Send an email confirmation to the customer
             const mailUser = {
                 from: process.env.EMAIL_USER,
@@ -117,15 +117,15 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, r
                 from: process.env.EMAIL_USER,
                 to: process.env.EMAIL_USER,
                 subject: 'Order Confirmation',
-                text: `An order for ${formattedLineItems} has been placed. The customer would like his order shipped to ${JSON.stringify(shippingAddress)}. His/her email is ${customerEmail}.`,
+                text: `An order for ${formattedLineItems} has been placed. The customer would like the order shipped to ${JSON.stringify(shippingAddress)}. Their email is ${customerEmail}.`,
             };
 
             await transporter.sendMail(mailUser);
             await transporter.sendMail(mailCompany);
-            console.log('Email sent to:', customerEmail);
+            console.log('Emails sent to:', customerEmail);
         } catch (error) {
-            console.error('Error creating FedEx order or sending email:', error);
-            return res.status(500).send('Internal Server Error');
+            console.error('Error sending email:', error);
+            return res.status(500).send('Error sending email');
         }
     }
 
