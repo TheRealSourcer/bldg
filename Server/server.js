@@ -57,19 +57,43 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, r
         event = stripe.webhooks.constructEvent(req.body, sig, process.env.STRIPE_WEBHOOK_SECRET);
     } catch (err) {
         console.error('Webhook signature verification failed:', err.message);
+        await transporter.sendMail({
+            from: process.env.EMAIL_USER,
+            to: process.env.EMAIL_USER,
+            subject: 'Problem with order',
+            text: `Webhook signature verification failed: ${err.message}. Please investigate.`,
+        });
         return res.status(400).send(`Webhook Error: ${err.message}`);
     }
 
     if (event.type === 'checkout.session.completed') {
         const session = event.data.object;
-
-        // Log the session object for debugging purposes
-        console.log('Session Object:', session);
+        const customerEmail = session.customer_details?.email;
 
         // Ensure the shipping details exist under shipping_details
         const shippingAddress = session.shipping_details?.address;
+
+        // Dynamically modify the failed email content
+        let mailUserFailed = {
+            from: process.env.EMAIL_USER,
+            to: customerEmail || process.env.EMAIL_USER,  // fallback to admin if no customer email
+            subject: 'Something went wrong with your purchase',
+            text: 'Unfortunately, something went wrong with your purchase. We are currently working on fixing it.',
+        };
+
+        let mailCompanyFailed = {
+            from: process.env.EMAIL_USER,
+            to: process.env.EMAIL_USER,
+            subject: 'Problem with order',
+            text: `An issue occurred with an order. Please investigate.`,
+        };
+
         if (!shippingAddress) {
             console.error('No shipping address found in session');
+            mailUserFailed.text = 'We could not process your order because no shipping address was found. Please try again or contact support.';
+            mailCompanyFailed.text = `An order for ${session.id} failed: no shipping address was found. Customer email: ${customerEmail}`;
+            await transporter.sendMail(mailUserFailed);
+            await transporter.sendMail(mailCompanyFailed);
             return res.status(400).send('No shipping address found');
         }
 
@@ -78,17 +102,28 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, r
             const validShipping = await validateAddressFedEx(shippingAddress);
             if (!validShipping) {
                 console.error('Invalid Shipping Address');
+                mailUserFailed.text = 'We could not process your order because the shipping address provided was invalid. Please check your address and try again.';
+                mailCompanyFailed.text = `Invalid shipping address for order ${session.id}. Shipping address: ${JSON.stringify(shippingAddress)}, Customer email: ${customerEmail}`;
+                await transporter.sendMail(mailUserFailed);
+                await transporter.sendMail(mailCompanyFailed);
                 return res.status(400).send('Invalid Shipping Address');
             }
         } catch (error) {
             console.error('Error during address validation:', error.message);
+            mailUserFailed.text = 'We encountered an error while validating your shipping address. Please try again later or contact support.';
+            mailCompanyFailed.text = `Address validation error for order ${session.id}. Error: ${error.message}, Customer email: ${customerEmail}`;
+            await transporter.sendMail(mailUserFailed);
+            await transporter.sendMail(mailCompanyFailed);
             return res.status(500).send('Address validation failed');
         }
 
         // Retrieve the customer email from customer_details
-        const customerEmail = session.customer_details?.email;
         if (!customerEmail) {
             console.error('No customer email found in session');
+            mailUserFailed.text = 'We could not process your order because no email address was found. Please contact support for assistance.';
+            mailCompanyFailed.text = `No customer email found for order ${session.id}`;
+            await transporter.sendMail(mailUserFailed);
+            await transporter.sendMail(mailCompanyFailed);
             return res.status(400).send('No customer email found');
         }
 
@@ -98,8 +133,13 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, r
             line_items = await stripe.checkout.sessions.listLineItems(session.id);
         } catch (error) {
             console.error('Error retrieving line items:', error);
+            mailUserFailed.text = 'We encountered an issue while processing your order details. Please contact support.';
+            mailCompanyFailed.text = `Line item retrieval error for order ${session.id}. Error: ${error.message}, Customer email: ${customerEmail}`;
+            await transporter.sendMail(mailUserFailed);
+            await transporter.sendMail(mailCompanyFailed);
             return res.status(500).send('Internal Server Error');
         }
+
         const formattedLineItems = line_items.data.map(item => {
             return `${item.quantity} x ${item.description}`; // assuming 'description' holds the item name
         }).join(', ');
@@ -124,13 +164,18 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, r
             await transporter.sendMail(mailCompany);
             console.log('Emails sent to:', customerEmail);
         } catch (error) {
-            console.error('Error sending email:', error);
+            console.error('Error sending confirmation email:', error);
+            mailUserFailed.text = 'We encountered an issue while sending your order confirmation email. Please contact support.';
+            mailCompanyFailed.text = `Error sending order confirmation email for order ${session.id}. Error: ${error.message}, Customer email: ${customerEmail}`;
+            await transporter.sendMail(mailUserFailed);
+            await transporter.sendMail(mailCompanyFailed);
             return res.status(500).send('Error sending email');
         }
     }
 
     res.json({ received: true });
 });
+
 
 
 
