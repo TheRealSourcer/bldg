@@ -117,24 +117,13 @@
     transition: transform 0.2s,background-color 0.4s;
 }
 
-.pc-title {
-    font-size: 40px;
-    text-align: center;
-    letter-spacing: 0.1em;
-}
+
 .pc-icon-and-components {
     display: flex;
 }
 
 .components-list {
     margin: 10px;
-}
-
-.product-icon {
-    image-rendering: pixelated;
-    object-fit: contain;
-    width: 20%;
-    height: 100%;
 }
 
 .background-smoother-image {
@@ -228,11 +217,24 @@
     flex-direction: row;
 }
 
+.pc-title {
+    font-size: 20px;
+    text-align: center;
+    letter-spacing: 0.1em;
+}
+
 .separator-title-icon {
     height: 2em;
-    width: 0.4em;
+    width: 0.1em;
     background-color: #000000;
-    border-radius: 1px;
+    border-radius: 4px;
+}
+
+.product-icon {
+    image-rendering: pixelated;
+    object-fit: contain;
+    width: 20%;
+    height: 100%;
 }
 
 @media (max-width: 768px) {
