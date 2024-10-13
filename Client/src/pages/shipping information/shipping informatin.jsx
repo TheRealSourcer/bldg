@@ -6,7 +6,7 @@ export default function Cancels() {
                 <input type="email" name="" id="" placeholder="Email" className="shipping-input"/>
                 <input type="text" placeholder="Address line 1" className="shipping-input"/>
                 <input type="text" placeholder="Address line 2" className="shipping-input"/>
-                <input type="text" placeholder="ZIP Code"/>
+                <input type="text" placeholder="ZIP Code" className="shipping-input"/>
                 <input type="text" placeholder="state" className="shipping-input"/>
                 <input type="submit" value="CHECKOUT" className="shipping-input"/>
             </form>
