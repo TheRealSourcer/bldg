@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import useUserUUID from './hooks/useUserUUID';
+import { Link } from "react-router-dom";
 
 // Import your images
 import SmootherImage1 from "./assets/smoother/smoother1.jpg";
