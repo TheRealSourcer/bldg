@@ -6,6 +6,7 @@
 .main-shipping-info {
     background-color: #067f7b;
     padding: 20px;
+    display: flex;
     align-items: center;
     justify-content: center;
     height: 40vh;
