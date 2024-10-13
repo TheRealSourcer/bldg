@@ -6,7 +6,7 @@
 
 .main-shipping-info {
     background-color: #067f7b;
-    padding: 40px;
+    padding: 80px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -40,8 +40,14 @@
     padding: 30px;
     background-color: #067f7b;
     color: rgb(255, 255, 255);
+    border-radius: 10px;
+    width: 30%;
 }
 
-.shipping-submit {
+.shipping-submit:hover {
     background-color: #056966;
+}
+
+.shipping-submit:active {
+    background-color: #08b3ad;
 }
