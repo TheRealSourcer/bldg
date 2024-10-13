@@ -3,12 +3,12 @@ export default function Cancels() {
         <main className="main-shipping-info">
             <h2 className="shipping-title">Shipping</h2>
             <form action="" className="shipping-form">
-                <input type="email" name="" id="" placeholder="Email"/>
-                <input type="text" placeholder="Address line 1"/>
-                <input type="text" placeholder="Address line 2"/>
+                <input type="email" name="" id="" placeholder="Email" className="shipping-input"/>
+                <input type="text" placeholder="Address line 1" className="shipping-input"/>
+                <input type="text" placeholder="Address line 2" className="shipping-input"/>
                 <input type="text" placeholder="ZIP Code"/>
-                <input type="text" placeholder="state"/>
-                <input type="submit" value="CHECKOUT" />
+                <input type="text" placeholder="state" className="shipping-input"/>
+                <input type="submit" value="CHECKOUT" className="shipping-input"/>
             </form>
         </main>
     )

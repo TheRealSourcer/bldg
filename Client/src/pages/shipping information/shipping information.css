@@ -17,4 +17,14 @@
     background-color: rgb(255, 255, 255);
     gap: 10px;
     width: 60%;
+    padding: 20px;
+}
+
+.shipping-input {
+    border-bottom: 2px;
+    border-radius: 1px;
+}
+
+.shipping-input::placeholder {
+    color: rgb(126, 126, 126);
 }
