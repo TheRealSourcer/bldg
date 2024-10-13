@@ -227,6 +227,7 @@ export default function Cart() {
                 <p className="info">Shipping: Calculated at Checkout</p>
                 <p className="info">Tax: Calculated at Checkout</p>
                 <button className="checkout-button" disabled={cartItems.length === 0} onClick={handleCheckout}>CHECKOUT</button>
+                <Link to="/Shipping Information">Shipping Information</Link>
             </div>
         </div>
     );

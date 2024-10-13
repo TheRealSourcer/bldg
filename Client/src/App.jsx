@@ -20,6 +20,7 @@ import DreamPc from "./pages/dream PC/dream pc component.jsx";
 import Success from './pages/success/success.jsx';
 import Cancel from './pages/cancel/cancel.jsx';
 import PurchaseHistory from './pages/purchase history/purchase history.jsx';
+import ShippingInformation from './pages/shipping information/shipping informatin.jsx';
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
           <Route path="/Success" element={<Success />} />
           <Route path="/Cancel" element={<Cancel />} />
           <Route path="/Purchase History" element={<PurchaseHistory />} />
+          <Route path="/Shipping Information" element={<ShippingInformation />} />
         </Routes>
       </div>
       <Footer />
