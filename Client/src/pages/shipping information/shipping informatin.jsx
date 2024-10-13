@@ -1,7 +1,7 @@
 export default function Cancels() {
     return (
         <main className="main-shipping-info">
-            <p>Shipping</p>
+            <h2 className="shipping-title">Shipping</h2>
             <form action="" className="shipping-form">
                 <input type="email" name="" id="" placeholder="Email"/>
                 <input type="text" placeholder="Address line 1"/>
