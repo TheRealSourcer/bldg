@@ -1,6 +1,7 @@
 .shipping-title {
     color: white;
     font-size: 2em;
+    margin-bottom: 1em;
 }
 
 .main-shipping-info {
@@ -10,6 +11,7 @@
     align-items: center;
     justify-content: center;
     height: 40vh;
+    flex-direction: column;
 }
 
 .shipping-form {
@@ -32,4 +34,14 @@
 
 .shipping-input::placeholder {
     color: rgb(126, 126, 126);
+}
+
+.shipping-submit {
+    padding: 30px;
+    background-color: #067f7b;
+    color: rgb(255, 255, 255);
+}
+
+.shipping-submit {
+    background-color: #056966;
 }
