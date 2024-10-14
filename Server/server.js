@@ -584,7 +584,7 @@ app.post('/create-checkout-session', async (req, res) => {
         const { items, userUUID, address } = req.body;
         const products = require('./products.js');
         
-        console.log(req.body);
+        console.log(req.body.address);
 
         // Create a Checkout Session
         const session = await stripe.checkout.sessions.create({
