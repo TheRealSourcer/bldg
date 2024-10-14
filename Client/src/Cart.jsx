@@ -178,6 +178,8 @@ export default function Cart() {
             zip,
             state
         };
+
+        console.log(address)
     
         try {
             const response = await fetch('https://server-pc.onrender.com/create-checkout-session', {
