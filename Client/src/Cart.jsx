@@ -189,7 +189,7 @@ export default function Cart() {
                         quantity: item.quantity
                     })),
                     userUUID: '96e68dab-867a-4c3e-9b81-b16fc84e5141',  // Replace with actual UUID
-                    address
+                    address: address,
                 }),
             });
 
