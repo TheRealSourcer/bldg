@@ -608,7 +608,7 @@ app.post('/create-checkout-session', async (req, res) => {
             mode: 'payment',
             success_url: `${process.env.CLIENT_URL}/Success`,
             cancel_url: `${process.env.CLIENT_URL}/Cancel`,
-            customer_email: address.email, // Set email from address object
+            
             
             // Include shipping information from the client's address data
             shipping: {
