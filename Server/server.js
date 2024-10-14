@@ -581,7 +581,7 @@ app.post('/api/reviews/:id/vote', async (req, res) => {
 // Stripe Checkout route
 app.post('/create-checkout-session', async (req, res) => {
     try {
-        const { items, address } = req.body;
+        const { items, userUUID, address } = req.body;
         const products = require('./products.js');
         
         // Create a Checkout Session
