@@ -613,7 +613,7 @@ app.post('/create-checkout-session', async (req, res) => {
             customer_email: address.email, // Set email from address object
             
             // Include shipping information from the client's address data
-            shipping_rates: {
+            shipping: {
                 name: address.name, // Full name from address object
                 address: {
                     line1: address.addressLine1, // Address line 1
