@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import useUserUUID from './hooks/useUserUUID';
 import { Link } from "react-router-dom";
+import { useCart } from './CartContext';  // Import the Cart context
 
 // Import your images
 import SmootherImage1 from "./assets/smoother/smoother1.jpg";
@@ -119,9 +120,8 @@ const products = {
 export default function Cart() {
     const [searchParams] = useSearchParams();
     const [product, setProduct] = useState(null);
-    const [cartItems, setCartItems] = useState([]);
     const [subtotal, setSubtotal] = useState(0);
-    const userUUID = useUserUUID();  // Use the custom hook
+    const { cartItems, addToCart, updateQuantity, removeItem } = useCart();  // Destructure the cart context
 
     useEffect(() => {
         const productName = searchParams.get('product');
@@ -135,41 +135,26 @@ export default function Cart() {
     useEffect(() => {
         const handleCartButtonClick = () => {
             if (product) {
-                const existingProduct = cartItems.find(item => item.id === product.id);
-                if (existingProduct) {
-                    updateQuantity(existingProduct.id, existingProduct.quantity + 1);
-                } else {
-                    setCartItems([...cartItems, { ...product, quantity: 1 }]);
-                }
+                addToCart(product);  // Use the addToCart function from context
             }
         };
 
-        // Add event listener for the cart button
         const cartButton = document.querySelector('.cart-button');
         if (cartButton) {
             cartButton.addEventListener('click', handleCartButtonClick);
         }
 
-        // Cleanup event listener on component unmount
         return () => {
             if (cartButton) {
                 cartButton.removeEventListener('click', handleCartButtonClick);
             }
         };
-    }, [product, cartItems]);
+    }, [product, addToCart]);
 
     useEffect(() => {
         const total = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
         setSubtotal(total);
     }, [cartItems]);
-
-    const updateQuantity = (id, quantity) => {
-        setCartItems(cartItems.map(item => item.id === id ? { ...item, quantity } : item));
-    };
-
-    const removeItem = (id) => {
-        setCartItems(cartItems.filter(item => item.id !== id));
-    };
 
     const handleCheckout = async () => {
         try {
@@ -183,14 +168,13 @@ export default function Cart() {
                         id: item.id,
                         quantity: item.quantity
                     })),
-                    userUUID: '96e68dab-867a-4c3e-9b81-b16fc84e5141' // Replace with actual UUID
+                    userUUID: '96e68dab-867a-4c3e-9b81-b16fc84e5141'  // Replace with actual UUID
                 }),
             });
-    
+
             const data = await response.json();
             if (response.ok) {
-                // Redirect to Stripe Checkout
-                const stripe = window.Stripe('pk_test_51PbjzsAvZVlzPgF8Wtv9GAhGKbDJYS26DUOXtqEJ8MeM7fU5jQYuIS4G2BevkamozcYBOOYjbWCFmNqSDJGoFcGp00LaSzm6UA'); // Replace with your Stripe public key
+                const stripe = window.Stripe('pk_test_51PbjzsAvZVlzPgF8Wtv9GAhGKbDJYS26DUOXtqEJ8MeM7fU5jQYuIS4G2BevkamozcYBOOYjbWCFmNqSDJGoFcGp00LaSzm6UA');
                 stripe.redirectToCheckout({ sessionId: data.id });
             } else {
                 console.error('Error during checkout:', data.error);
@@ -227,8 +211,7 @@ export default function Cart() {
                 <p className="info">Subtotal: ${subtotal.toFixed(2)}</p>
                 <p className="info">Shipping: Calculated at Checkout</p>
                 <p className="info">Tax: Calculated at Checkout</p>
-                <button className="checkout-button" disabled={cartItems.length === 0} onClick={handleCheckout}>CHECKOUT</button>
-                <Link to="/Shipping Information">Shipping Information</Link>
+                <button className="checkout-button" onClick={handleCheckout}>Proceed to Checkout</button>
             </div>
         </div>
     );

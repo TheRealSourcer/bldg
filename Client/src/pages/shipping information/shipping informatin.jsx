@@ -1,8 +1,14 @@
 import { useEffect } from "react"
+import React from 'react';
+import { useCart } from '../../CartContext';
 
 export default function ShippingInfo() {
+    // Get cart items from CartContext
+    const { cartItems } = useCart(); // Assuming cartItems is part of the context
 
-    const handleCheckout = async () => {
+    const handleCheckout = async (e) => {
+        e.preventDefault(); // Prevent form submission from reloading the page
+
         try {
             const response = await fetch('https://server-pc.onrender.com/create-checkout-session', {
                 method: 'POST',
@@ -17,7 +23,7 @@ export default function ShippingInfo() {
                     userUUID: '96e68dab-867a-4c3e-9b81-b16fc84e5141' // Replace with actual UUID
                 }),
             });
-    
+
             const data = await response.json();
             if (response.ok) {
                 // Redirect to Stripe Checkout
@@ -34,18 +40,18 @@ export default function ShippingInfo() {
     return (
         <main className="main-shipping-info">
             <h2 className="shipping-title">Shipping address</h2>
-            <form action="" className="shipping-form">
-                <input type="email" name="" id="" placeholder="Email" className="shipping-input"/>
-                <input type="text" name="" id="" placeholder="Full name" className="shipping-input"/>
-                <input type="text" placeholder="Address line 1" className="shipping-input"/>
-                <input type="text" placeholder="Address line 2" className="shipping-input"/>
+            <form className="shipping-form" onSubmit={handleCheckout}>
+                <input type="email" placeholder="Email" className="shipping-input" required />
+                <input type="text" placeholder="Full name" className="shipping-input" required />
+                <input type="text" placeholder="Address line 1" className="shipping-input" required />
+                <input type="text" placeholder="Address line 2" className="shipping-input" />
                 <div className="city-zip-container">
-                    <input type="text" placeholder="City" className="shipping-input fifty-input"/>
-                    <input type="text" placeholder="ZIP" className="shipping-input fifty-input"/>
+                    <input type="text" placeholder="City" className="shipping-input fifty-input" required />
+                    <input type="text" placeholder="ZIP" className="shipping-input fifty-input" required />
                 </div>
-                <input type="text" placeholder="State" className="shipping-input"/>
-                <input type="submit" value="CHECKOUT" className="shipping-submit" onClick={handleCheckout}/>
+                <input type="text" placeholder="State" className="shipping-input" required />
+                <input type="submit" value="CHECKOUT" className="shipping-submit" />
             </form>
         </main>
-    )
+    );
 }
