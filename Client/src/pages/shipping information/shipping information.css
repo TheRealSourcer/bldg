@@ -42,7 +42,7 @@
     background-color: #067f7b;
     color: rgb(255, 255, 255);
     border-radius: 10px;
-    width: 30%;
+    width: 100%;
 }
 
 .shipping-submit:hover {
