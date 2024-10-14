@@ -158,6 +158,25 @@ export default function Cart() {
 
     const handleCheckout = async () => {
         try {
+            const email = document.getElementById("email").value;
+            const name = document.getElementById("namev").value;
+            const addressLine1 = document.getElementById("addressLine1").value;
+            const addressLine2 = document.getElementById("addressLine2").value;
+            const city = document.getElementById("city").value;
+            const zip = document.getElementById("zip").value;
+            const state = document.getElementById("state").value;
+            
+            const address = {
+                email: email,
+                name: name,
+                addressLine1: addressLine1,
+                addressLine2: addressLine2,
+                city: city,
+                zip: zip,
+                state: state,
+            };
+    
+            
             const response = await fetch('https://server-pc.onrender.com/create-checkout-session', {
                 method: 'POST',
                 headers: {
@@ -168,7 +187,8 @@ export default function Cart() {
                         id: item.id,
                         quantity: item.quantity
                     })),
-                    userUUID: '96e68dab-867a-4c3e-9b81-b16fc84e5141'  // Replace with actual UUID
+                    userUUID: '96e68dab-867a-4c3e-9b81-b16fc84e5141',  // Replace with actual UUID
+                    address: JSON.stringify(address),
                 }),
             });
 
