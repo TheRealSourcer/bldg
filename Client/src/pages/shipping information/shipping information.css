@@ -55,3 +55,11 @@
 .city-zip-container {
     display: flex;
 }
+
+@media (max-width: 769px) {
+    .shipping-form {
+        box-sizing: border-box;
+        width: 100%;
+        border-radius: none;
+    }
+}
