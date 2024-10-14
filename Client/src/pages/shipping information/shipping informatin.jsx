@@ -7,7 +7,7 @@ export default function Cancels() {
                 <input type="text" name="" id="" placeholder="Full name" className="shipping-input"/>
                 <input type="text" placeholder="Address line 1" className="shipping-input"/>
                 <input type="text" placeholder="Address line 2" className="shipping-input"/>
-                <div>
+                <div className="city-zip-container">
                     <input type="text" placeholder="City" className="shipping-input"/>
                     <input type="text" placeholder="ZIP" className="shipping-input"/>
                 </div>

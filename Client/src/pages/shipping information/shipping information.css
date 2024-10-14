@@ -30,6 +30,7 @@
     border: 1px solid rgb(126, 126, 126);
     border-radius: 1px;
     padding: 10px 20px;
+    min-width: 0;
 }
 
 .shipping-input::placeholder {
@@ -50,4 +51,7 @@
 
 .shipping-submit:active {
     background-color: #08b3ad;
+}
+.city-zip-container {
+    display: flex;
 }
