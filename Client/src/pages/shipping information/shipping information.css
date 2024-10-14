@@ -27,7 +27,7 @@
 }
 
 .shipping-input {
-    border-bottom: 2px solid black;
+    border: 1px solid rgb(126, 126, 126);
     border-radius: 1px;
     padding: 10px 20px;
 }
