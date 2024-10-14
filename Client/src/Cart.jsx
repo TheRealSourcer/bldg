@@ -166,7 +166,7 @@ export default function Cart() {
             const zip = document.getElementById("zip").value;
             const state = document.getElementById("state").value;
             
-            const address = {
+            let address = {
                 email: email,
                 name: name,
                 addressLine1: addressLine1,
@@ -175,7 +175,8 @@ export default function Cart() {
                 zip: zip,
                 state: state,
             };
-    
+            
+            address = JSON.stringify(address)
             
             const response = await fetch('https://server-pc.onrender.com/create-checkout-session', {
                 method: 'POST',
@@ -188,7 +189,7 @@ export default function Cart() {
                         quantity: item.quantity
                     })),
                     userUUID: '96e68dab-867a-4c3e-9b81-b16fc84e5141',  // Replace with actual UUID
-                    address,
+                    address
                 }),
             });
 
