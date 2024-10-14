@@ -56,6 +56,10 @@
     display: flex;
 }
 
+.fifty-input {
+    width: 50%;
+}
+
 @media (max-width: 769px) {
     .shipping-form {
         box-sizing: border-box;

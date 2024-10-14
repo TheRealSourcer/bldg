@@ -8,8 +8,8 @@ export default function Cancels() {
                 <input type="text" placeholder="Address line 1" className="shipping-input"/>
                 <input type="text" placeholder="Address line 2" className="shipping-input"/>
                 <div className="city-zip-container">
-                    <input type="text" placeholder="City" className="shipping-input"/>
-                    <input type="text" placeholder="ZIP" className="shipping-input"/>
+                    <input type="text" placeholder="City" className="shipping-input fifty-input"/>
+                    <input type="text" placeholder="ZIP" className="shipping-input fifty-input"/>
                 </div>
                 <input type="text" placeholder="State" className="shipping-input"/>
                 <input type="submit" value="CHECKOUT" className="shipping-submit"/>
