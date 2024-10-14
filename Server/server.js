@@ -581,7 +581,7 @@ app.post('/api/reviews/:id/vote', async (req, res) => {
 // Stripe Checkout route
 app.post('/create-checkout-session', async (req, res) => {
     try {
-        const { items, customerEmail } = req.body;
+        const { items, userUUID, address } = req.body;
         const products = require('./products.js');
         
         // Create a Checkout Session
@@ -608,7 +608,20 @@ app.post('/create-checkout-session', async (req, res) => {
             mode: 'payment',
             success_url: `${process.env.CLIENT_URL}/Success`,
             cancel_url: `${process.env.CLIENT_URL}/Cancel`,
-            customer_email: customerEmail, // Ensure this is set
+            customer_email: address.email, // Set email from address object
+            
+            // Include shipping information from the client's address data
+            shipping: {
+                name: address.name, // Full name from address object
+                address: {
+                    line1: address.addressLine1, // Address line 1
+                    line2: address.addressLine2, // Address line 2 (optional)
+                    city: address.city, // City
+                    state: address.state, // State
+                    postal_code: address.zip, // ZIP code
+                    country: 'US' // Assuming you're shipping only to the US, adjust as needed
+                },
+            },
             shipping_address_collection: {
                 allowed_countries: ['US'], // Add countries as needed
             },
@@ -621,14 +634,3 @@ app.post('/create-checkout-session', async (req, res) => {
     }
 });
 
-// Error handling middleware
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).json({ error: 'An internal error occurred' });
-});
-
-// Start the server
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
