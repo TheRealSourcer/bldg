@@ -156,39 +156,7 @@ export default function Cart() {
         setSubtotal(total);
     }, [cartItems]);
 
-    const handleCheckout = async (e) => {
-        e.preventDefault(); // Prevent form submission
-    
-        // Fetch form values
-        const email = document.getElementById("email").value;
-        const name = document.getElementById("name").value;
-        const addressLine1 = document.getElementById("addressLine1").value;
-        const addressLine2 = document.getElementById("addressLine2").value;
-        const city = document.getElementById("city").value;
-        const zip = document.getElementById("zip").value;
-        const state = document.getElementById("state").value;
-    
-        // Create address object
-        const address = {
-            email,       // Ensure values are being assigned correctly
-            name,
-            addressLine1,
-            addressLine2,
-            city,
-            zip,
-            state
-        };
-
-        console.log({
-            email,
-            name,
-            addressLine1,
-            addressLine2,
-            city,
-            zip,
-            state
-        });
-    
+    const handleCheckout = async () => {
         try {
             const response = await fetch('https://server-pc.onrender.com/create-checkout-session', {
                 method: 'POST',
@@ -200,15 +168,13 @@ export default function Cart() {
                         id: item.id,
                         quantity: item.quantity
                     })),
-                    userUUID: '96e68dab-867a-4c3e-9b81-b16fc84e5141', // Replace with actual UUID
-                    address, // Include the address in the request body
+                    userUUID: '96e68dab-867a-4c3e-9b81-b16fc84e5141'  // Replace with actual UUID
                 }),
             });
-    
+
             const data = await response.json();
             if (response.ok) {
-                // Redirect to Stripe Checkout
-                const stripe = window.Stripe('pk_test_51PbjzsAvZVlzPgF8Wtv9GAhGKbDJYS26DUOXtqEJ8MeM7fU5jQYuIS4G2BevkamozcYBOOYjbWCFmNqSDJGoFcGp00LaSzm6UA'); // Replace with your Stripe public key
+                const stripe = window.Stripe('pk_test_51PbjzsAvZVlzPgF8Wtv9GAhGKbDJYS26DUOXtqEJ8MeM7fU5jQYuIS4G2BevkamozcYBOOYjbWCFmNqSDJGoFcGp00LaSzm6UA');
                 stripe.redirectToCheckout({ sessionId: data.id });
             } else {
                 console.error('Error during checkout:', data.error);

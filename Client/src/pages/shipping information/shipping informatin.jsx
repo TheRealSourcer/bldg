@@ -7,8 +7,28 @@ export default function ShippingInfo() {
     const { cartItems } = useCart(); // Assuming cartItems is part of the context
 
     const handleCheckout = async (e) => {
-        e.preventDefault(); // Prevent form submission from reloading the page
-
+        e.preventDefault(); // Prevent form submission
+    
+        // Fetch form values
+        const email = document.getElementById("email").value;
+        const name = document.getElementById("name").value;
+        const addressLine1 = document.getElementById("addressLine1").value;
+        const addressLine2 = document.getElementById("addressLine2").value;
+        const city = document.getElementById("city").value;
+        const zip = document.getElementById("zip").value;
+        const state = document.getElementById("state").value;
+    
+        // Create address object
+        const address = {
+            email,       // Ensure values are being assigned correctly
+            name,
+            addressLine1,
+            addressLine2,
+            city,
+            zip,
+            state
+        };
+    
         try {
             const response = await fetch('https://server-pc.onrender.com/create-checkout-session', {
                 method: 'POST',
@@ -20,10 +40,11 @@ export default function ShippingInfo() {
                         id: item.id,
                         quantity: item.quantity
                     })),
-                    userUUID: '96e68dab-867a-4c3e-9b81-b16fc84e5141' // Replace with actual UUID
+                    userUUID: '96e68dab-867a-4c3e-9b81-b16fc84e5141', // Replace with actual UUID
+                    address, // Include the address in the request body
                 }),
             });
-
+    
             const data = await response.json();
             if (response.ok) {
                 // Redirect to Stripe Checkout
