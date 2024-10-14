@@ -179,7 +179,15 @@ export default function Cart() {
             state
         };
 
-        console.log(address)
+        console.log({
+            email,
+            name,
+            addressLine1,
+            addressLine2,
+            city,
+            zip,
+            state
+        });
     
         try {
             const response = await fetch('https://server-pc.onrender.com/create-checkout-session', {
