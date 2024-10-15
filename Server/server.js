@@ -622,7 +622,7 @@ app.post('/create-checkout-session', async (req, res) => {
             mode: 'payment',
             shipping_options: [
                 {
-                    shipping_rate: 'shr_1Q9yexAvZVlzPgF8vNXORx6y',
+                    shipping_rate: 'shr_1QAH2wAvZVlzPgF86sFYsKTk', // Test Mode
                 }
             ],
             success_url: `${process.env.CLIENT_URL}/Success`,
