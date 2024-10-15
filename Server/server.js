@@ -584,11 +584,23 @@ app.post('/create-checkout-session', async (req, res) => {
         const { items, userUUID, address } = req.body;
         const products = require('./products.js');
         
-        console.log(req.body.address);
+        const customer = await stripe.customers.create({
+            email: address.email,
+            name: address.name,
+            address: {
+                line1: address.addressLine1,
+                line2: address.addressLine2 || '',
+                city: address.city,
+                state: address.state,
+                postal_code: address.zip,
+                country: 'US', // Assuming US, adjust if needed
+            },
+        });
 
         // Create a Checkout Session
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
+            customer: customer.id,
             line_items: items.map(item => {
                 // Look up the product details by ID
                 const product = Object.values(products).find(p => p.id === item.id);
@@ -608,6 +620,11 @@ app.post('/create-checkout-session', async (req, res) => {
                 };
             }),
             mode: 'payment',
+            shipping_options: [
+                {
+                    shipping_rate: 'shr_1Q9yexAvZVlzPgF8vNXORx6y',
+                }
+            ],
             success_url: `${process.env.CLIENT_URL}/Success`,
             cancel_url: `${process.env.CLIENT_URL}/Cancel`,
             customer_email: address.email, // Set email from address object
