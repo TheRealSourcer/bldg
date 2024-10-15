@@ -627,19 +627,6 @@ app.post('/create-checkout-session', async (req, res) => {
             ],
             success_url: `${process.env.CLIENT_URL}/Success`,
             cancel_url: `${process.env.CLIENT_URL}/Cancel`,
-            
-            // Include shipping information from the client's address data
-            shipping: {
-                name: address.name, // Full name from address object
-                address: {
-                    line1: address.addressLine1, // Address line 1
-                    line2: address.addressLine2, // Address line 2 (optional)
-                    city: address.city, // City
-                    state: address.state, // State
-                    postal_code: address.zip, // ZIP code
-                    country: 'US' // Assuming you're shipping only to the US, adjust as needed
-                },
-            },
             shipping_address_collection: {
                 allowed_countries: ['US'], // Add countries as needed
             },
