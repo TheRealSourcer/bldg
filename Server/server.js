@@ -584,6 +584,12 @@ app.post('/create-checkout-session', async (req, res) => {
         const { items, userUUID, address } = req.body;
         const products = require('./products.js');
         
+        const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
+
+        // Flat shipping rate per item
+        const flatShippingRatePerItem = 3250; // e.g., $5 per item in cents
+        const totalShippingCost = flatShippingRatePerItem * totalItems;
+
         const customer = await stripe.customers.create({
             email: address.email,
             name: address.name,
@@ -622,7 +628,24 @@ app.post('/create-checkout-session', async (req, res) => {
             mode: 'payment',
             shipping_options: [
                 {
-                    shipping_rate: 'shr_1QAH2wAvZVlzPgF86sFYsKTk', // Test Mode
+                    shipping_rate_data: {
+                        type: 'fixed_amount',
+                        fixed_amount: {
+                            amount: totalShippingCost, // Dynamically calculate the shipping cost
+                            currency: 'usd',
+                        },
+                        display_name: `Shipping (${totalItems} items)`,
+                        delivery_estimate: {
+                            minimum: {
+                                unit: 'business_day',
+                                value: 5,
+                            },
+                            maximum: {
+                                unit: 'business_day',
+                                value: 7,
+                            },
+                        },
+                    },
                 }
             ],
             success_url: `${process.env.CLIENT_URL}/Success`,
