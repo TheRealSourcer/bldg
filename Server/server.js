@@ -653,6 +653,17 @@ app.post('/create-checkout-session', async (req, res) => {
             shipping_address_collection: {
                 allowed_countries: ['US'], // Add countries as needed
             },
+            shipping: {
+                name: address.name,
+                address: {
+                    line1: address.addressLine1,
+                    line2: address.addressLine2 || '',
+                    city: address.city,
+                    state: address.state,
+                    postal_code: address.zip,
+                    country: 'US', // Adjust country as needed
+                },
+            }
         });
 
         res.json({ id: session.id });
