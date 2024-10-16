@@ -590,7 +590,17 @@ app.post('/create-checkout-session', async (req, res) => {
         const flatShippingRatePerItem = 3250; // e.g., $5 per item in cents
         const totalShippingCost = flatShippingRatePerItem * totalItems;
 
-        const validShipping = await validateAddressFedEx(address);
+        // address without name and email:
+        cleanAddress = {
+            line1: address.addressLine1,
+            line2: address.addressLine2 || '',
+            city: address.city,
+            state: address.state,
+            postal_code: address.zip,
+            country: 'US',
+        }
+
+        const validShipping = await validateAddressFedEx(cleanAddress); 
 
         let mailUserFailed = {
             from: process.env.EMAIL_USER,
