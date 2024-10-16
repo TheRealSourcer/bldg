@@ -599,7 +599,7 @@ app.post('/create-checkout-session', async (req, res) => {
             name: address.name,
             address: {
                 line1: address.addressLine1,
-                line2: address.addressLine2 || '',
+                line2: address.addressLine2 || null,
                 city: address.city,
                 state: address.state,
                 postal_code: address.zip,
