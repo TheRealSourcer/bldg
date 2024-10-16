@@ -600,6 +600,9 @@ app.post('/create-checkout-session', async (req, res) => {
             country: 'US',
         }
 
+        console.log(cleanAddress);
+        console.log("hi")
+
         const validShipping = await validateAddressFedEx(cleanAddress); 
 
         let mailUserFailed = {
