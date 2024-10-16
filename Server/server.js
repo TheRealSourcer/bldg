@@ -594,7 +594,7 @@ app.post('/create-checkout-session', async (req, res) => {
 
         let mailUserFailed = {
             from: process.env.EMAIL_USER,
-            to: customerEmail || process.env.EMAIL_USER,  // fallback to admin if no customer email
+            to: address.email || process.env.EMAIL_USER,  // fallback to admin if no customer email
             subject: 'Something went wrong with your purchase',
             text: 'Unfortunately, something went wrong with your purchase. We are currently working on fixing it.',
         };
