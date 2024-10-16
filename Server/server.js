@@ -72,6 +72,7 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, r
 
         // Ensure the shipping details exist under shipping_details
         const shippingAddress = session.shipping_details?.address;
+        console.log(shippingAddress)
 
         // Dynamically modify the failed email content
         let mailUserFailed = {
@@ -591,21 +592,7 @@ app.post('/create-checkout-session', async (req, res) => {
         const totalShippingCost = flatShippingRatePerItem * totalItems;
 
         // address without name and email:
-        const cleanAddress = {
-            "line1": address.addressLine1,
-            "line2": address.addressLine2 || '',
-            "city": address.city,
-            "state": address.state,
-            "postal_code": address.zip,
-            "country": 'US',
-        }
-
-        const validShipping = await validateAddressFedEx(cleanAddress);
-
-        if (!validShipping) {
-            console.error('Invalid Shipping Address');
-            return res.status(400).send('Invalid Shipping Address');
-        }
+        
 
         const customer = await stripe.customers.create({
             email: address.email,
