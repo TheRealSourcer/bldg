@@ -591,42 +591,7 @@ app.post('/create-checkout-session', async (req, res) => {
         const totalShippingCost = flatShippingRatePerItem * totalItems;
 
         // address without name and email:
-        const cleanAddress = {
-            line1: address.addressLine1,
-            line2: address.addressLine2 || '',
-            city: address.city,
-            state: address.state,
-            postal_code: address.zip,
-            country: 'US',
-        }
-
-        console.log(cleanAddress);
-        console.log("hi")
-
-        const validShipping = await validateAddressFedEx(cleanAddress); 
-
-        let mailUserFailed = {
-            from: process.env.EMAIL_USER,
-            to: address.email || process.env.EMAIL_USER,  // fallback to admin if no customer email
-            subject: 'Something went wrong with your purchase',
-            text: 'Unfortunately, something went wrong with your purchase. We are currently working on fixing it.',
-        };
-
-        let mailCompanyFailed = {
-            from: process.env.EMAIL_USER,
-            to: process.env.EMAIL_USER,
-            subject: 'Problem with order',
-            text: `An issue occurred with an order. Please investigate.`,
-        };
-
-        if (!validShipping) {
-            console.error('Invalid Shipping Address');
-            mailUserFailed.text = 'We could not process your order because the shipping address provided was invalid. Please check your address and try again.';
-            mailCompanyFailed.text = `Invalid shipping address. Shipping address: ${JSON.stringify(address)}, Customer email: ${address.email}`;
-            await transporter.sendMail(mailUserFailed);
-            await transporter.sendMail(mailCompanyFailed);
-            return res.status(400).send('Invalid Shipping Address');
-        }
+        
 
         const customer = await stripe.customers.create({
             email: address.email,
