@@ -591,7 +591,7 @@ app.post('/create-checkout-session', async (req, res) => {
         const totalShippingCost = flatShippingRatePerItem * totalItems;
 
         // address without name and email:
-        cleanAddress = {
+        const cleanAddress = {
             line1: address.addressLine1,
             line2: address.addressLine2 || '',
             city: address.city,
