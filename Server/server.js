@@ -598,7 +598,8 @@ app.post('/create-checkout-session', async (req, res) => {
             "addressLine2": null,
             "city": "Cary",
             "zip": "27519",
-            "state": "NC"
+            "state": "NC",
+            "country": "US"
           }
 
         console.log(cleanAddress)
