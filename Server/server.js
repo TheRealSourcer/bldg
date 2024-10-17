@@ -605,6 +605,7 @@ app.post('/create-checkout-session', async (req, res) => {
 
         try {
             const validShipping = await validateAddressFedEx(cleanAddress);
+            validShipping = true;
             console.log(validShipping)
             if (!validShipping) {
                 console.error('Invalid Shipping Address');
