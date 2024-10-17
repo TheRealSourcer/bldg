@@ -592,7 +592,7 @@ app.post('/create-checkout-session', async (req, res) => {
         const totalShippingCost = flatShippingRatePerItem * totalItems;
 
         // address without name and email:
-        cleanAddress = {
+        const cleanAddress = {
             line1: address.addressLine1,
             line2: address.addressLine2 || '',
             city: address.city,
@@ -601,11 +601,19 @@ app.post('/create-checkout-session', async (req, res) => {
             country: 'US',
         }
 
-        const validShipping = await validateAddressFedEx(cleanAddress);
+        
 
-        if (!validShipping) {
-            console.error('Invalid Shipping Address');
-            return res.status(400).send('Invalid Shipping Address');
+        try {
+            const validShipping = await validateAddressFedEx(cleanAddress);
+            console.log(validShipping)
+            if (!validShipping) {
+                console.error('Invalid Shipping Address');
+
+                return res.status(400).send('Invalid Shipping Address');
+            }
+        } catch (error) {
+            console.error('Error during address validation:', error.message);
+            return res.status(500).send('Address validation failed');
         }
 
         const customer = await stripe.customers.create({
