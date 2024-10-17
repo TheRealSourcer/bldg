@@ -606,14 +606,14 @@ app.post('/create-checkout-session', async (req, res) => {
 
         try {
             let validShipping = await validateAddressFedEx(cleanAddress);
-            console.log(validShipping)
-            if (!validShipping) {
-                console.error('Invalid Shipping Address');
-
+            console.log("FedEx API Response: ", validShipping);
+            
+            if (!validShipping || validShipping.error) {  // Check for both 'invalid' and error responses
+                console.error('Invalid Shipping Address', validShipping.error || validShipping);
                 return res.status(400).send('Invalid Shipping Address');
             }
         } catch (error) {
-            console.error('Error during address validation:', error.message);
+            console.error('Error during address validation:', error.message, error.response ? error.response.data : '');
             return res.status(500).send('Address validation failed');
         }
 
