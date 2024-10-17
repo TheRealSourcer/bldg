@@ -594,13 +594,12 @@ app.post('/create-checkout-session', async (req, res) => {
 
         // address without name and email:
         const cleanAddress = {
-            "line1": address.addressLine1,
-            "line2": address.addressLine2 || null,
-            "city": address.city,
-            "state": address.state,
-            "postal_code": address.zip,
-            "country": 'US',
-        }
+            "addressLine1": "729 McRae Road",
+            "addressLine2": null,
+            "city": "Cary",
+            "zip": "27519",
+            "state": "NC"
+          }
 
         console.log(cleanAddress)
         
