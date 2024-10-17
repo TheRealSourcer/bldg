@@ -290,7 +290,7 @@ async function validateAddressFedEx(shippingAddress) {
         "addressesToValidate": [
         {
             "address": {
-                "streetLines": [shippingAddress.line1, shippingAddress.line2 || ''], // Handle line2
+                "streetLines": [shippingAddress.line1, shippingAddress.line2 || null], // Handle line2
                 "city": shippingAddress.city,
                 "stateOrProvinceCode": shippingAddress.state, // Ensure state code is correct
                 "postalCode": shippingAddress.postal_code,    // Use postal_code
@@ -583,6 +583,7 @@ app.post('/api/reviews/:id/vote', async (req, res) => {
 app.post('/create-checkout-session', async (req, res) => {
     try {
         const { items, userUUID, address } = req.body;
+        console.log(req.body);
         const products = require('./products.js');
         
         const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
