@@ -595,7 +595,7 @@ app.post('/create-checkout-session', async (req, res) => {
         // address without name and email:
         const cleanAddress = {
             "addressLine1": "729 McRae Road",
-            "addressLine2": null,
+            "addressLine2": "",
             "city": "Cary",
             "zip": "27519",
             "state": "NC",
