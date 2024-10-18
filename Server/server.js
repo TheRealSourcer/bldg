@@ -291,8 +291,8 @@ async function validateAddressFedEx(shippingAddress) {
             {
                 "address": {
                     "streetLines": [
-                    "7372 PARKRIDGE BLVD",
-                    "APT 286"
+                        "7372 PARKRIDGE BLVD",
+                        "APT 286"
                     ],
                     "city": "IRVING",
                     "stateOrProvinceCode": "TX",
@@ -301,39 +301,43 @@ async function validateAddressFedEx(shippingAddress) {
                 }
             }
         ]
-        }
+    };
 
     try {
         const response = await axios.post('https://apis-sandbox.fedex.com/address/v1/addresses/resolve', data, {
             headers: {
-                'Authorization': `Bearer ${accessToken}`,  // Ensure the access token is valid
+                'Authorization': `Bearer ${accessToken}`,
                 'Content-Type': 'application/json',
             }
         });
 
         // Check if the response contains validation results
-        const validationResults = response
-        console.log(validationResults)
+        const validationResults = response.data;  // Correctly access the data property
+        console.log('FedEx API Response:', validationResults);
 
-        // Check the validation status
-        if (validationResults && validationResults[0]?.resolved) {
-            const classification = validationResults[0].classification;
-            console.log('Address classification:', classification);
-            return classification === 'VALID';  // Returns true if the address is valid
-        } 
+        // Check if the validationResults contains address results
+        if (validationResults && validationResults.output && validationResults.output.resolvedAddresses) {
+            const resolvedAddress = validationResults.output.resolvedAddresses[0];  // Access first address
+            console.log('Resolved Address:', resolvedAddress);
 
-        if (!validationResults) {
+            if (resolvedAddress && resolvedAddress.resolved) {
+                const classification = resolvedAddress.classification;
+                console.log('Address classification:', classification);
+                return classification === 'VALID';  // Return true if the address is valid
+            } else {
+                console.log('Address validation failed: The address could not be resolved.');
+            }
+        } else {
             console.log('No validation results were returned.');
-        } else if (!validationResults[0]?.resolved) {
-            console.log('Address validation failed: The address could not be resolved.');
         }
 
         return false;  // Return false if no results or the address is invalid
     } catch (error) {
-        console.error('Error validating address with FedEx:', JSON.stringify(error.response?.data, null, 2) || error.message);
+        console.error('Error validating address with FedEx:', error.response?.data || error.message);
         return false;
     }
 }
+
 
 
 
