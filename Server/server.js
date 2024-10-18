@@ -311,32 +311,44 @@ async function validateAddressFedEx(shippingAddress) {
             }
         });
 
-        // Check if the response contains validation results
-        const validationResults = response.data;  // Correctly access the data property
+        // Extract the validation results
+        const validationResults = response.data;
         console.log('FedEx API Response:', validationResults);
 
-        // Check if the validationResults contains address results
+        // Check if there are resolved addresses
         if (validationResults && validationResults.output && validationResults.output.resolvedAddresses) {
-            const resolvedAddress = validationResults.output.resolvedAddresses[0];  // Access first address
+            const resolvedAddress = validationResults.output.resolvedAddresses[0];
             console.log('Resolved Address:', resolvedAddress);
 
-            if (resolvedAddress && resolvedAddress.resolved) {
-                const classification = resolvedAddress.classification;
-                console.log('Address classification:', classification);
-                return classification === 'VALID';  // Return true if the address is valid
+            // Check the key fields that indicate the validity of the address
+            const isResolved = resolvedAddress.attributes?.Resolved === 'true';
+            const isMatched = resolvedAddress.attributes?.Matched === 'true';
+            const isValidDPV = resolvedAddress.attributes?.DPV === 'true';
+            const addressClassification = resolvedAddress.classification;
+            
+            // Log the important attributes
+            console.log(`Address Resolved: ${isResolved}`);
+            console.log(`Address Matched: ${isMatched}`);
+            console.log(`DPV Valid: ${isValidDPV}`);
+            console.log(`Classification: ${addressClassification}`);
+
+            // Determine if the address is valid based on various criteria
+            if (isResolved && isMatched && isValidDPV) {
+                return true;  // The address is considered valid
             } else {
-                console.log('Address validation failed: The address could not be resolved.');
+                console.log('Address validation failed: The address could not be fully validated.');
+                return false;  // The address is invalid based on the API response
             }
         } else {
-            console.log('No validation results were returned.');
+            console.log('No resolved addresses were returned.');
+            return false;
         }
-
-        return false;  // Return false if no results or the address is invalid
     } catch (error) {
         console.error('Error validating address with FedEx:', error.response?.data || error.message);
         return false;
     }
 }
+
 
 
 
