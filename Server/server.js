@@ -312,7 +312,7 @@ async function validateAddressFedEx(shippingAddress) {
         });
 
         // Check if the response contains validation results
-        const validationResults = response.data.output?.addressResults;
+        const validationResults = response
         console.log(validationResults)
 
         // Check the validation status
