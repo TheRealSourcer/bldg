@@ -288,15 +288,18 @@ async function validateAddressFedEx(shippingAddress) {
 
     const data = {
         "addressesToValidate": [
-        {
-            "address": {
-                "streetLines": [shippingAddress.line1, shippingAddress.line2 || null], // Handle line2
-                "city": shippingAddress.city,
-                "stateOrProvinceCode": shippingAddress.state, // Ensure state code is correct
-                "postalCode": shippingAddress.postal_code,    // Use postal_code
-                "countryCode": shippingAddress.country,       // Use country code
+            {
+                "address": {
+                    "streetLines": [
+                    "7372 PARKRIDGE BLVD",
+                    "APT 286"
+                    ],
+                    "city": "IRVING",
+                    "stateOrProvinceCode": "TX",
+                    "postalCode": "75063-8659",
+                    "countryCode": "US"
+                }
             }
-        }
         ]
         }
 
