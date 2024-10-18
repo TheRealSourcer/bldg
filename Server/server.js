@@ -323,7 +323,7 @@ async function validateAddressFedEx(shippingAddress) {
 
         return false;  // If no results or not valid, return false
     } catch (error) {
-        console.error('Error validating address with FedEx:', error.response?.data || error.message);
+        console.error('Error validating address with FedEx:', JSON.stringify(error.response?.data, null, 2) || error.message);
         return false;
     }
 }
