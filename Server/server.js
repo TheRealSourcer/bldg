@@ -659,7 +659,7 @@ app.post('/create-checkout-session', async (req, res) => {
 
         // Create a Checkout Session
         const session = await stripe.checkout.sessions.create({
-            payment_method_types: ['card', 'wallet'],
+            payment_method_types: ['card'],
             customer: customer.id,
             line_items: items.map(item => {
                 // Look up the product details by ID
