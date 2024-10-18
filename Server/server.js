@@ -313,15 +313,22 @@ async function validateAddressFedEx(shippingAddress) {
 
         // Check if the response contains validation results
         const validationResults = response.data.output?.addressResults;
+        console.log(validationResults)
 
         // Check the validation status
         if (validationResults && validationResults[0]?.resolved) {
             const classification = validationResults[0].classification;
             console.log('Address classification:', classification);
             return classification === 'VALID';  // Returns true if the address is valid
+        } 
+
+        if (!validationResults) {
+            console.log('No validation results were returned.');
+        } else if (!validationResults[0]?.resolved) {
+            console.log('Address validation failed: The address could not be resolved.');
         }
 
-        return false;  // If no results or not valid, return false
+        return false;  // Return false if no results or the address is invalid
     } catch (error) {
         console.error('Error validating address with FedEx:', JSON.stringify(error.response?.data, null, 2) || error.message);
         return false;
