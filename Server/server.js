@@ -300,12 +300,12 @@ async function validateAddressFedEx(shippingAddress) {
             {
                 "address": {
                     "streetLines": [
-                        "7372 PARKRIDGE BLVD",
-                        "APT 286"
+                        shippingAddress.line1,
+                        shippingAddress.line2
                     ],
-                    "city": "IRVING",
-                    "stateOrProvinceCode": "TX",
-                    "postalCode": "75063-8659",
+                    "city": shippingAddress.city,
+                    "stateOrProvinceCode": shippingAddress.state,
+                    "postalCode": postal_code,
                     "countryCode": "US"
                 }
             }
@@ -629,11 +629,11 @@ app.post('/create-checkout-session', async (req, res) => {
 
         // address without name and email:
         const cleanAddress = {
-            "addressLine1": "729 McRae Road",
-            "addressLine2": null,
-            "city": "Cary",
-            "zip": "27519-0117",
-            "state": "NC",
+            "addressLine1": address.addressLine1,
+            "addressLine2": address.addressLine2 || null,
+            "city": address.city,
+            "postal_code": address.zip,
+            "state": address.state,
             "country": "US"
           }
 
