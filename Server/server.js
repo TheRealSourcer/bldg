@@ -639,6 +639,21 @@ app.post('/create-checkout-session', async (req, res) => {
 
         console.log(cleanAddress)
         
+        const mailUser = {
+            from: process.env.EMAIL_USER,
+            to: address.email,
+            subject: 'There has been an error with your purchase.',
+            text: 'There has been an error, we are currently working on fixing it.',
+        };
+
+        const mailCompany = {
+            from: process.env.EMAIL_USER,
+            to: process.env.EMAIL_USER,
+            subject: 'There has been an error with a purchase.',
+            text: `There has been an error. An order for ${items} has been placed. The customer would like the order shipped to ${JSON.stringify(cleanAddress)}. Their email is ${address.email}.`,
+        };
+
+        
 
         try {
             let validShipping = await validateAddressFedEx(cleanAddress);
@@ -646,10 +661,20 @@ app.post('/create-checkout-session', async (req, res) => {
             
             if (!validShipping || validShipping.error) {  // Check for both 'invalid' and error responses
                 console.error('Invalid Shipping Address', validShipping.error || validShipping);
+                mailCompany.text = `The shipping address was not valid. They order for ${items}. Address: ${JSON.stringify(cleanAddress)}. Their email is ${address.email}.`;
+                mailUser.text = "The shipping address was not valid";
+
+                await transporter.sendMail(mailUser);
+                await transporter.sendMail(mailCompany);
                 return res.status(400).send('Invalid Shipping Address');
             }
         } catch (error) {
             console.error('Error during address validation:', error.message, error.response ? error.response.data : '');
+            mailCompany.text = `Unexpected error on our end. They order for ${items}. Address: ${JSON.stringify(cleanAddress)}. Their email is ${address.email}.`;
+            mailUser.text = "Unexpected error on our end.";
+
+            await transporter.sendMail(mailUser);
+            await transporter.sendMail(mailCompany);
             return res.status(500).send('Address validation failed');
         }
 
@@ -721,6 +746,11 @@ app.post('/create-checkout-session', async (req, res) => {
         res.json({ id: session.id });
     } catch (error) {
         console.error('Error creating Checkout Session:', error);
+        mailCompany.text = `Unexpected error creating checkout session. They order for ${items}. Address: ${JSON.stringify(cleanAddress)}. Their email is ${address.email}.`;
+        mailUser.text = "Unexpected error creating checkout session";
+
+        await transporter.sendMail(mailUser);
+        await transporter.sendMail(mailCompany);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
