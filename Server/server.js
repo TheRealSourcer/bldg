@@ -202,15 +202,15 @@ app.use(session({
 
 // CORS configuration
 const allowedOrigins = [
-    process.env.CLIENT_URL,
-    'https://checkout.stripe.com',
-    // Add a development URL if needed
+    'https://client-pc.onrender.com',  // Your client's URL
+    'https://checkout.stripe.com',     // Stripe Checkout
+    process.env.CLIENT_URL,            // Flexible client URL from environment variable
+    // Add any additional frontend URLs if needed (e.g., localhost for development)
     process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : null,
-    // Add any additional frontend URLs (e.g., staging, QA environments)
-].filter(Boolean);
+].filter(Boolean);  // This removes any null values from the array
 
 app.use(cors({
-    origin: function(origin, callback) {
+    origin: function (origin, callback) {
         // Allow requests with no origin (like mobile apps or curl requests)
         if (!origin) return callback(null, true);
         if (allowedOrigins.indexOf(origin) === -1) {
