@@ -305,7 +305,7 @@ async function validateAddressFedEx(shippingAddress) {
                     ],
                     "city": shippingAddress.city,
                     "stateOrProvinceCode": shippingAddress.state,
-                    "postalCode": postal_code,
+                    "postalCode": shippingAddress.postal_code,
                     "countryCode": "US"
                 }
             }
