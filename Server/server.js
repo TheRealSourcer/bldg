@@ -300,8 +300,8 @@ async function validateAddressFedEx(shippingAddress) {
             {
                 "address": {
                     "streetLines": [
-                        shippingAddress.line1,
-                        shippingAddress.line2
+                        shippingAddress.addressLine1,
+                        shippingAddress.addressLine1
                     ],
                     "city": shippingAddress.city,
                     "stateOrProvinceCode": shippingAddress.state,
