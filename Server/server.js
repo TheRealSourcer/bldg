@@ -657,25 +657,12 @@ app.post('/create-checkout-session', async (req, res) => {
 
         try {
             let validShipping = await validateAddressFedEx(cleanAddress);
-            console.log("FedEx API Response: ", validShipping);
-            
-            if (!validShipping || validShipping.error) {  // Check for both 'invalid' and error responses
-                console.error('Invalid Shipping Address', validShipping.error || validShipping);
-                mailCompany.text = `The shipping address was not valid. They order for ${items}. Address: ${JSON.stringify(cleanAddress)}. Their email is ${address.email}.`;
-                mailUser.text = "The shipping address was not valid";
-
-                await transporter.sendMail(mailUser);
-                await transporter.sendMail(mailCompany);
-                return res.status(400).send('Invalid Shipping Address');
+            if (!validShipping) {
+                return res.status(400).json({ error: 'Invalid Shipping Address', details: 'The provided address could not be validated. Please check and try again.' });
             }
         } catch (error) {
-            console.error('Error during address validation:', error.message, error.response ? error.response.data : '');
-            mailCompany.text = `Unexpected error on our end. They order for ${items}. Address: ${JSON.stringify(cleanAddress)}. Their email is ${address.email}.`;
-            mailUser.text = "Unexpected error on our end.";
-
-            await transporter.sendMail(mailUser);
-            await transporter.sendMail(mailCompany);
-            return res.status(500).send('Address validation failed');
+            console.error('Error during address validation:', error.message);
+            return res.status(500).json({ error: 'Address validation failed', details: 'An error occurred while validating the address. Please try again later.' });
         }
 
         const customer = await stripe.customers.create({
