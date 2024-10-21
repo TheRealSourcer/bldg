@@ -397,6 +397,8 @@ main {
 
 .checkout-button {
     display: block;
+    text-decoration: none;
+    color: white;
     border: none;
     padding: 20px;
     width: 100%;
