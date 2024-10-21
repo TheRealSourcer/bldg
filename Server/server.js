@@ -223,7 +223,7 @@ app.use(cors({
 }));
 
 // FedEx API configuration
-const FEDEX_API_URL = 'https://apis.fedex.com/oauth/token';
+const FEDEX_API_URL = 'https://apis.fedex.com';
 const FEDEX_CLIENT_ID = process.env.FEDEX_CLIENT_ID;
 const FEDEX_CLIENT_SECRET = process.env.FEDEX_CLIENT_SECRET;
 
