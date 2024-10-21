@@ -399,6 +399,7 @@ main {
     display: block;
     text-decoration: none;
     color: white;
+    box-sizing: border-box;
     border: none;
     padding: 20px;
     width: 100%;
