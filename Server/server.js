@@ -321,7 +321,7 @@ async function validateAddressFedEx(shippingAddress) {
         });
 
         // Extract the validation results
-        const validationResults = response.data;
+        const validationResults = response.data.output[0];
         console.log('FedEx API Response:', validationResults);
 
         // Check if there are resolved addresses
