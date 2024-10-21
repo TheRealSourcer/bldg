@@ -312,6 +312,9 @@ async function validateAddressFedEx(shippingAddress) {
         ]
     };
 
+    // Log the address data being sent to FedEx
+    console.log('Address sent to FedEx:', data.addressesToValidate[0].address);
+
     try {
         const response = await axios.post('https://apis-sandbox.fedex.com/address/v1/addresses/resolve', data, {
             headers: {
@@ -323,13 +326,12 @@ async function validateAddressFedEx(shippingAddress) {
 
         // Extract the validation results
         const validationResults = response.data;
-        console.log('FedEx API Response:', data.addressesToValidate[0].address);
+        console.log('FedEx API Response:', validationResults);
 
         // Check if there are resolved addresses
         if (validationResults && validationResults.output && validationResults.output.resolvedAddresses) {
             const resolvedAddress = validationResults.output.resolvedAddresses[0];
             console.log('Resolved Address:', resolvedAddress);
-            console.log(data)
 
             // Check the key fields that indicate the validity of the address
             const isResolved = resolvedAddress.attributes?.Resolved === 'true';
@@ -359,6 +361,7 @@ async function validateAddressFedEx(shippingAddress) {
         return false;
     }
 }
+
 
 
 
