@@ -317,6 +317,7 @@ async function validateAddressFedEx(shippingAddress) {
             headers: {
                 'Authorization': `Bearer ${accessToken}`,
                 'Content-Type': 'application/json',
+                'X-Locale': 'en_US',
             }
         });
 
