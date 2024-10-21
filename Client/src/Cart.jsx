@@ -211,7 +211,7 @@ export default function Cart() {
                 <p className="info">Subtotal: ${subtotal.toFixed(2)}</p>
                 <p className="info">Shipping: Calculated at Checkout</p>
                 <p className="info">Tax: Calculated at Checkout</p>
-                <Link to="/Shipping Information checkout-button">Shipping Information</Link>
+                <Link to="/Shipping Information" className='checkout-button'>Shipping Information</Link>
             </div>
         </div>
     );
