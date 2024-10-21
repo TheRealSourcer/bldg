@@ -326,7 +326,7 @@ async function validateAddressFedEx(shippingAddress) {
 
         // Check if there are resolved addresses
         if (validationResults && validationResults.output && validationResults.output.resolvedAddresses) {
-            const resolvedAddress = validationResults.output.resolvedAddresses[0];
+            const resolvedAddress = validationResults.output;
             console.log('Resolved Address:', resolvedAddress);
 
             // Check the key fields that indicate the validity of the address
