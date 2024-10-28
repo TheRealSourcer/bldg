@@ -2,6 +2,8 @@ import { useEffect } from "react"
 import React from 'react';
 import { useCart } from '../../CartContext';
 
+import { stripePromise } from './stripe';
+
 export default function ShippingInfo() {
     // Get cart items from CartContext
     const { cartItems } = useCart(); // Assuming cartItems is part of the context
@@ -48,7 +50,7 @@ export default function ShippingInfo() {
             const data = await response.json();
             if (response.ok) {
                 // Redirect to Stripe Checkout
-                const stripe = window.Stripe('pk_live_51PbjzsAvZVlzPgF8w5mk6HH9NGomWzU4PcVyO65nDlxH6QmWJdL2mJChhZNpaAwal1Uv4O3KxJFVgIlHDVCtBHfX00abfqQIA3'); // Replace with your Stripe public key
+                const stripe = await stripePromise; // Replace with your Stripe public key
                 stripe.redirectToCheckout({ sessionId: data.id });
             } else {
                 console.error('Error during checkout:', data.error);
