@@ -1,5 +1,13 @@
 {
   "dependencies": {
     "@stripe/stripe-js": "^4.9.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "cssnano": "^7.0.6",
+    "postcss": "^8.4.47",
+    "postcss-import": "^16.1.0",
+    "postcss-nested": "^6.2.0",
+    "postcss-preset-env": "^10.0.8"
   }
 }

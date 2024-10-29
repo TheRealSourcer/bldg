@@ -29,6 +29,14 @@ function App() {
   useEffect(() => {
     preloadStripe();
   }, []);
+  useEffect(() => {
+    // Initial ping when app loads
+    fetch('/api/ping');
+
+    // Set up periodic pings
+    const intervalId = setInterval(() => {
+      fetch('/api/ping');
+    }, 4 * 60 * 1000)}); // Ping every 4 minutes
   return (
     <>
       <Cursor />
