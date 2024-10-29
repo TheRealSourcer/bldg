@@ -22,7 +22,13 @@ import Cancel from './pages/cancel/cancel.jsx';
 import PurchaseHistory from './pages/purchase history/purchase history.jsx';
 import ShippingInformation from './pages/shipping information/shipping informatin.jsx';
 
+import { preloadStripe } from './pages/shipping information/stripe.js';
+import { useEffect } from 'react';
+
 function App() {
+  useEffect(() => {
+    preloadStripe();
+  }, []);
   return (
     <>
       <Cursor />
