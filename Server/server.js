@@ -48,6 +48,10 @@ app.use('/Media', express.static(path.join(__dirname, 'Media')));
 // Enhanced security headers
 app.use(helmet());
 
+app.use((req, res, next) => {
+    res.set('Connection', 'keep-alive');
+    next();
+});
 
 app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, res) => {
     const sig = req.headers['stripe-signature'];
@@ -178,7 +182,20 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, r
 });
 
 
+let stripeInstance = null;
 
+const getStripe = async () => {
+  if (!stripeInstance) {
+    stripeInstance = require('stripe')(process.env.STRIPE_SECRET_KEY);
+    // Make a lightweight call to "warm up" the connection
+    await stripeInstance.paymentMethods.list({ limit: 1 });
+  }
+  return stripeInstance;
+};
+
+app.get('/api/ping', (req, res) => {
+    res.json({ status: 'alive' });
+});
 
 
 // Body parsing middleware
