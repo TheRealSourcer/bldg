@@ -1,20 +1,12 @@
-module.exports = {
+import cssnano from "cssnano"
+import postcssPresetEnv from "postcss-preset-env"
+
+
+export default {
     plugins: [
-      require('postcss-import'),
-      require('postcss-nested'),
-      require('postcss-preset-env')({
-        stage: 1,
-        features: {
-          'nesting-rules': true
-        }
+      cssnano({
+        preset:"default",
       }),
-      require('autoprefixer'),
-      require('cssnano')({
-        preset: ['default', {
-          discardComments: {
-            removeAll: true,
-          },
-        }]
-      })
+      postcssPresetEnv({stage: 1})
     ]
 }
