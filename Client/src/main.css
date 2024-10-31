@@ -1,4 +1,6 @@
-/*zoom effect on image background-size: auto 107%;*/
+@custom-media --medium-viewport (width <= 1408px);
+@custom-media --small-viewport (width <= 768px)
+
 /*General*/
 @keyframes rotation { 
     0% { --gradient-angle: 0deg;} 
@@ -638,7 +640,7 @@ main {
 
  
 /*Smaller size adaptation*/
-@media (max-width: 1409px) {
+@media (--medium-viewport) {
     /*Footer*/
     .flex-footer-container {
         justify-content: center;
@@ -646,7 +648,7 @@ main {
 }
 
 /* Even smaller size adaptation*/
-@media (max-width: 769px) {
+@media (--small-viewport) {
     /*General*/
     #root {
         min-height: auto;
