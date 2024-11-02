@@ -5,24 +5,25 @@ import Navbar from "./NavBar.jsx";
 import Menu from './Menu.jsx';
 import Cart from "./Cart.jsx";
 import Footer from "./Footer.jsx";
-import AboutUs from "./pages/about us/about us.jsx";
-import Home from "./pages/Home/Home.jsx";
-import Support from "./pages/Support/support component.jsx";
-import TrackOrder from "./pages/Track order/track order component.jsx";
-import WhyTheBldg from "./pages/why the bldg/why the bldg.jsx";
-import PrivacyPolicy from "./pages/privacy policy/privacy policy.jsx";
-import RefundPolicy from "./pages/refund policy/refund policy.jsx";
-import ShippingPolicy from "./pages/shipping policy/shipping policy.jsx";
+
+import AboutUs from "./pages/about/about.jsx";
+import Home from "./pages/home/home.jsx";
+import Support from "./pages/support/support.jsx";
+import TrackOrder from "./pages/track_order/track_order.jsx";
+import WhyTheBldg from "./pages/why_bldg/why_bldg.jsx";
+import PrivacyPolicy from "./pages/privacy_policy/privacy_policy.jsx";
+import RefundPolicy from "./pages/refund_policy/refund_policy.jsx";
+import ShippingPolicy from "./pages/shipping_policy/shipping_policy.jsx";
 import Reviews from "./pages/reviews/reviews.jsx";
-import TermsAndConditions from "./pages/terms and conditions/terms and conditions.jsx";
-import BldgUpgrader from "./pages/bldg upgrader/bldg upgrader.jsx";
-import DreamPc from "./pages/dream PC/dream pc component.jsx";
+import TermsAndConditions from "./pages/terms_and_conditions/terms_and_conditions.jsx";
+import BldgUpgrader from "./pages/upgrader/upgrader.jsx";
+import DreamPc from "./pages/personalized_build/personalized_build.jsx";
 import Success from './pages/success/success.jsx';
 import Cancel from './pages/cancel/cancel.jsx';
-import PurchaseHistory from './pages/purchase history/purchase history.jsx';
-import ShippingInformation from './pages/shipping information/shipping informatin.jsx';
+import PurchaseHistory from './pages/purchase_history/purchase_history.jsx';
+import ShippingInformation from './pages/shipping_form/shipping_form.jsx';
 
-import { preloadStripe } from './pages/shipping information/stripe.js';
+import { preloadStripe } from './pages/shipping_form/stripe.js';
 import { useEffect } from 'react';
 
 function App() {

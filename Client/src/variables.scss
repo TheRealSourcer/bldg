@@ -1,0 +1,56 @@
+// _sizes.scss
+
+// Breakpoints
+@custom-media --medium-viewport (max-width: 1408px);
+@custom-media --small-viewport (max-width: 768px);
+
+// Base spacing unit (you can adjust this to change the scale)
+$spacing-unit: 0.25rem;
+
+// Individual size variables
+$size-0: 0;
+$size-05: $spacing-unit/2;
+$size-1: $spacing-unit;        // 0.25em
+$size-2: $spacing-unit * 2;    // 0.5em
+$size-3: $spacing-unit * 3;    // 0.75em
+$size-4: $spacing-unit * 4;    // 1em
+$size-5: $spacing-unit * 5;    // 1.25em
+$size-6: $spacing-unit * 6;    // 1.5em
+$size-8: $spacing-unit * 8;    // 2em
+$size-10: $spacing-unit * 10;  // 2.5em
+$size-12: $spacing-unit * 12;  // 3em
+$size-14: $spacing-unit * 14;  // 3.5em
+$size-16: $spacing-unit * 16;  // 4em
+$size-20: $spacing-unit * 20;  // 5em
+$size-24: $spacing-unit * 24;  // 6em
+$size-28: $spacing-unit * 28;  // 7em
+$size-32: $spacing-unit * 32;  // 8em
+$size-36: $spacing-unit * 36;  // 9em
+$size-40: $spacing-unit * 40;  // 10em
+$size-44: $spacing-unit * 44;  // 11em
+$size-48: $spacing-unit * 48;  // 12em
+$size-52: $spacing-unit * 52;  // 13em
+$size-56: $spacing-unit * 56;  // 14em
+$size-60: $spacing-unit * 60;  // 15em
+$size-64: $spacing-unit * 64;  // 16em
+$size-72: $spacing-unit * 72;  // 18em
+$size-80: $spacing-unit * 80;  // 20em
+$size-96: $spacing-unit * 96;  // 24em
+
+
+// Special sizes as individual variables
+$size-full: 100%;
+$size-screen: 100vh;
+$size-min: min-content;
+$size-max: max-content;
+$size-fit: fit-content;
+
+
+// Colors:
+$darkGamerRed: #e45d69;
+$gamerRed: #eb858e;
+$lighGamerRed: #f1aeb4;
+
+$darkGamerPurple: #8226d1;
+$gamerPurple: #a258e1;
+$lightGamerPurple:#c190eb;

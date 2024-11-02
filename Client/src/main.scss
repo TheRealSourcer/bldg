@@ -1,5 +1,16 @@
-@custom-media --medium-viewport (width <= 1408px);
-@custom-media --small-viewport (width <= 768px)
+@use "sass:math";
+
+@import "variables";
+
+@import "./pages/shipping_form/shipping_form.scss";
+@import "./pages/reviews/reviews.scss";
+@import "./pages/home/home.scss";
+@import "./pages/personalized_build/personalized_build.scss";
+@import "./pages/about/about.scss";
+@import "./pages/support/support.scss";
+@import "./pages/why_bldg/why_bldg.scss";
+
+
 
 /*General*/
 @keyframes rotation { 
@@ -18,7 +29,7 @@
 ::placeholder {
     color: rgb(255, 255, 255);
     opacity: 1; /* Firefox */
-    font-size: 14px;
+    font-size: $size-4;
 }
 
 input[type='number']::-webkit-inner-spin-button, 
@@ -35,10 +46,9 @@ html, body {
     font-style:italic;
     --sb-track-color: #232E33;
     --sb-thumb-color: #6b9caf;
-    --sb-size: 14px;
+    --sb-size: $size-4;
     display: flex;
     flex-direction: column;
-    cursor: none;
     overflow-x: hidden;
     overflow-y: auto;
     scroll-behavior: smooth;
@@ -54,7 +64,7 @@ body::-webkit-scrollbar-track {
   
 body::-webkit-scrollbar-thumb {
     background: var(--sb-thumb-color);
-    border-radius: 3px;
+    border-radius: $size-1;
 }
   
 @supports not selector(::-webkit-scrollbar) {
@@ -67,9 +77,8 @@ body {
     margin: 0;
     padding: 0;
     -webkit-user-drag: none;
-    cursor: none;
     -webkit-font-smoothing: antialiased;
-    -webkit-text-size-adjust: 100%;
+    -webkit-text-size-adjust: $size-full;
     border: none;
 }
 
@@ -84,43 +93,17 @@ main {
     margin: 0;
 }
 
-.cursor-dot, .cursor-outline {
-    position: fixed;
-    top: 0;
-    left: 0;
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
-    pointer-events: none;
-}
-
-.cursor-dot {
-    width: 10px;
-    height: 10px;
-    background-color: #fff;
-    border: #232E33;
-    z-index: 170;
-    background-color: #f97dfd;
-}
-
-.cursor-outline {
-    width: 30px;
-    height: 30px;
-    z-index: 160;
-    border: 2px solid rgb(243, 113, 255);
-}
-
-
 /*NavBar*/
 .navigation {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: rgb(20, 20, 20);
-    min-height: 100px;
+    background-color: rgb(0, 0, 0);
+    min-height: $size-24;
 }
 
 .nav-left, .nav-right {
-    width: 50px; /* Adjust as needed */
+    width: $size-12; /* Adjust as needed */
     display: flex;
     align-items: center;
 }
@@ -136,25 +119,24 @@ main {
     display: inline-block;
     color: rgb(255, 255, 255);
     text-decoration: none;
-    margin: 0 20px;
-    height: 30px;
-    width: 100px;
+    margin: 0 $size-5;
+    height: $size-8;
+    width: $size-28;
     text-align: center;  
-    line-height: 30px;
+    line-height: $size-8;
 }
 
-.border-nav-btn:after { content: ''; display: block; margin: auto; height: 3px; margin-top: 2px; width: 0px; border-radius: 2px; background: transparent; transition: width .5s ease, background-color .5s ease; }
-.border-nav-btn:hover:after { width: 100%; background: rgb(213, 58, 252); }
+.border-nav-btn:after { content: ''; display: block; margin: auto; height: 3px; margin-top: $size-05; width: 0; border-radius: $size-05; background: transparent; transition: width .5s ease, background-color .5s ease; }
+.border-nav-btn:hover:after { width: 100%; background: $gamerPurple; }
 
 
 .dream-pc {
     font-style: normal;
     position: relative;
-    background: linear-gradient(to bottom right, rgb(252, 148, 165), rgb(252, 181, 148), rgb(252, 207, 148), rgb(252, 228, 148));
-    border-radius: 4px;
+    border-radius: $size-1;
     border: none;
-    padding: 10px;
-    color: #232E33;
+    padding: $size-2;
+    color: #000000;
 }
 
 .dream-pc::before,
@@ -163,7 +145,7 @@ main {
     content: "Home";
     position: absolute;
     inset: 0;
-    background: conic-gradient(from var(--gradient-angle), rgb(255, 137, 137), rgb(255, 191, 139), rgb(255, 233, 133), rgb(255, 191, 139), rgb(255, 137, 137));
+    background: conic-gradient(from var(--gradient-angle), $gamerRed, $gamerPurple, $gamerRed);
     border-radius: inherit;
     animation: rotation 10s linear infinite;
     justify-content: center;
@@ -177,10 +159,8 @@ main {
     height: auto;
 }
 
-.dream-pc:hover::after{
-    filter: blur(1px);
-    width: auto;
-    height: auto;
+.dream-pc:hover::before{
+    filter: blur($size-05);
 }
 
 
@@ -189,29 +169,30 @@ main {
 }
 
 .logo {
-    height: 70px;
-    width: 55px;
+    content: resolve("./assets/logo.png");
+    width: calc(width("./assets/logo.png") / 6);
+    height: calc(height("./assets/logo.png") / 6);
 }
 
 .bars {
     display: none;
     color: #ffffff;
-    font-size: 18px;
+    font-size: $size-5;
     transition: all 0.3s ease;
 }
 
 .bars:hover {
-    color: #d138ff;
+    color: $gamerRed;
 }
 
 .cart-icon {
     color: #fff;
-    font-size: 18px;
+    font-size: $size-5;
     transition: all 0.3s ease;
 }
 
 .cart-icon:hover {
-    color: #d138ff;
+    color: $gamerPurple;
 }
 
 
@@ -222,15 +203,14 @@ main {
     flex-direction: column;
     color: #fff;
     background-color: rgb(20, 20, 20);
-    box-shadow: -10px 0px 100px rgb(0, 0, 0);
-    width: 70%;
-    padding: 20px; 
+    width: $size-full;
+    padding: $size-5; 
     position: fixed;
     left: 0;
-    top: 80px;
+    top: $size-24;
     bottom: 0;
     z-index: 150;
-    transform: translateX(-110%); /* Initially hide the menu */
+    transform: translateX(-150%); /* Initially hide the menu */
     transition: transform 0.3s ease; /* Smooth transition for transform */
     
 }
@@ -252,27 +232,32 @@ main {
 .menu-title {
     width: min-content;
     font-style: normal;
-    font-size: 50px;
-    margin-bottom: 16px;
+    font-size: $size-12;
+    margin-bottom: $size-4;
 }
 
-.close-menu-icon{
+.close-menu-icon {
     color: #fff;
-    font-size: 24px;
+    font-size: $size-6;
+    transition: color 0.2s;
+}
+
+.close-menu-icon:active {
+    color: $gamerPurple;
 }
 
 .nav-menu {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: $size-3;
     font-style: normal;
 }
 
 .menu-nav-button {
-    color: white;
+    color: rgb(255, 255, 255);
     text-decoration: none;
-    font-size: 20px;
-    margin-left: 5px;
+    font-size: $size-5;
+    margin-left: $size-2;
 }
 
 /*Cart*/
@@ -280,13 +265,12 @@ main {
     display: flex; /* Ensure the cart is a flex container */
     flex-direction: column;
     color: #fff;
-    background-color: rgb(20, 20, 20);
-    box-shadow: -10px 0px 100px rgb(0, 0, 0);
-    width: 500px;
-    padding: 20px; 
+    background-color: rgb(0, 0, 0);
+    width: $size-96;
+    padding: $size-5; 
     position: fixed;
     right: 0;
-    top: 80px;
+    top: $size-24;
     bottom: 0;
     z-index: 150;
     transform: translateX(110%); /* Initially hide the cart */
@@ -309,15 +293,15 @@ main {
 .cart-item-image {
     box-sizing: border-box;
     width: 15%;
-    height: 50px;
+    height: $size-14;
     object-fit: cover;
-    border-radius: 3px;
+    border-radius: $size-1;
 }
 
 
 
 .products {
-    margin-bottom: 20px;
+    margin-bottom: $size-5;
     height: 70%;
     overflow-x: hidden;
 }
@@ -329,41 +313,42 @@ main {
     font-family: arial;
     font-weight: 600;
     font-style: normal;
-    font-size: 12px;
+    font-size: $size-3;
     flex-direction: row;
-    border: 1px solid #ddd;
-    padding: 10px;
-    width: 100%;
+    border-radius: $size-3;
+    padding: $size-3;
+    width: $size-full;
     height: fit-content;
-    margin-top: 20px;
+    margin-top: $size-5;
+    background-color: #2f2f31;
 }
 
 .subtract-from-cart {
     box-sizing: border-box;
     width: 15%;
-    background-color: #c95757;
+    background-color: $darkGamerRed;
     border: none;
     color: white;
-    padding: 10px 20px;
+    padding: $size-2 $size-4;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
+    font-size: $size-4;
+    margin: $size-1 $size-05;
     cursor: pointer;
     transition: background-color ease 0.3s;
-    border-radius: 5px;
+    border-radius: $size-1;
 }
 
 .subtract-from-cart:hover {
-    background-color: #a04545;
+    background-color: $gamerRed;
 }
 
 
 #quantity {
     box-sizing: border-box;
     width: 15%;
-    padding: 20px;
+    padding: $size-5;
     border-radius: 3px;
     text-align: center;
 }
@@ -427,7 +412,7 @@ main {
 
 /*Footer*/
 .footer {
-    background: url(assets/footer-background.svg);
+    background: resolve("./assets/footer-background.svg");
     background-size: cover;
     background-repeat: no-repeat;
     color: #fff;
@@ -482,7 +467,7 @@ main {
 }
 
 .submit-advice {
-    background-color: rgb(100, 165, 151);
+    background-color: $gamerPurple;
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -655,11 +640,6 @@ main {
     }
 
     ::-webkit-scrollbar { display: none; }
-
-    .cursor {
-        display: none;
-    }
-    
 
     /*Navbar*/
     .navigation {
