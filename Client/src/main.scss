@@ -63,7 +63,7 @@ body::-webkit-scrollbar-track {
   
 body::-webkit-scrollbar-thumb {
     background: $gamerPurple;
-    border-radius: 50%;
+    border-radius: 4px;
 }
   
 @supports not selector(::-webkit-scrollbar) {
