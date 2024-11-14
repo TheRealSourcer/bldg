@@ -412,7 +412,7 @@ main {
 
 /*Footer*/
 .footer {
-    background: resolve("./assets/footer-background.svg");
+    background: url("./assets/footer-background.svg");
     background-size: cover;
     background-repeat: no-repeat;
     color: #fff;
