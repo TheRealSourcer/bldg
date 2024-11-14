@@ -46,7 +46,6 @@ html, body {
     font-style:italic;
     --sb-track-color: #232E33;
     --sb-thumb-color: #6b9caf;
-    --sb-size: $size-4;
     display: flex;
     flex-direction: column;
     overflow-x: hidden;
@@ -55,21 +54,20 @@ html, body {
 }
 
 body::-webkit-scrollbar {
-    width: var(--sb-size);
+    width: $size-2;
 }
   
 body::-webkit-scrollbar-track {
-    background: var(--sb-track-color);
+    background:rgb(0, 0, 0);
 }
   
 body::-webkit-scrollbar-thumb {
-    background: var(--sb-thumb-color);
-    border-radius: $size-1;
+    background: $gamerPurple;
 }
   
 @supports not selector(::-webkit-scrollbar) {
 body {
-    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+    scrollbar-color: $gamerPurple rgb(0, 0, 0);
 }
 }
 
@@ -385,7 +383,7 @@ main {
 .checkout-button {
     display: block;
     text-decoration: none;
-    color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
     box-sizing: border-box;
     border: none;
     padding: 20px;
