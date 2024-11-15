@@ -325,7 +325,7 @@ main {
 .subtract-from-cart {
     box-sizing: border-box;
     width: 15%;
-    background-color: $darkGamerRed;
+    background-color: $gamerRed;
     border: none;
     color: white;
     padding: $size-2 $size-4;
@@ -340,7 +340,7 @@ main {
 }
 
 .subtract-from-cart:hover {
-    background-color: $gamerRed;
+    background-color: $darkGamerRed;
 }
 
 
@@ -353,7 +353,7 @@ main {
 }
 
 .add-to-cart {
-    background-color: #57c95b;
+    background-color: $gamerPurple;
     border: none;
     color: white;
     padding: 10px 20px;
@@ -370,7 +370,7 @@ main {
 
 
 .add-to-cart:hover {
-    background-color: #3c8b3f;
+    background-color: $darkGamerPurple;
 }
 
 .buying-info {
