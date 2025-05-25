@@ -1,5 +1,5 @@
 import Stripe from 'stripe';
-import products from "../products.json";
+import products from "../products.json" with { type: "json" };
 import { transporter } from "../config/emailTransporterConfig.js";
 
 const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY;
