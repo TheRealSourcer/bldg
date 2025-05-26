@@ -8,7 +8,7 @@
     padding: 50px;
     box-sizing: border-box;
     min-height: 80vh;
-    background-color: rgb(32, 32, 32);
+    background-color: rgb(0, 0, 0);
     color: #fff;
     text-shadow: rgb(50, 50, 50) 0 0 2px;
     gap: 20px;
@@ -25,21 +25,22 @@
     background-repeat: no-repeat;
 }
 
-.performance { background-image: resolve("assets/about-us/about-us-background-3.svg"); }
-.thank-you { background-image: resolve("assets/about-us/about-us-background-4.svg"); }
+.performance {
+    display: flex;
+    flex-direction: column;
+}
 
 .title-text {
-    
     width: auto;
     height: fit-content;
-    z-index: 1; /* Ensure text is above the background */
+    z-index: 1;
 }
 
 .title {
     display: inline;
     display: block;
     height: 58px;
-    font-size: 50px;
+    font-size: 24px;
     width: auto;
     height: fit-content;
 }
@@ -48,7 +49,7 @@
     font-family: 'Poppins';
     display: block;
     width: auto;
-    max-width: 400px;
+    max-width: 600px;
     line-height: 1.8;
     height: fit-content;
 }
@@ -63,24 +64,107 @@
 
 .about-hero {
     color: #fff;
-    background-image: resolve("assets/plans_and_design_to_build_the_perfect_pc_drawn_to_a_piece_of_paper_on_a_single_dark_wood_desk_planning_how_to_make_them_better_in_a_90_degree_angle.jpeg");
+    background-image: resolve("assets/about-us/hero_back.jpg");
     background-size: cover;
     background-position: center;
-    min-height: 50vh;
+    min-height: 75vh;
     background-attachment: fixed;
     font-family: Arial, Helvetica, sans-serif;
     display: flex;
     flex-direction: column;
     justify-content: center;
     font-style: normal;
+    text-align: cetner;
 }
 
 .hero-title {
-    font-size: 48px;
+    font-size: 24px;
+    letter-spacing: 0.2em;
+    font-weight: 600;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+    color: $lightGamerRed;
+    font-family: Russo One;
+    font-style: italic;
+    text-align: center;
 }
 
 .hero-message {
+    font-size: 80px;
+    font-family: Russo One, sans-serif;
+    font-weight: 600;
+    padding: 0;
+    font-size: 6.75em;
+    text-shadow: 0 2px 10px rgb(0 0 0 / 75%);
+    font-weight: 600;
+    line-height: 5.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    text-align: center;
+}
 
+.performance-pictures {
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+    mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
+    -webkit-mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
+}
+
+.performance-pictures::before,
+.performance-pictures::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 100px;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.performance-pictures::before {
+    left: 0;
+    background: linear-gradient(90deg, rgba(255,255,255,1), rgba(255,255,255,0));
+}
+
+.performance-pictures::after {
+    right: 0;
+    background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,1));
+}
+
+.performance-pictures-track {
+    display: flex;
+    animation: scroll-rtl 30s linear infinite;
+    gap: 2rem;
+    padding: 1rem 0;
+}
+
+.performance-pictures img {
+    max-height: 200px;
+    width: auto;
+    flex-shrink: 0;
+    filter: grayscale(100%) opacity(0.7);
+    transition: filter 0.3s ease;
+}
+
+.performance-pictures img:hover {
+    filter: grayscale(0%) opacity(1);
+    transform: scale(1.05);
+}
+
+@keyframes scroll-rtl {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* Pause animation on hover */
+.performance-pictures:hover .performance-pictures-track {
+    animation-play-state: paused;
 }
 
 @media (max-width: 768px) {
@@ -123,4 +207,12 @@
         border-radius: 10px;
         
     }
+}
+
+.performance-title {
+    text-align: center;
+}
+
+.performance-text {
+    text-align: center;
 }

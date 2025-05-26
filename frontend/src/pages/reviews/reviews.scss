@@ -37,8 +37,8 @@
   justify-content: center;
   height: 100px;
   width: 150px;
-  border-radius: 10px;
-  background-color: aquamarine;
+  border-radius: 0.25rem;
+  background-color: $gamerPurple;
   color: rgb(255, 255, 255);
   cursor: pointer;
   transition: transform 0.3s ease;
@@ -134,15 +134,15 @@ gap: 20px;
 
 .star {
 font-size: 20px;
-transition: color 0.3s ease;
+color: #ccc;
 }
 
 .star.activated {
-color: rgb(255, 240, 103);
+color: $gamerPurple;
 }
 
 .star.current-hover {
-color: rgb(255, 249, 193);
+color: $darkGamerPurple;
 }
 
 /* Responsive design */
@@ -222,21 +222,41 @@ margin-bottom: 24px;
 margin-bottom: 12px;
 }
 
+.product-select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: transparent;
+  border: 1px solid #aaa;
+  padding: 10px;
+  color: #aaa;
+  font-size: 16px;
+  border-radius: 4px;
+  margin-bottom: 1em;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='32' viewBox='0 0 24 24' width='32' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+  background-repeat: no-repeat;
+  background-position-x: 100%;
+  background-position-y: 5px;
+  
+}
+
 .rating-box {
-margin-bottom: 16px;
+  margin-bottom: 16px;
 }
 
 .add-review {
 height: 50px;
-width: 50px;
-background-color: rgb(105, 219, 181);
+width: 100px;
+background-color: $gamerPurple;
 color: #ffffff;
-border-radius: 6px;
-transition: all 1s ease;
+border-radius: 0.25rem;
+transition: all 0.2s ease;
 display: inline-block;
 flex-shrink: 0;
 }
 
+.add-review:hover {
+  background-color: $darkGamerPurple;
+}
 
 .new-review-container {
 box-sizing: border-box;
@@ -290,8 +310,8 @@ margin-top: 12px;
 }
 
 .submit-review:hover {
-background-color: rgb(85, 199, 161);
-border: 1px solid rgb(85, 199, 161);
+background-color: $gamerPurple;
+border: 1px solid $gamerPurple;
 }
 
 .reviews-header {

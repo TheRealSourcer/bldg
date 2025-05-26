@@ -240,7 +240,7 @@ export default function DreamPc() {
         <h3 className='components-list-title'>Components:</h3>
         <ul className='components-list'>
             {Object.entries(product.components).map(([key, value], index) => (
-                <li key={index}>
+                <li key={index} className='component'>
                     <h5 className='component-type'>{key}</h5>:
                     <br />
                     <p className='component-name'>{value}</p>

@@ -118,10 +118,12 @@
 
 .prev {
     margin-right: 10px;
+    cursor: pointer;
 }
 
 .next {
     margin-left: 10px;
+    cursor: pointer;
 }
 
 .carousel-container {
@@ -181,6 +183,10 @@
 
 .components-list-title {
     font-style: normal;
+}
+
+.component {
+    margin-bottom: 6px;
 }
 
 .component-type {

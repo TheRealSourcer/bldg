@@ -107,7 +107,7 @@ export default function Reviews() {
                 </fieldset>
 
                 <button className='add-review' onClick={() => setShowNewReviewForm(!showNewReviewForm)}>
-                    {showNewReviewForm ? '-' : '+'}
+                    {showNewReviewForm ? 'Hide Review' : 'Create Review'}
                 </button>
             </section>
 
@@ -127,6 +127,7 @@ export default function Reviews() {
                 <select 
                     value={newReview.product} 
                     onChange={(e) => setNewReview(prev => ({ ...prev, product: e.target.value }))}
+                    className='product-select'
                 >
                     <option value="">Select a product</option>
                     <option value="Smoother">Smoother</option>

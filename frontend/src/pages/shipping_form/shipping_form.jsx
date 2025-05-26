@@ -64,15 +64,15 @@ export default function ShippingInfo() {
         <main className="main-shipping-info">
             <h2 className="shipping-title">Shipping address</h2>
             <form className="shipping-form" onSubmit={handleCheckout}>
-                <input type="email" placeholder="Email" className="shipping-input" required id="email" autocomplete="email"/>
-                <input type="text" placeholder="Full name" className="shipping-input" required id="name" autocomplete="name"/>
-                <input type="text" placeholder="Address line 1" className="shipping-input" required id="addressLine1" autocomplete="address-line1"/>
-                <input type="text" placeholder="Address line 2" className="shipping-input" id="addressLine2" autocomplete="address-line2"/>
+                <input type="email" placeholder="Email" className="shipping-input" required id="email" autoComplete="email"/>
+                <input type="text" placeholder="Full name" className="shipping-input" required id="name" autoComplete="name"/>
+                <input type="text" placeholder="Address line 1" className="shipping-input" required id="addressLine1" autoComplete="address-line1"/>
+                <input type="text" placeholder="Address line 2" className="shipping-input" id="addressLine2" autoComplete="address-line2"/>
                 <div className="city-zip-container">
-                    <input type="text" placeholder="City" className="shipping-input fifty-input" required id="city" autocomplete="address-level2"/>
-                    <input type="text" placeholder="ZIP" className="shipping-input fifty-input" required id="zip" autocomplete="postal-code"/>
+                    <input type="text" placeholder="City" className="shipping-input fifty-input" required id="city" autoComplete="address-level2"/>
+                    <input type="text" placeholder="ZIP" className="shipping-input fifty-input" required id="zip" autoComplete="postal-code"/>
                 </div>
-                <input type="text" placeholder="State" className="shipping-input" required id="state" autocomplete="address-level1"/>
+                <input type="text" placeholder="State" className="shipping-input" required id="state" autoComplete="address-level1"/>
                 <input type="submit" value="CHECKOUT" className="shipping-submit" />
             </form>
         </main>

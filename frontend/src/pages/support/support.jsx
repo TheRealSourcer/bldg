@@ -181,31 +181,32 @@ export default function Support() {
                     </form>
                 </div>
                 <div className="products-to-search">
-    {filteredProducts.map((product) => (
-        <div key={product.id} className="product-card">
+                {filteredProducts.map((product) => (
+                    <div key={product.id} className="product-card">
 
-            <div className="support-product-image" style={{ backgroundImage: `url(${product.imageUrl1})` }}></div>
+                        <div className="support-product-image" style={{ backgroundImage: `url(${product.imageUrl1})` }}></div>
 
-            <div className="product-details">
-                <h3>{product.name}</h3>
-                <div className="links">
-                    <a href="mailto:bldgtechnolgics@gmail.com" target="_blank" rel="noopener noreferrer">
-                        Contact Us
-                    </a>
-                    <a href="https://www.rednightconsulting.com/11-common-computer-issues-fix/" target="_blank" rel="noopener noreferrer">
-                       Common Solutions
-                    </a>
+                        <div className="product-details">
+                            <h3>{product.name}</h3>
+                            <div className="links">
+                                <a href="mailto:bldgtechnolgics@gmail.com" target="_blank" rel="noopener noreferrer">
+                                    Contact Us
+                                </a>
+                                <a href="https://www.rednightconsulting.com/11-common-computer-issues-fix/" target="_blank" rel="noopener noreferrer">
+                                Common Solutions
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                ))}
                 </div>
-            </div>
-
-        </div>
-    ))}
-</div>
-
             </section>
 
+            <hr style={{backgroundColor: "#888", width: "80%", height: "2px", margin: "6em auto 0 auto"}}/>
+
             <section className="tracking-section" id="tracking-section">
-                <h1 className="tracking-title">Order Tracking</h1>
+                <h1 className="tracking-title">Can't wait? Track your order.</h1>
                 <form id="orderForm" onSubmit={handleSubmit}>
                     <input type="text" id="orderNumber" placeholder="Enter tracking number" required />
                     <button type="submit" className="order-button"><i className="fa-solid fa-truck-fast"></i></button>
@@ -222,10 +223,12 @@ export default function Support() {
                 </div>
             </section>
 
+            <hr style={{backgroundColor: "#888", width: "80%", height: "2px", margin: "6em auto 0 auto"}}/>
+
             <section className="contact-section">
                 <h2 className="contact-section-title">Any questions?</h2>
 
-                <p className="contact-section-text">Feel free to email us at <a href="mailto:bldgtechnolgics@gmail.com" target="_blank" className="contact-section-text-link">bldgtechnolgics@gmail.com</a> or contact us by <a href="tel:+19195203105" target="_blank" className="contact-section-text-link">phone</a></p>
+                <p className="contact-section-text">Feel free to email us at&nbsp;<a href="mailto:bldgtechnolgics@gmail.com" target="_blank" className="contact-section-text-link"> bldgtechnolgics@gmail.com </a> &nbsp;or contact us by<a href="tel:+19195203105" target="_blank" className="contact-section-text-link">&nbsp;phone.</a></p>
 
                 <div className="icon-container" id="icon-support-container">
                     <a href="https://www.facebook.com/profile.php?id=61560511531799" className="facebookAccount account fa-brands fa-facebook-f fa-xl account-link" target="_blank" rel="noopener noreferrer"></a>
@@ -249,8 +252,18 @@ export default function Support() {
                     <i className="fa-solid fa-comment info-card-icons"></i>
 
                     <div className="info-card-body">
-                        <h3 className="info-card-title">Comments & Reviews</h3>
-                        <p className="info-card-text">Get a reply from us by commenting on our social media, or by leaving a review in our site</p>
+                        <h3 className="info-card-title">Comments</h3>
+                        <p className="info-card-text">Less formal reccomendations? Get a reply from us by reaching us through social media.</p>
+                    </div>
+                    <a className="info-card-button" href="/Reviews">Comments</a>
+                </div>
+
+                <div className="info-card info-card-comments-and-reviews">
+                    <i className="fa-solid fa-comment info-card-icons"></i>
+
+                    <div className="info-card-body">
+                        <h3 className="info-card-title">Reviews</h3>
+                        <p className="info-card-text">Get the answers you are looking for by leaving a review in our site</p>
                     </div>
                     <a className="info-card-button" href="/Reviews">Comments & Reviews</a>
                 </div>
@@ -260,7 +273,7 @@ export default function Support() {
 
                     <div className="info-card-body">
                         <h3 className="info-card-title">Phone</h3>
-                        <p className="info-card-text">If you would like to call a computer technician that can help you diagnose a problem or if you would like installation for you product, consider calling. (we only offer installation within some areas of NC)</p>
+                        <p className="info-card-text">If you would like to call a computer technician that can help you diagnose a problem or simply some help, consider calling.</p>
                     </div>
                     <a href="tel:+19193494727" target="_blank" className="info-card-button">Phone</a>
                 </div>
