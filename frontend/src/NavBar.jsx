@@ -64,7 +64,7 @@ export default function NavBar() {
                 <Link to="/" className="dream-pc navBtn">Home</Link>
                 <a href="" className="navBtn border-nav-btn" onClick={handleBestSellersClick}>Best Sellers</a>
                 <Link to="/" className="logo-container">
-                    <img src={LogoImage} alt="Logo" className="logo" />
+                    <img src={LogoImage} alt="Logo" className="logo"/>
                 </Link>
                 <Link to="/Support" className="navBtn border-nav-btn">Support</Link>
                 <Link to="/About Us" className="navBtn border-nav-btn">About Us</Link>

@@ -171,9 +171,8 @@ main {
 }
 
 .logo {
-    content: resolve("../public/Logo.png");
-    width: calc(width("../public/Logo.png") / 6);
-    height: calc(height("../public/Logo.png") / 6);
+    width: 60px;
+    height: 77px;
 }
 
 .bars {
