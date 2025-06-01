@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Link, useNavigate } from "react-router-dom";
-import LogoImage from './assets/Logo.png';
+import LogoImage from '/Logo.png';
 
 export default function Footer() {
     const navigate = useNavigate();

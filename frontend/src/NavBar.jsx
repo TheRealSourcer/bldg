@@ -1,8 +1,7 @@
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { useEffect, useState } from 'react';
 import { useCart } from './CartContext';
 import React from "react";
-import LogoImage from './assets/Logo.png';
+import LogoImage from '/Logo.png';
 
 export default function NavBar() {
     const { cartItemCount, setCartItemCount } = useCart();
