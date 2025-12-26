@@ -1,5 +1,5 @@
 .main-dream-pc {
-    font-family: 'Arial Black', sans-serif;
+    font-family: "Arial Black", sans-serif;
     display: flex;
     min-width: 100vw;
     flex-direction: row;
@@ -33,7 +33,7 @@
 }
 
 .features {
-    min-width: 300px;
+    max-width: 85vw !important;
 }
 
 .cart-button {
@@ -44,8 +44,9 @@
     border-radius: 5px;
     cursor: pointer;
     margin-top: 30px;
-    width: 100px;
+    width: 100%;
     transition: background-color 0.3s ease;
+    padding: 10px;
 }
 
 .cart-button:hover {
@@ -156,7 +157,10 @@
     width: 20px;
 }
 
-.carousel-container, .carousel, .carousel-inner, .carousel-item {
+.carousel-container,
+.carousel,
+.carousel-inner,
+.carousel-item {
     cursor: auto;
 }
 
@@ -168,9 +172,9 @@
     cursor: grabbing;
 }
 
-.components-list {
+#build-components-list {
     list-style: none;
-    margin-top: 10px;
+    margin: 0px;
 }
 
 .component-disclaimer {
@@ -215,6 +219,7 @@
 
     .features {
         padding-top: 0;
+        margin-bottom: 100px;
     }
 
     .carousel-container {

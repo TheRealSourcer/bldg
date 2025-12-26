@@ -8,16 +8,16 @@
 @import "./pages/personalized_build/personalized_build.scss";
 @import "./pages/about/about.scss";
 @import "./pages/support/support.scss";
-@import "./pages/why_bldg/why_bldg.scss";
-
-
 
 /*General*/
-@keyframes rotation { 
-    0% { --gradient-angle: 0deg;} 
-    100% { --gradient-angle: 360deg;}
+@keyframes rotation {
+    0% {
+        --gradient-angle: 0deg;
     }
-    
+    100% {
+        --gradient-angle: 360deg;
+    }
+}
 
 @property --gradient-angle {
     syntax: "<angle>";
@@ -25,26 +25,26 @@
     inherits: false;
 }
 
-
 ::placeholder {
     color: rgb(255, 255, 255);
     opacity: 1; /* Firefox */
     font-size: $size-4;
 }
 
-input[type='number']::-webkit-inner-spin-button, 
-input[type='number']::-webkit-outer-spin-button { 
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
-html, body {
+html,
+body {
     padding: 0;
     margin: 0;
     user-select: none;
     font-family: "Russo One", sans-serif;
     font-weight: 100;
-    font-style:italic;
-    --sb-track-color: #232E33;
+    font-style: italic;
+    --sb-track-color: #232e33;
     --sb-thumb-color: #6b9caf;
     display: flex;
     flex-direction: column;
@@ -57,20 +57,20 @@ html, body {
 body::-webkit-scrollbar {
     width: $size-2;
 }
-  
+
 body::-webkit-scrollbar-track {
-    background:rgb(0, 0, 0);
+    background: rgb(0, 0, 0);
 }
-  
+
 body::-webkit-scrollbar-thumb {
     background: $gamerPurple;
     border-radius: 4px;
 }
-  
+
 @supports not selector(::-webkit-scrollbar) {
-body {
-    scrollbar-color: $gamerPurple rgb(0, 0, 0);
-}
+    body {
+        scrollbar-color: $gamerPurple rgb(0, 0, 0);
+    }
 }
 
 * {
@@ -102,7 +102,8 @@ main {
     min-height: $size-24;
 }
 
-.nav-left, .nav-right {
+.nav-left,
+.nav-right {
     width: $size-12;
     display: flex;
     align-items: center;
@@ -122,13 +123,27 @@ main {
     margin: 0 $size-1;
     height: $size-8;
     width: $size-28;
-    text-align: center;  
+    text-align: center;
     line-height: $size-8;
 }
 
-.border-nav-btn:after { content: ''; display: block; margin: auto; height: 3px; margin-top: $size-05; width: 0; border-radius: $size-05; background: transparent; transition: width .5s ease, background-color .5s ease; }
-.border-nav-btn:hover:after { width: 100%; background: $gamerPurple; }
-
+.border-nav-btn:after {
+    content: "";
+    display: block;
+    margin: auto;
+    height: 3px;
+    margin-top: $size-05;
+    width: 0;
+    border-radius: $size-05;
+    background: transparent;
+    transition:
+        width 0.5s ease,
+        background-color 0.5s ease;
+}
+.border-nav-btn:hover:after {
+    width: 100%;
+    background: $gamerPurple;
+}
 
 .dream-pc {
     font-style: normal;
@@ -146,7 +161,12 @@ main {
     content: "Home";
     position: absolute;
     inset: 0;
-    background: conic-gradient(from var(--gradient-angle), $gamerRed, $gamerPurple, $gamerRed);
+    background: conic-gradient(
+        from var(--gradient-angle),
+        $gamerRed,
+        $gamerPurple,
+        $gamerRed
+    );
     border-radius: inherit;
     animation: rotation 10s linear infinite;
     justify-content: center;
@@ -154,16 +174,15 @@ main {
     transition: all 0.5s ease;
 }
 
-.dream-pc::before{
+.dream-pc::before {
     filter: blur(10px);
     width: auto;
     height: auto;
 }
 
-.dream-pc:hover::before{
+.dream-pc:hover::before {
     filter: blur($size-05);
 }
-
 
 .logo-container {
     display: flex;
@@ -196,7 +215,6 @@ main {
     color: $gamerPurple;
 }
 
-
 /*Menu*/
 .menu {
     box-sizing: border-box;
@@ -205,7 +223,7 @@ main {
     color: #fff;
     background-color: rgb(20, 20, 20);
     width: $size-full;
-    padding: $size-5; 
+    padding: $size-5;
     position: fixed;
     left: 0;
     top: $size-24;
@@ -213,7 +231,6 @@ main {
     z-index: 150;
     transform: translateX(-150%); /* Initially hide the menu */
     transition: transform 0.3s ease; /* Smooth transition for transform */
-    
 }
 
 .menu-visible {
@@ -268,7 +285,7 @@ main {
     color: #fff;
     background-color: rgb(0, 0, 0);
     width: $size-96;
-    padding: $size-5; 
+    padding: $size-5;
     position: fixed;
     right: 0;
     top: $size-24;
@@ -276,7 +293,6 @@ main {
     z-index: 150;
     transform: translateX(110%); /* Initially hide the cart */
     transition: transform 0.3s ease; /* Smooth transition for transform */
-    
 }
 
 .cart-visible {
@@ -298,8 +314,6 @@ main {
     object-fit: cover;
     border-radius: $size-1;
 }
-
-
 
 .products {
     margin-bottom: $size-5;
@@ -345,7 +359,6 @@ main {
     background-color: $darkGamerRed;
 }
 
-
 #quantity {
     box-sizing: border-box;
     width: 15%;
@@ -369,7 +382,6 @@ main {
     border-radius: 5px;
     width: 15%;
 }
-
 
 .add-to-cart:hover {
     background-color: $darkGamerPurple;
@@ -407,9 +419,23 @@ main {
     margin-top: 2px;
 }
 
-.remove-button:after { content: ''; display: block; margin: auto; height: 1px; margin-top: 2px; width: 0px; border-radius: 2px; background: transparent; transition: width .5s ease, background-color .5s ease; }
-.remove-button:hover:after { width: 100%; background: rgb(87, 77, 90); }
-
+.remove-button:after {
+    content: "";
+    display: block;
+    margin: auto;
+    height: 1px;
+    margin-top: 2px;
+    width: 0px;
+    border-radius: 2px;
+    background: transparent;
+    transition:
+        width 0.5s ease,
+        background-color 0.5s ease;
+}
+.remove-button:hover:after {
+    width: 100%;
+    background: rgb(87, 77, 90);
+}
 
 /*Footer*/
 .footer {
@@ -432,7 +458,6 @@ main {
 .footer-column {
     min-width: 250px;
     margin-bottom: 20px;
-    
 }
 
 .advice-form {
@@ -442,7 +467,7 @@ main {
 }
 
 .advice-title {
-    font-family: 'Poppins';
+    font-family: "Poppins";
     font-weight: 900;
     font-style: normal;
     font-size: 22px;
@@ -504,7 +529,7 @@ main {
     width: 25px;
     transition: all 0.5s ease;
     text-align: center;
-    display:inline-block;
+    display: inline-block;
     line-height: 50px;
     text-align: center;
     text-decoration: none;
@@ -605,19 +630,18 @@ main {
     font-style: normal;
     display: flex;
     width: 100%;
-    align-items: center; 
-    flex-direction: column; 
+    align-items: center;
+    flex-direction: column;
     padding-top: 10vh;
-
 }
 
 .policy {
     padding: 30px;
     display: block;
-    width:auto; 
-    max-width: 800px; 
-    font-family: Arial, Helvetica, sans-serif; 
-    line-height: 1.7; 
+    width: auto;
+    max-width: 800px;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.7;
     margin: 20px;
     text-align: justify;
 }
@@ -626,7 +650,6 @@ main {
     font-weight: 800;
 }
 
- 
 /*Smaller size adaptation*/
 @media (--medium-viewport) {
     /*Footer*/
@@ -642,7 +665,9 @@ main {
         min-height: auto;
     }
 
-    ::-webkit-scrollbar { display: none; }
+    ::-webkit-scrollbar {
+        display: none;
+    }
 
     /*Navbar*/
     .navigation {
@@ -657,9 +682,9 @@ main {
         height: 65px;
         width: 51px;
     }
-    
 
-    .bars, .cart-icon {
+    .bars,
+    .cart-icon {
         font-size: 20px;
         display: block;
     }
@@ -671,7 +696,6 @@ main {
     .cart-icon {
         margin-right: 20px;
     }
-
 
     /*Cart*/
     .cart {
@@ -726,13 +750,13 @@ main {
         flex-direction: column;
         gap: 0;
     }
-    
+
     .expandable-title {
         background-color: rgba(255, 255, 255, 0.1);
         padding: 5px;
-        border-radius:  5px 5px 0 0;
+        border-radius: 5px 5px 0 0;
         display: block;
-        font-family: 'Arial Black', sans-serif;
+        font-family: "Arial Black", sans-serif;
         font-style: normal;
         font-weight: 600;
     }
@@ -753,9 +777,9 @@ main {
         max-height: 0;
         transition: max-height 0.3s;
     }
-    
+
     .link-column.expanded {
-        max-height: 150px; 
+        max-height: 150px;
     }
 
     .footer-link {
@@ -789,7 +813,6 @@ main {
     font-style: normal;
     font-weight: bold;
     font-family: Arial, Helvetica, sans-serif;
-
 }
 
 .cart-badge.hidden {
