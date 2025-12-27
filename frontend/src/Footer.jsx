@@ -125,11 +125,6 @@ export default function Footer() {
             </h3>
             <ul className="Support link-column">
               <li>
-                <Link to="/Reviews" className="footer-link">
-                  Reviews
-                </Link>
-              </li>
-              <li>
                 <Link to="/About Us" className="footer-link">
                   Why The BLDG
                 </Link>

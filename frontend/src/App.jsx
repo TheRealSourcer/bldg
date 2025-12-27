@@ -13,7 +13,6 @@ import TrackOrder from "./pages/track_order/track_order.jsx";
 import PrivacyPolicy from "./pages/privacy_policy/privacy_policy.jsx";
 import RefundPolicy from "./pages/refund_policy/refund_policy.jsx";
 import ShippingPolicy from "./pages/shipping_policy/shipping_policy.jsx";
-import Reviews from "./pages/reviews/reviews.jsx";
 import TermsAndConditions from "./pages/terms_and_conditions/terms_and_conditions.jsx";
 import BldgUpgrader from "./pages/upgrader/upgrader.jsx";
 import DreamPc from "./pages/personalized_build/personalized_build.jsx";
@@ -53,7 +52,6 @@ function App() {
           <Route path="/Support" element={<Support />} />
           <Route path="/About Us" element={<AboutUs />} />
           <Route path="/pc" element={<DreamPc />} />
-          <Route path="/Reviews" element={<Reviews />} />
           <Route path="/Track Order" element={<TrackOrder />} />
           <Route path="/BLDG Upgrader" element={<BldgUpgrader />} />
           <Route path="/Terms & Conditions" element={<TermsAndConditions />} />
